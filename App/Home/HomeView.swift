@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct HomeView: View {
     let plan: CommitmentPlan
@@ -20,8 +21,13 @@ struct HomeView: View {
         StreakEngine.status(for: .now, focus: todayFocus, checkIns: checkIns)
     }
 
-    private var streak: Int {
-        StreakEngine.currentStreak(routine: routine, checkIns: checkIns, startDate: plan.startDate)
+    /// Guaranteed `.active` — PlanGateView only renders HomeView for an
+    /// active plan, so the day count here can never reflect a miss.
+    private var dayNumber: Int {
+        if case .active(let day) = PlanLifecycle.evaluate(plan: plan, routine: routine, checkIns: checkIns) {
+            return day
+        }
+        return 1
     }
 
     var body: some View {
@@ -29,7 +35,7 @@ struct HomeView: View {
             VStack(spacing: DoTheme.Space.md) {
                 header
 
-                StreakHero(streak: streak, dayNumber: plan.dayNumber, totalDays: plan.durationDays)
+                StreakHero(streak: dayNumber, dayNumber: dayNumber, totalDays: plan.durationDays)
 
                 TodayCard(focus: todayFocus, status: todayStatus, onCheckIn: checkInToday)
 
@@ -52,7 +58,7 @@ struct HomeView: View {
                     .foregroundStyle(DoTheme.Color.ink)
             }
             Spacer()
-            Chip(text: "Day \(plan.dayNumber)/\(plan.durationDays)")
+            Chip(text: "Day \(dayNumber)/\(plan.durationDays)")
         }
         .padding(.top, DoTheme.Space.sm)
     }
@@ -60,6 +66,8 @@ struct HomeView: View {
     private func checkInToday() {
         guard todayStatus == .pending else { return }
         modelContext.insert(CheckIn(date: .now, focus: todayFocus))
+        try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 

@@ -23,7 +23,7 @@ private let pages: [IntroPage] = [
     IntroPage(
         eyebrow: "THE STAKES",
         title: "Miss it,\nit dies.",
-        body: "One missed day breaks the streak. That's the whole point.",
+        body: "Miss a day, forfeit the stake, start over.",
         systemImage: "bolt.slash.fill"
     ),
 ]

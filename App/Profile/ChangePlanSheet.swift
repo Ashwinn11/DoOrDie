@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct ChangePlanSheet: View {
     let currentPlan: CommitmentPlan
@@ -54,6 +55,16 @@ struct ChangePlanSheet: View {
                     }
                 }
                 .padding(DoTheme.Space.md)
+                .confirmationDialog(
+                    "Switch to \(selected.name)?",
+                    isPresented: $showConfirm,
+                    titleVisibility: .visible
+                ) {
+                    Button("Switch Plan", role: .destructive) { switchPlan(to: selected) }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("This resets your current streak to zero.")
+                }
             }
             .background(DoTheme.Color.bg.ignoresSafeArea())
             .navigationTitle("Change Plan")
@@ -62,16 +73,6 @@ struct ChangePlanSheet: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
-            }
-            .confirmationDialog(
-                "Switch to \(selected.name)?",
-                isPresented: $showConfirm,
-                titleVisibility: .visible
-            ) {
-                Button("Switch Plan", role: .destructive) { switchPlan(to: selected) }
-                Button("Cancel", role: .cancel) {}
-            } message: {
-                Text("This resets your current streak to zero.")
             }
         }
     }
@@ -84,6 +85,8 @@ struct ChangePlanSheet: View {
             stakeCents: template.stakeCents
         )
         modelContext.insert(newPlan)
+        try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
         dismiss()
     }
 }

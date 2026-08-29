@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct RoutineSetupView: View {
     let plan: CommitmentPlan
@@ -64,6 +65,8 @@ struct RoutineSetupView: View {
         for (day, focus) in focusByDay {
             modelContext.insert(RoutineDay(weekday: day, focus: focus))
         }
+        try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 

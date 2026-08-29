@@ -21,6 +21,20 @@
                ReferencedContainer = "container:DoOrDie.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D8715A56FAA7D7C642C8D423"
+               BuildableName = "DoOrDieWidgets.appex"
+               BlueprintName = "DoOrDieWidgets"
+               ReferencedContainer = "container:DoOrDie.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

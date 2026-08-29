@@ -7,20 +7,21 @@ struct PillButton: View {
     var action: () -> Void
 
     enum Style {
-        case ink, comb, shell
+        case ink, comb, shell, gold
 
         var background: SwiftUI.Color {
             switch self {
             case .ink: DoTheme.Color.ink
             case .comb: DoTheme.Color.comb
             case .shell: DoTheme.Color.shell
+            case .gold: DoTheme.Color.gold
             }
         }
 
         var foreground: SwiftUI.Color {
             switch self {
             case .ink, .comb: .white
-            case .shell: DoTheme.Color.ink
+            case .shell, .gold: DoTheme.Color.ink
             }
         }
     }

@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct WorkoutView: View {
     let plan: CommitmentPlan
@@ -42,6 +43,8 @@ struct WorkoutView: View {
                         ) {
                             guard todayStatus == .pending else { return }
                             modelContext.insert(CheckIn(date: .now, focus: todayFocus))
+                            try? modelContext.save()
+                            WidgetCenter.shared.reloadAllTimelines()
                         }
                         .disabled(todayStatus == .done)
                     } else {

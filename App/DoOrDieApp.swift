@@ -8,6 +8,6 @@ struct DoOrDieApp: App {
             RootView()
                 .tint(DoTheme.Color.comb)
         }
-        .modelContainer(for: [RoutineDay.self, CommitmentPlan.self, CheckIn.self])
+        .modelContainer(SharedStore.makeContainer())
     }
 }

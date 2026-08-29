@@ -1,11 +1,13 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct ProfileView: View {
     let plan: CommitmentPlan
 
     @Environment(\.modelContext) private var modelContext
     @Query private var routineDays: [RoutineDay]
+    @Query private var checkIns: [CheckIn]
     @Query private var allPlans: [CommitmentPlan]
 
     @State private var showChangePlan = false
@@ -18,11 +20,21 @@ struct ProfileView: View {
         routineDays.sorted { $0.weekdayRaw < $1.weekdayRaw }
     }
 
+    /// Guaranteed `.active` — Profile only renders once PlanGateView has
+    /// already confirmed the plan hasn't died or completed.
+    private var currentDayNumber: Int {
+        let routine = Dictionary(uniqueKeysWithValues: routineDays.map { ($0.weekday, $0.focus) })
+        if case .active(let day) = PlanLifecycle.evaluate(plan: plan, routine: routine, checkIns: checkIns) {
+            return day
+        }
+        return 1
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: DoTheme.Space.lg) {
-                    PlanSummaryCard(plan: plan) { showChangePlan = true }
+                    PlanSummaryCard(plan: plan, dayNumber: currentDayNumber) { showChangePlan = true }
 
                     VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
                         SectionLabel("Your Week")
@@ -67,6 +79,16 @@ struct ProfileView: View {
                                 .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous))
                         }
                         .buttonStyle(.plain)
+                        .confirmationDialog(
+                            "Delete everything?",
+                            isPresented: $showDeleteConfirm,
+                            titleVisibility: .visible
+                        ) {
+                            Button("Delete All Data", role: .destructive) { deleteEverything() }
+                            Button("Cancel", role: .cancel) {}
+                        } message: {
+                            Text("This deletes your plan, routine, and streak. This can't be undone.")
+                        }
 
                         Text("Deletes your plan, routine, and streak history. This can't be undone.")
                             .font(DoTheme.Typography.body(13))
@@ -87,16 +109,6 @@ struct ProfileView: View {
             .sheet(isPresented: $showEditWeek) {
                 EditWeekSheet(routineDays: sortedDays)
             }
-            .confirmationDialog(
-                "Delete everything?",
-                isPresented: $showDeleteConfirm,
-                titleVisibility: .visible
-            ) {
-                Button("Delete All Data", role: .destructive) { deleteEverything() }
-                Button("Cancel", role: .cancel) {}
-            } message: {
-                Text("This deletes your plan, routine, and streak. This can't be undone.")
-            }
         }
     }
 
@@ -108,6 +120,8 @@ struct ProfileView: View {
             for c in checkIns { modelContext.delete(c) }
         }
         hasSeenIntro = false
+        try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 
@@ -126,6 +140,7 @@ private struct SectionLabel: View {
 
 private struct PlanSummaryCard: View {
     let plan: CommitmentPlan
+    let dayNumber: Int
     let onChangePlan: () -> Void
 
     var body: some View {
@@ -147,11 +162,11 @@ private struct PlanSummaryCard: View {
                         .foregroundStyle(DoTheme.Color.gold)
                 }
 
-                Text("Day \(plan.dayNumber) of \(plan.durationDays)")
+                Text("Day \(dayNumber) of \(plan.durationDays)")
                     .font(DoTheme.Typography.body(14, weight: .semibold))
                     .foregroundStyle(DoTheme.Color.mutedOnDark)
 
-                PillButton(title: "Change Plan", style: .shell, action: onChangePlan)
+                PillButton(title: "Change Plan", style: .gold, action: onChangePlan)
             }
         }
     }
@@ -183,7 +198,7 @@ private struct WeekOverviewCard: View {
                     }
                 }
 
-                PillButton(title: "Edit Week", style: .ink, action: onEdit)
+                PillButton(title: "Edit Week", style: .comb, action: onEdit)
             }
         }
     }

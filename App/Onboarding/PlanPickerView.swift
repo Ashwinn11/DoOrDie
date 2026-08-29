@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct PlanPickerView: View {
     @Environment(\.modelContext) private var modelContext
@@ -19,7 +20,7 @@ struct PlanPickerView: View {
                     .foregroundStyle(DoTheme.Color.ink)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Text("Miss a scheduled workout and the streak dies. No excuses, no snoozing.")
+                Text("Miss a day, forfeit the stake, start over.")
                     .font(DoTheme.Typography.body(15))
                     .foregroundStyle(DoTheme.Color.muted)
                     .padding(.top, 4)
@@ -61,6 +62,8 @@ struct PlanPickerView: View {
             stakeCents: selected.stakeCents
         )
         modelContext.insert(plan)
+        try? modelContext.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 

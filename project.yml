@@ -37,8 +37,28 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.brolee.app
         PRODUCT_NAME: DoOrDie
         INFOPLIST_FILE: App/Info.plist
+        CODE_SIGN_ENTITLEMENTS: App/DoOrDie.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: "YES"
+        SUPPORTS_MACCATALYST: "NO"
+    dependencies:
+      - target: DoOrDieWidgets
+
+  DoOrDieWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widgets
+      - path: App/Models
+      - path: App/Persistence
+      - path: App/DesignSystem/Theme.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brolee.app.widgets
+        PRODUCT_NAME: DoOrDieWidgets
+        INFOPLIST_FILE: Widgets/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Widgets/DoOrDieWidgets.entitlements
         ENABLE_PREVIEWS: "YES"
         SUPPORTS_MACCATALYST: "NO"
 
@@ -47,6 +67,7 @@ schemes:
     build:
       targets:
         DoOrDie: all
+        DoOrDieWidgets: all
     run:
       config: Debug
     profile:

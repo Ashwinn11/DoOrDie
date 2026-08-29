@@ -1,8 +1,17 @@
 import Foundation
 import SwiftData
 
+enum PlanStatus: String, Codable {
+    case active, completed, failed
+}
+
 /// The stake/duration a user commits to. `stakeCents` is display-only for
 /// now — no payment processor is wired up until that mechanic is finalized.
+///
+/// A miss kills the attempt outright: the plan's stake is forfeited and
+/// `status` flips to `.failed` (see PlanLifecycle.evaluate). There is no
+/// "retry within the same purchase" — a new attempt means buying again,
+/// which creates a brand new CommitmentPlan with a fresh startDate.
 @Model
 final class CommitmentPlan {
     var name: String
@@ -10,6 +19,8 @@ final class CommitmentPlan {
     var stakeCents: Int
     var startDate: Date
     var isActive: Bool
+    var statusRaw: String = PlanStatus.active.rawValue
+    var diedOnDay: Int?
 
     init(name: String, durationDays: Int, stakeCents: Int, startDate: Date = .now, isActive: Bool = true) {
         self.name = name
@@ -17,19 +28,17 @@ final class CommitmentPlan {
         self.stakeCents = stakeCents
         self.startDate = startDate
         self.isActive = isActive
+        self.statusRaw = PlanStatus.active.rawValue
+        self.diedOnDay = nil
+    }
+
+    var status: PlanStatus {
+        get { PlanStatus(rawValue: statusRaw) ?? .active }
+        set { statusRaw = newValue.rawValue }
     }
 
     var stakeDisplay: String {
         stakeCents == 0 ? "Free" : "$\(stakeCents / 100)"
-    }
-
-    var endDate: Date {
-        Calendar.current.date(byAdding: .day, value: durationDays, to: startDate) ?? startDate
-    }
-
-    var dayNumber: Int {
-        let days = Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: startDate), to: Calendar.current.startOfDay(for: .now)).day ?? 0
-        return min(max(days + 1, 1), durationDays)
     }
 }
 

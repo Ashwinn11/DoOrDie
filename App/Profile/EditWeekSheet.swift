@@ -1,9 +1,11 @@
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct EditWeekSheet: View {
     let routineDays: [RoutineDay]
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
 
     private var sortedDays: [RoutineDay] {
         routineDays.sorted { $0.weekdayRaw < $1.weekdayRaw }
@@ -17,7 +19,11 @@ struct EditWeekSheet: View {
                         FocusPickerRow(
                             label: day.weekday.short,
                             focus: day.focus,
-                            onSelect: { day.focus = $0 }
+                            onSelect: {
+                                day.focus = $0
+                                try? modelContext.save()
+                                WidgetCenter.shared.reloadAllTimelines()
+                            }
                         )
                     }
                 }

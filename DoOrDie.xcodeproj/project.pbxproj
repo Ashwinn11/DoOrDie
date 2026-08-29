@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		054AAE9C3B9B449F1F8601AD /* RoutineDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB30C84412BE438ED503E45A /* RoutineDay.swift */; };
 		0AB9ABDB4167DF17DB56494C /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8617CC1ED557E525DBDC726 /* CheckIn.swift */; };
+		0D1B98343FD6D7AB97DA1528 /* DoOrDieWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		24362A944BC6AAB926B687D8 /* DoOrDieWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDB8D51E15B2036B42233A /* DoOrDieWidget.swift */; };
+		299436A311D51C259117DAF1 /* DoOrDieWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6051E0FF94F9E767B9A1D39 /* DoOrDieWidgetView.swift */; };
 		2B2BB66C3F906F63D81A1F33 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6B70E74187F8CACEF5A5E7 /* Theme.swift */; };
+		37DACDBF9C8D396F788384D4 /* CommitmentPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4451E2A26B6BD44D3877DD7 /* CommitmentPlan.swift */; };
 		3BDB7508012AB6FBFC6F7E8B /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B36E333C27A3C6F849A9BE3 /* CreditsView.swift */; };
 		466B08D0D54936D7B31E27A9 /* Exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = DC0FF896F634661450B56A53 /* Exercises.json */; };
 		4ACFDE53A768C20D06582BE7 /* ChangePlanSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D84D06060571218D12A153F /* ChangePlanSheet.swift */; };
@@ -18,60 +22,127 @@
 		54502FE9CADCB9C138665A64 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5BE28B252C5E69BCB66E5 /* WorkoutView.swift */; };
 		5DF9C1222A5E004042968341 /* SubscriptionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81680EE36445C2351BDE026 /* SubscriptionSheet.swift */; };
 		678AC037C7D373C05B02EB03 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DF44DB073B6CC1D7ADF6F6 /* Weekday.swift */; };
+		6983B06F3BB426AD03231A90 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830B9968B6DFD17CFE04407 /* MuscleGroup.swift */; };
+		69EDBB832C9AF8425B1770F3 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25647936C0BB0870B034F816 /* SharedStore.swift */; };
 		6C6700606FA4A9777F89C021 /* RoutineSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6307285DB275F3431A83D15C /* RoutineSetupView.swift */; };
+		6E34823CF5CF50615C3AFDF6 /* DeathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43616FD2D275C98BC06D72C4 /* DeathView.swift */; };
+		6FD07CB10A6CD48E2F499C9A /* PlanGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD2A0DFEB6A839568D9C3D /* PlanGateView.swift */; };
 		7869D8E7A3A7F4BFE39EF313 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52AAAFC959C22996F424DD5 /* HomeView.swift */; };
 		7D519D2401C3D700DB653FF6 /* OnboardingIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AB052EBD7C85E3DF7D5E83 /* OnboardingIntroView.swift */; };
 		8C64DA0DBED1FC0B0EE8EEF3 /* ExerciseDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4BA576975391C5BC985 /* ExerciseDetailSheet.swift */; };
+		8D00C94E116D58481115B5AA /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BAFE4E9CFD92E666A5DB3 /* Exercise.swift */; };
 		90C2C2EF171F565953CE1D0C /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830B9968B6DFD17CFE04407 /* MuscleGroup.swift */; };
 		94314727F87DB1BD39E95686 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B19FBADAD59714B13D4D163 /* Components.swift */; };
 		9613BEF6CABAEED4E21F3A4F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F4AF473278021EBFDF618 /* MainTabView.swift */; };
+		9D947ABC12F230EA4A217B10 /* PlanLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34B8782E3307F34E60C44D3 /* PlanLifecycle.swift */; };
+		9F7ECC83EC24DE47757F4AF5 /* PlanLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34B8782E3307F34E60C44D3 /* PlanLifecycle.swift */; };
 		A36D1C51F4C8EDCF96919C2A /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BAFE4E9CFD92E666A5DB3 /* Exercise.swift */; };
 		A7590C974AAE70AB6C1480F2 /* CommitmentPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4451E2A26B6BD44D3877DD7 /* CommitmentPlan.swift */; };
 		AA8EB2538E55CDF0044CFB43 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD1BA99666D324DDFD945B2 /* LegalView.swift */; };
 		AC0787528FA96691BFD7563E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97FC35677A33F49C27569B7F /* Assets.xcassets */; };
+		B3BF9827D09F92B59E96C357 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DF44DB073B6CC1D7ADF6F6 /* Weekday.swift */; };
+		B80333C74BAD558133975BC1 /* RoutineDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB30C84412BE438ED503E45A /* RoutineDay.swift */; };
 		BF73314E5651FE56ECA1E916 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658665B40405084723A5119 /* StreakEngine.swift */; };
+		C4F0F40E7012B642DD8E8C5B /* DoOrDieWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1300386A5B52B864DB25AE4A /* DoOrDieWidgetBundle.swift */; };
 		CC4E7BB6D74C750538FE4992 /* DoOrDieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048CBE99AFAEBCF98C92480D /* DoOrDieApp.swift */; };
 		CD0980D5A8978E3843DE5084 /* EditWeekSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E93493108F9EB064E473E /* EditWeekSheet.swift */; };
+		D0403DFF529140F202A28FDA /* PlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167EE23CB31EC7348E15AFA /* PlanCompleteView.swift */; };
+		D100B21D8D150CCED86FFCE8 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658665B40405084723A5119 /* StreakEngine.swift */; };
 		DC276CB28DE579453A0383A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC662BE2AA8F7C2998D522C /* RootView.swift */; };
 		DD0E123BF49D4149BEFE18B9 /* PlanPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AAEE4351FC96E10BC7660 /* PlanPickerView.swift */; };
+		E1987361E7B4BB01B7834627 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25647936C0BB0870B034F816 /* SharedStore.swift */; };
+		ECD7F1AD3B92D3606167BFF8 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8617CC1ED557E525DBDC726 /* CheckIn.swift */; };
+		F6C2A81E2B32810EF34BEC0C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6B70E74187F8CACEF5A5E7 /* Theme.swift */; };
+		FA929F978C711F2CD9C610C3 /* DoOrDieTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB857A162F1105F8B6138C4 /* DoOrDieTimelineProvider.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		34DD0BC8A3B2046D59541430 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CA009EA9A284968BA52A38BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D8715A56FAA7D7C642C8D423;
+			remoteInfo = DoOrDieWidgets;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		89DB862B36C24D6CF5B00E88 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0D1B98343FD6D7AB97DA1528 /* DoOrDieWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		048CBE99AFAEBCF98C92480D /* DoOrDieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieApp.swift; sourceTree = "<group>"; };
+		0FB857A162F1105F8B6138C4 /* DoOrDieTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieTimelineProvider.swift; sourceTree = "<group>"; };
+		1300386A5B52B864DB25AE4A /* DoOrDieWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieWidgetBundle.swift; sourceTree = "<group>"; };
 		1A9AAEE4351FC96E10BC7660 /* PlanPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanPickerView.swift; sourceTree = "<group>"; };
+		25647936C0BB0870B034F816 /* SharedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
 		27E5BE28B252C5E69BCB66E5 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		2F3BAFE4E9CFD92E666A5DB3 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = DoOrDieWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		43616FD2D275C98BC06D72C4 /* DeathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathView.swift; sourceTree = "<group>"; };
 		4B36E333C27A3C6F849A9BE3 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
 		5D84D06060571218D12A153F /* ChangePlanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePlanSheet.swift; sourceTree = "<group>"; };
 		6307285DB275F3431A83D15C /* RoutineSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetupView.swift; sourceTree = "<group>"; };
 		66DF44DB073B6CC1D7ADF6F6 /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		6AD1BA99666D324DDFD945B2 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
 		83AB052EBD7C85E3DF7D5E83 /* OnboardingIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroView.swift; sourceTree = "<group>"; };
+		86B57C3E51D8375F5A77CE42 /* DoOrDie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoOrDie.entitlements; sourceTree = "<group>"; };
 		8B19FBADAD59714B13D4D163 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		9117991F64E0F71F64CC458B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		94B02F86E20383AB666AC2D9 /* CyclingSVGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclingSVGView.swift; sourceTree = "<group>"; };
 		97FC35677A33F49C27569B7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B9F4AF473278021EBFDF618 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		9E6093723B87BCD54B01E198 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		9FBD2A0DFEB6A839568D9C3D /* PlanGateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanGateView.swift; sourceTree = "<group>"; };
 		A830B9968B6DFD17CFE04407 /* MuscleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroup.swift; sourceTree = "<group>"; };
 		AD6B70E74187F8CACEF5A5E7 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B456477978AF187103DDF53B /* DoOrDie.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DoOrDie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB30C84412BE438ED503E45A /* RoutineDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDay.swift; sourceTree = "<group>"; };
+		C167EE23CB31EC7348E15AFA /* PlanCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCompleteView.swift; sourceTree = "<group>"; };
+		C34B8782E3307F34E60C44D3 /* PlanLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLifecycle.swift; sourceTree = "<group>"; };
 		C52AAAFC959C22996F424DD5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C6051E0FF94F9E767B9A1D39 /* DoOrDieWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieWidgetView.swift; sourceTree = "<group>"; };
 		D557B4BA576975391C5BC985 /* ExerciseDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailSheet.swift; sourceTree = "<group>"; };
 		D658665B40405084723A5119 /* StreakEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngine.swift; sourceTree = "<group>"; };
 		D8617CC1ED557E525DBDC726 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
 		DC0FF896F634661450B56A53 /* Exercises.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Exercises.json; sourceTree = "<group>"; };
+		E2174AF57A1E623188B07BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E81680EE36445C2351BDE026 /* SubscriptionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionSheet.swift; sourceTree = "<group>"; };
 		EA6E93493108F9EB064E473E /* EditWeekSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeekSheet.swift; sourceTree = "<group>"; };
 		EAC662BE2AA8F7C2998D522C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		EDFDB8D51E15B2036B42233A /* DoOrDieWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieWidget.swift; sourceTree = "<group>"; };
 		F4451E2A26B6BD44D3877DD7 /* CommitmentPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitmentPlan.swift; sourceTree = "<group>"; };
+		FE84EA73EC3D34AE45641B7C /* DoOrDieWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoOrDieWidgets.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		0CE1410504B87F189F392C75 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				0FB857A162F1105F8B6138C4 /* DoOrDieTimelineProvider.swift */,
+				EDFDB8D51E15B2036B42233A /* DoOrDieWidget.swift */,
+				1300386A5B52B864DB25AE4A /* DoOrDieWidgetBundle.swift */,
+				FE84EA73EC3D34AE45641B7C /* DoOrDieWidgets.entitlements */,
+				C6051E0FF94F9E767B9A1D39 /* DoOrDieWidgetView.swift */,
+				E2174AF57A1E623188B07BB5 /* Info.plist */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
 		3D40CCB06D1D298BD26C7878 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				25647936C0BB0870B034F816 /* SharedStore.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -94,10 +165,21 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		66E229791B00D8605028956B /* PlanLifecycle */ = {
+			isa = PBXGroup;
+			children = (
+				43616FD2D275C98BC06D72C4 /* DeathView.swift */,
+				C167EE23CB31EC7348E15AFA /* PlanCompleteView.swift */,
+				9FBD2A0DFEB6A839568D9C3D /* PlanGateView.swift */,
+			);
+			path = PlanLifecycle;
+			sourceTree = "<group>";
+		};
 		77C88B93018DED69800412A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				B456477978AF187103DDF53B /* DoOrDie.app */,
+				36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				F227B15B658B8307A94E9904 /* App */,
+				0CE1410504B87F189F392C75 /* Widgets */,
 				77C88B93018DED69800412A1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -144,6 +227,7 @@
 				F4451E2A26B6BD44D3877DD7 /* CommitmentPlan.swift */,
 				2F3BAFE4E9CFD92E666A5DB3 /* Exercise.swift */,
 				A830B9968B6DFD17CFE04407 /* MuscleGroup.swift */,
+				C34B8782E3307F34E60C44D3 /* PlanLifecycle.swift */,
 				BB30C84412BE438ED503E45A /* RoutineDay.swift */,
 				D658665B40405084723A5119 /* StreakEngine.swift */,
 				66DF44DB073B6CC1D7ADF6F6 /* Weekday.swift */,
@@ -181,9 +265,11 @@
 				C865ACE113AA4F3572809A6B /* Models */,
 				55EE29171CC2E78C502EE556 /* Onboarding */,
 				3D40CCB06D1D298BD26C7878 /* Persistence */,
+				66E229791B00D8605028956B /* PlanLifecycle */,
 				E9841A85DB8E218B5C57C975 /* Profile */,
 				CE97CF24E216D03016D65CAF /* Resources */,
 				C3EEC691667217AF33FF9B99 /* Workout */,
+				86B57C3E51D8375F5A77CE42 /* DoOrDie.entitlements */,
 				048CBE99AFAEBCF98C92480D /* DoOrDieApp.swift */,
 				9117991F64E0F71F64CC458B /* Info.plist */,
 				9B9F4AF473278021EBFDF618 /* MainTabView.swift */,
@@ -201,10 +287,12 @@
 			buildPhases = (
 				E83C993A3FB8621D25468B38 /* Sources */,
 				27463A11854BC009EF666D97 /* Resources */,
+				89DB862B36C24D6CF5B00E88 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6CA6A2020A809E7850107DC7 /* PBXTargetDependency */,
 			);
 			name = DoOrDie;
 			packageProductDependencies = (
@@ -212,6 +300,23 @@
 			productName = DoOrDie;
 			productReference = B456477978AF187103DDF53B /* DoOrDie.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D8715A56FAA7D7C642C8D423 /* DoOrDieWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7EB629275923AA0429FF7E47 /* Build configuration list for PBXNativeTarget "DoOrDieWidgets" */;
+			buildPhases = (
+				28090295708BCD25E5BE9A69 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DoOrDieWidgets;
+			packageProductDependencies = (
+			);
+			productName = DoOrDieWidgets;
+			productReference = 36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -223,6 +328,10 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					3DA014F64F4ECDCF7B10CA21 = {
+						DevelopmentTeam = PVQK77DQWL;
+						ProvisioningStyle = Automatic;
+					};
+					D8715A56FAA7D7C642C8D423 = {
 						DevelopmentTeam = PVQK77DQWL;
 						ProvisioningStyle = Automatic;
 					};
@@ -243,6 +352,7 @@
 			projectRoot = "";
 			targets = (
 				3DA014F64F4ECDCF7B10CA21 /* DoOrDie */,
+				D8715A56FAA7D7C642C8D423 /* DoOrDieWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -260,6 +370,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		28090295708BCD25E5BE9A69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECD7F1AD3B92D3606167BFF8 /* CheckIn.swift in Sources */,
+				37DACDBF9C8D396F788384D4 /* CommitmentPlan.swift in Sources */,
+				FA929F978C711F2CD9C610C3 /* DoOrDieTimelineProvider.swift in Sources */,
+				24362A944BC6AAB926B687D8 /* DoOrDieWidget.swift in Sources */,
+				C4F0F40E7012B642DD8E8C5B /* DoOrDieWidgetBundle.swift in Sources */,
+				299436A311D51C259117DAF1 /* DoOrDieWidgetView.swift in Sources */,
+				8D00C94E116D58481115B5AA /* Exercise.swift in Sources */,
+				6983B06F3BB426AD03231A90 /* MuscleGroup.swift in Sources */,
+				9D947ABC12F230EA4A217B10 /* PlanLifecycle.swift in Sources */,
+				B80333C74BAD558133975BC1 /* RoutineDay.swift in Sources */,
+				E1987361E7B4BB01B7834627 /* SharedStore.swift in Sources */,
+				D100B21D8D150CCED86FFCE8 /* StreakEngine.swift in Sources */,
+				F6C2A81E2B32810EF34BEC0C /* Theme.swift in Sources */,
+				B3BF9827D09F92B59E96C357 /* Weekday.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E83C993A3FB8621D25468B38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -270,6 +401,7 @@
 				94314727F87DB1BD39E95686 /* Components.swift in Sources */,
 				3BDB7508012AB6FBFC6F7E8B /* CreditsView.swift in Sources */,
 				52C7D4D15BE8AFE70F985759 /* CyclingSVGView.swift in Sources */,
+				6E34823CF5CF50615C3AFDF6 /* DeathView.swift in Sources */,
 				CC4E7BB6D74C750538FE4992 /* DoOrDieApp.swift in Sources */,
 				CD0980D5A8978E3843DE5084 /* EditWeekSheet.swift in Sources */,
 				A36D1C51F4C8EDCF96919C2A /* Exercise.swift in Sources */,
@@ -279,11 +411,15 @@
 				9613BEF6CABAEED4E21F3A4F /* MainTabView.swift in Sources */,
 				90C2C2EF171F565953CE1D0C /* MuscleGroup.swift in Sources */,
 				7D519D2401C3D700DB653FF6 /* OnboardingIntroView.swift in Sources */,
+				D0403DFF529140F202A28FDA /* PlanCompleteView.swift in Sources */,
+				6FD07CB10A6CD48E2F499C9A /* PlanGateView.swift in Sources */,
+				9F7ECC83EC24DE47757F4AF5 /* PlanLifecycle.swift in Sources */,
 				DD0E123BF49D4149BEFE18B9 /* PlanPickerView.swift in Sources */,
 				51048C72D1CED3B7B1F61F4E /* ProfileView.swift in Sources */,
 				DC276CB28DE579453A0383A1 /* RootView.swift in Sources */,
 				054AAE9C3B9B449F1F8601AD /* RoutineDay.swift in Sources */,
 				6C6700606FA4A9777F89C021 /* RoutineSetupView.swift in Sources */,
+				69EDBB832C9AF8425B1770F3 /* SharedStore.swift in Sources */,
 				BF73314E5651FE56ECA1E916 /* StreakEngine.swift in Sources */,
 				5DF9C1222A5E004042968341 /* SubscriptionSheet.swift in Sources */,
 				2B2BB66C3F906F63D81A1F33 /* Theme.swift in Sources */,
@@ -293,6 +429,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6CA6A2020A809E7850107DC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D8715A56FAA7D7C642C8D423 /* DoOrDieWidgets */;
+			targetProxy = 34DD0BC8A3B2046D59541430 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2430D09E3910046301CFDA67 /* Release */ = {
@@ -363,11 +507,50 @@
 			};
 			name = Release;
 		};
+		3FEAACFB14F67F3713E893CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widgets/DoOrDieWidgets.entitlements;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brolee.app.widgets;
+				PRODUCT_NAME = DoOrDieWidgets;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		462838CCBA6DC2DE046E8AD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widgets/DoOrDieWidgets.entitlements;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brolee.app.widgets;
+				PRODUCT_NAME = DoOrDieWidgets;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		550820A3FE8DB161D5B3D980 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = App/DoOrDie.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = App/Info.plist;
@@ -463,6 +646,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = App/DoOrDie.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = App/Info.plist;
@@ -481,6 +665,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7EB629275923AA0429FF7E47 /* Build configuration list for PBXNativeTarget "DoOrDieWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				462838CCBA6DC2DE046E8AD0 /* Debug */,
+				3FEAACFB14F67F3713E893CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		EFF27B6FFE8E2B8618686280 /* Build configuration list for PBXNativeTarget "DoOrDie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
