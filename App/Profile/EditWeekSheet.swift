@@ -23,6 +23,7 @@ struct EditWeekSheet: View {
                 }
                 .padding(DoTheme.Space.md)
             }
+            .background(DoTheme.Color.bg.ignoresSafeArea())
             .navigationTitle("Your Week")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

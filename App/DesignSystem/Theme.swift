@@ -28,8 +28,9 @@ enum DoTheme {
 
     enum Radius {
         static let pill: CGFloat = 100
-        static let card: CGFloat = 28
         static let tile: CGFloat = 20
+        static let button: CGFloat = tile
+        static let card: CGFloat = tile
         static let chip: CGFloat = 14
     }
 

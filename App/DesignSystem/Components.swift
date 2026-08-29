@@ -38,9 +38,10 @@ struct PillButton: View {
             .padding(.vertical, 15)
             .padding(.horizontal, 24)
             .frame(maxWidth: .infinity)
-            .background(style.background, in: Capsule())
+            .background(style.background, in: RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous))
         }
         .buttonStyle(PressableButtonStyle())
+        .containerRelativeFrame(.horizontal) { width, _ in width * 0.75 }
     }
 }
 

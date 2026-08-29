@@ -20,70 +20,62 @@ struct ProfileView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                Section {
+            ScrollView {
+                VStack(alignment: .leading, spacing: DoTheme.Space.lg) {
                     PlanSummaryCard(plan: plan) { showChangePlan = true }
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
+
+                    VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+                        SectionLabel("Your Week")
+                        WeekOverviewCard(days: sortedDays) { showEditWeek = true }
+                    }
+
+                    VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+                        SectionLabel("Account")
+                        ShellCard(padding: 0) {
+                            VStack(spacing: 0) {
+                                Button { showSubscription = true } label: {
+                                    SettingsRow(icon: "creditcard.fill", title: "Manage Subscription")
+                                }
+                                Divider().padding(.leading, DoTheme.Space.md)
+
+                                NavigationLink { LegalView(kind: .terms) } label: {
+                                    SettingsRow(icon: "doc.text.fill", title: "Terms of Service", showChevron: true)
+                                }
+                                Divider().padding(.leading, DoTheme.Space.md)
+
+                                NavigationLink { LegalView(kind: .privacy) } label: {
+                                    SettingsRow(icon: "hand.raised.fill", title: "Privacy Policy", showChevron: true)
+                                }
+                                Divider().padding(.leading, DoTheme.Space.md)
+
+                                NavigationLink { CreditsView() } label: {
+                                    SettingsRow(icon: "sparkles", title: "Credits", showChevron: true)
+                                }
+                            }
+                        }
+                    }
+
+                    VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+                        Button {
+                            showDeleteConfirm = true
+                        } label: {
+                            Text("Delete All Data")
+                                .font(DoTheme.Typography.body(16, weight: .semibold))
+                                .foregroundStyle(.red)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(DoTheme.Space.md)
+                                .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous))
+                        }
+                        .buttonStyle(.plain)
+
+                        Text("Deletes your plan, routine, and streak history. This can't be undone.")
+                            .font(DoTheme.Typography.body(13))
+                            .foregroundStyle(DoTheme.Color.muted)
+                            .padding(.horizontal, DoTheme.Space.xs)
+                    }
                 }
-
-                Section("Your Week") {
-                    WeekOverviewCard(days: sortedDays) { showEditWeek = true }
-                        .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                }
-
-                Section("Account") {
-                    Button {
-                        showSubscription = true
-                    } label: {
-                        SettingsRow(icon: "creditcard.fill", title: "Manage Subscription")
-                    }
-
-                    NavigationLink {
-                        LegalView(kind: .terms)
-                    } label: {
-                        SettingsRow(icon: "doc.text.fill", title: "Terms of Service")
-                    }
-
-                    NavigationLink {
-                        LegalView(kind: .privacy)
-                    } label: {
-                        SettingsRow(icon: "hand.raised.fill", title: "Privacy Policy")
-                    }
-
-                    NavigationLink {
-                        CreditsView()
-                    } label: {
-                        SettingsRow(icon: "sparkles", title: "Credits")
-                    }
-                }
-
-                Section {
-                    Button(role: .destructive) {
-                        showDeleteConfirm = true
-                    } label: {
-                        Text("Delete All Data")
-                            .font(DoTheme.Typography.body(16, weight: .semibold))
-                    }
-                    .confirmationDialog(
-                        "Delete everything?",
-                        isPresented: $showDeleteConfirm,
-                        titleVisibility: .visible
-                    ) {
-                        Button("Delete All Data", role: .destructive) { deleteEverything() }
-                        Button("Cancel", role: .cancel) {}
-                    } message: {
-                        Text("This deletes your plan, routine, and streak. This can't be undone.")
-                    }
-                } footer: {
-                    Text("Deletes your plan, routine, and streak history. This can't be undone.")
-                }
+                .padding(DoTheme.Space.md)
             }
-            .listStyle(.insetGrouped)
-            .scrollContentBackground(.hidden)
             .background(DoTheme.Color.bg.ignoresSafeArea())
             .navigationTitle("Profile")
             .sheet(isPresented: $showChangePlan) {
@@ -94,6 +86,16 @@ struct ProfileView: View {
             }
             .sheet(isPresented: $showEditWeek) {
                 EditWeekSheet(routineDays: sortedDays)
+            }
+            .confirmationDialog(
+                "Delete everything?",
+                isPresented: $showDeleteConfirm,
+                titleVisibility: .visible
+            ) {
+                Button("Delete All Data", role: .destructive) { deleteEverything() }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This deletes your plan, routine, and streak. This can't be undone.")
             }
         }
     }
@@ -106,6 +108,19 @@ struct ProfileView: View {
             for c in checkIns { modelContext.delete(c) }
         }
         hasSeenIntro = false
+    }
+}
+
+private struct SectionLabel: View {
+    let text: String
+    init(_ text: String) { self.text = text }
+
+    var body: some View {
+        Text(text.uppercased())
+            .font(DoTheme.Typography.body(12, weight: .bold))
+            .foregroundStyle(DoTheme.Color.muted)
+            .tracking(1)
+            .padding(.leading, DoTheme.Space.xs)
     }
 }
 
@@ -139,8 +154,6 @@ private struct PlanSummaryCard: View {
                 PillButton(title: "Change Plan", style: .shell, action: onChangePlan)
             }
         }
-        .padding(.horizontal, DoTheme.Space.md)
-        .padding(.top, DoTheme.Space.sm)
     }
 }
 
@@ -179,6 +192,7 @@ private struct WeekOverviewCard: View {
 private struct SettingsRow: View {
     let icon: String
     let title: String
+    var showChevron: Bool = false
 
     var body: some View {
         HStack(spacing: DoTheme.Space.sm) {
@@ -188,7 +202,15 @@ private struct SettingsRow: View {
             Text(title)
                 .font(DoTheme.Typography.body(16))
                 .foregroundStyle(DoTheme.Color.ink)
+            Spacer()
+            if showChevron {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(DoTheme.Color.muted)
+            }
         }
+        .padding(DoTheme.Space.md)
+        .contentShape(Rectangle())
     }
 }
 
