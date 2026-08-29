@@ -40,6 +40,7 @@
 		A7590C974AAE70AB6C1480F2 /* CommitmentPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4451E2A26B6BD44D3877DD7 /* CommitmentPlan.swift */; };
 		AA8EB2538E55CDF0044CFB43 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD1BA99666D324DDFD945B2 /* LegalView.swift */; };
 		AC0787528FA96691BFD7563E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97FC35677A33F49C27569B7F /* Assets.xcassets */; };
+		ACA9A18C5F1CC01B9C186E35 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB445CF18EC0AB183C62313 /* Haptics.swift */; };
 		B3BF9827D09F92B59E96C357 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DF44DB073B6CC1D7ADF6F6 /* Weekday.swift */; };
 		B80333C74BAD558133975BC1 /* RoutineDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB30C84412BE438ED503E45A /* RoutineDay.swift */; };
 		BF73314E5651FE56ECA1E916 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658665B40405084723A5119 /* StreakEngine.swift */; };
@@ -91,6 +92,7 @@
 		36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = DoOrDieWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		43616FD2D275C98BC06D72C4 /* DeathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathView.swift; sourceTree = "<group>"; };
 		4B36E333C27A3C6F849A9BE3 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
+		5BB445CF18EC0AB183C62313 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		5D84D06060571218D12A153F /* ChangePlanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePlanSheet.swift; sourceTree = "<group>"; };
 		6307285DB275F3431A83D15C /* RoutineSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetupView.swift; sourceTree = "<group>"; };
 		66DF44DB073B6CC1D7ADF6F6 /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				8B19FBADAD59714B13D4D163 /* Components.swift */,
+				5BB445CF18EC0AB183C62313 /* Haptics.swift */,
 				AD6B70E74187F8CACEF5A5E7 /* Theme.swift */,
 			);
 			path = DesignSystem;
@@ -406,6 +409,7 @@
 				CD0980D5A8978E3843DE5084 /* EditWeekSheet.swift in Sources */,
 				A36D1C51F4C8EDCF96919C2A /* Exercise.swift in Sources */,
 				8C64DA0DBED1FC0B0EE8EEF3 /* ExerciseDetailSheet.swift in Sources */,
+				ACA9A18C5F1CC01B9C186E35 /* Haptics.swift in Sources */,
 				7869D8E7A3A7F4BFE39EF313 /* HomeView.swift in Sources */,
 				AA8EB2538E55CDF0044CFB43 /* LegalView.swift in Sources */,
 				9613BEF6CABAEED4E21F3A4F /* MainTabView.swift in Sources */,

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import SwiftUI
 
 enum PlanStatus: String, Codable {
     case active, completed, failed
@@ -43,12 +44,12 @@ final class CommitmentPlan {
 }
 
 enum PlanCatalog {
-    static let starter = PlanTemplate(name: "Starter", durationDays: 7, stakeCents: 0, tagline: "Try the streak, no stakes")
-    static let focused = PlanTemplate(name: "Focused", durationDays: 30, stakeCents: 1500, tagline: "One month, no excuses")
-    static let committed = PlanTemplate(name: "Committed", durationDays: 60, stakeCents: 2500, tagline: "Miss a day, lose the pot")
-    static let ironclad = PlanTemplate(name: "Ironclad", durationDays: 90, stakeCents: 4000, tagline: "The highest stakes, the deepest streak")
-    static let relentless = PlanTemplate(name: "Relentless", durationDays: 180, stakeCents: 6500, tagline: "Half a year of do or die")
-    static let unbreakable = PlanTemplate(name: "Unbreakable", durationDays: 365, stakeCents: 10000, tagline: "A full year. Nowhere to hide")
+    static let starter     = PlanTemplate(name: "Starter",     durationDays: 7,   stakeCents: 0,     tagline: "Try the streak, no stakes",            heroSlug: "ex-push-up",       accentHex: 0x4CAF50)
+    static let focused     = PlanTemplate(name: "Focused",     durationDays: 30,  stakeCents: 1500,  tagline: "One month, no excuses",                heroSlug: "ex-pull-up",       accentHex: 0x8BC34A)
+    static let committed   = PlanTemplate(name: "Committed",   durationDays: 60,  stakeCents: 2500,  tagline: "Miss a day, lose the pot",             heroSlug: "ex-barbell-row",   accentHex: 0xFFC014)
+    static let ironclad    = PlanTemplate(name: "Ironclad",    durationDays: 90,  stakeCents: 4000,  tagline: "The highest stakes, the deepest streak", heroSlug: "ex-deadlift",      accentHex: 0xFF8C00)
+    static let relentless  = PlanTemplate(name: "Relentless",  durationDays: 180, stakeCents: 6500,  tagline: "Half a year of do or die",             heroSlug: "ex-squat",         accentHex: 0xFF5722)
+    static let unbreakable = PlanTemplate(name: "Unbreakable", durationDays: 365, stakeCents: 10000, tagline: "A full year. Nowhere to hide",          heroSlug: "ex-bench-press",   accentHex: 0xCC3F02)
 
     static let all = [starter, focused, committed, ironclad, relentless, unbreakable]
 }
@@ -59,6 +60,14 @@ struct PlanTemplate: Identifiable {
     let durationDays: Int
     let stakeCents: Int
     let tagline: String
+    let heroSlug: String
+    let accentHex: UInt32
+
+    /// The 3 animation frame asset names for the hero SVG.
+    var heroFrameNames: [String] { (1...3).map { "\(heroSlug)-\($0)" } }
+
+    /// Escalating accent colour — green for entry, deep orange for max tier.
+    var accentColor: Color { Color(hex: accentHex) }
 
     var stakeDisplay: String {
         stakeCents == 0 ? "Free" : "$\(stakeCents / 100)"

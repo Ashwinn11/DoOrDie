@@ -7,15 +7,16 @@ struct ChangePlanSheet: View {
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @State private var selected: PlanTemplate
+    @State private var selectedIndex: Int
     @State private var showConfirm = false
 
     init(currentPlan: CommitmentPlan) {
         self.currentPlan = currentPlan
-        let match = PlanCatalog.all.first { $0.name == currentPlan.name } ?? PlanCatalog.committed
-        _selected = State(initialValue: match)
+        let idx = PlanCatalog.all.firstIndex { $0.name == currentPlan.name } ?? 2
+        _selectedIndex = State(initialValue: idx)
     }
 
+    private var selected: PlanTemplate { PlanCatalog.all[selectedIndex] }
     private var isCurrent: Bool { selected.name == currentPlan.name }
 
     var body: some View {
@@ -24,25 +25,26 @@ struct ChangePlanSheet: View {
                 Text("Switching plans resets your streak and stake. Your weekly routine stays put.")
                     .font(DoTheme.Typography.body(14))
                     .foregroundStyle(DoTheme.Color.muted)
+                    .multilineTextAlignment(.center)
                     .padding(.horizontal, DoTheme.Space.md)
                     .padding(.top, DoTheme.Space.sm)
                     .padding(.bottom, DoTheme.Space.md)
 
-                ScrollView {
-                    VStack(spacing: DoTheme.Space.sm) {
-                        ForEach(PlanCatalog.all) { template in
-                            PlanOptionCard(
-                                plan: template,
-                                isSelected: template.name == selected.name,
-                                badge: template.name == currentPlan.name ? "CURRENT" : nil
-                            )
-                            .onTapGesture {
-                                withAnimation(DoTheme.Motion.snappy) { selected = template }
-                            }
-                        }
+                // Reuse the same carousel
+                PlanCarousel(selectedIndex: $selectedIndex)
+
+                // Page dots
+                HStack(spacing: 6) {
+                    ForEach(PlanCatalog.all.indices, id: \.self) { i in
+                        Capsule()
+                            .fill(i == selectedIndex ? DoTheme.Color.comb : DoTheme.Color.pillGray)
+                            .frame(width: i == selectedIndex ? 20 : 6, height: 6)
                     }
-                    .padding(.horizontal, DoTheme.Space.md)
                 }
+                .animation(DoTheme.Motion.snappy, value: selectedIndex)
+                .padding(.top, DoTheme.Space.md)
+
+                Spacer()
 
                 PillButton(
                     title: isCurrent ? "Keep \(selected.name)" : "Switch — \(selected.stakeDisplay)",
@@ -78,6 +80,17 @@ struct ChangePlanSheet: View {
     }
 
     private func switchPlan(to template: PlanTemplate) {
+        // Wipe all check-ins from before today so the new plan starts
+        // with a clean slate. Today's check-in (if it exists) is kept —
+        // the user already did that workout; they shouldn't have to log it
+        // again just because they switched plans.
+        let todayStart = Calendar.current.startOfDay(for: .now)
+        if let all = try? modelContext.fetch(FetchDescriptor<CheckIn>()) {
+            for checkIn in all where checkIn.date < todayStart {
+                modelContext.delete(checkIn)
+            }
+        }
+
         currentPlan.isActive = false
         let newPlan = CommitmentPlan(
             name: template.name,

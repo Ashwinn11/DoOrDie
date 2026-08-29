@@ -77,10 +77,14 @@ struct HomeView: View {
     }
 }
 
+// MARK: - StreakHero
+
 private struct StreakHero: View {
     let streak: Int
     let dayNumber: Int
     let totalDays: Int
+
+    @State private var flamePulse = false
 
     var body: some View {
         DarkCard {
@@ -94,6 +98,8 @@ private struct StreakHero: View {
                         Text("\(streak)")
                             .font(DoTheme.Typography.streakNumber)
                             .foregroundStyle(DoTheme.Color.gold)
+                            .contentTransition(.numericText(countsDown: false))
+                            .animation(DoTheme.Motion.easeOut, value: streak)
                         Text(streak == 1 ? "day" : "days")
                             .font(DoTheme.Typography.body(16, weight: .semibold))
                             .foregroundStyle(.white)
@@ -103,15 +109,51 @@ private struct StreakHero: View {
                 Image(systemName: "flame.fill")
                     .font(.system(size: 40))
                     .foregroundStyle(DoTheme.Color.gold)
+                    .scaleEffect(flamePulse ? 1.08 : 1.0)
+                    .animation(
+                        .easeInOut(duration: 1.2).repeatForever(autoreverses: true),
+                        value: flamePulse
+                    )
             }
         }
+        .onAppear { flamePulse = true }
     }
 }
+
+// MARK: - Particle
+
+private struct Particle: Identifiable {
+    let id = UUID()
+    let angle: Double   // radians
+    let distance: CGFloat
+    let size: CGFloat
+    let color: Color
+    let delay: Double
+}
+
+private func makeParticles() -> [Particle] {
+    let colors: [Color] = [DoTheme.Color.gold, DoTheme.Color.comb, .white, DoTheme.Color.gold]
+    return (0..<20).map { i in
+        Particle(
+            angle: Double(i) * (.pi * 2 / 20) + Double.random(in: -0.15...0.15),
+            distance: CGFloat.random(in: 55...130),
+            size: CGFloat.random(in: 5...10),
+            color: colors[i % colors.count],
+            delay: Double.random(in: 0...0.08)
+        )
+    }
+}
+
+// MARK: - TodayCard
 
 private struct TodayCard: View {
     let focus: MuscleGroup
     let status: DayStatus
     let onCheckIn: () -> Void
+
+    @State private var showBurst = false
+    @State private var particles = makeParticles()
+    @State private var chipScale: CGFloat = 1
 
     var body: some View {
         VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
@@ -132,6 +174,7 @@ private struct TodayCard: View {
                                 status == .done ? DoTheme.Color.gold : DoTheme.Color.comb,
                                 in: RoundedRectangle(cornerRadius: 13, style: .continuous)
                             )
+                            .animation(DoTheme.Motion.snappy, value: status)
 
                         Text(focus.label)
                             .font(DoTheme.Typography.title)
@@ -140,16 +183,26 @@ private struct TodayCard: View {
                         Spacer()
 
                         statusChip
+                            .scaleEffect(chipScale)
                     }
 
                     if focus.demandsCheckIn {
-                        PillButton(
-                            title: status == .done ? "Done for today" : "Do it",
-                            systemImage: status == .done ? "flame.fill" : nil,
-                            style: status == .done ? .gold : .comb,
-                            action: onCheckIn
-                        )
-                        .disabled(status == .done)
+                        ZStack {
+                            PillButton(
+                                title: status == .done ? "Done for today" : "Do it",
+                                systemImage: status == .done ? "flame.fill" : nil,
+                                style: status == .done ? .gold : .comb,
+                                action: handleCheckIn
+                            )
+                            .disabled(status == .done)
+
+                            // Particle burst overlay
+                            if showBurst {
+                                ForEach(particles) { p in
+                                    ParticleView(particle: p, active: showBurst)
+                                }
+                            }
+                        }
                     } else {
                         Text("Rest day. The streak doesn't need you today.")
                             .font(DoTheme.Typography.body(14))
@@ -170,7 +223,55 @@ private struct TodayCard: View {
             Chip(text: "REST", tint: DoTheme.Color.pillGray)
         }
     }
+
+    private func handleCheckIn() {
+        guard status == .pending else { return }
+        HapticEngine.notification(.success)
+        triggerBurst()
+        onCheckIn()
+    }
+
+    private func triggerBurst() {
+        particles = makeParticles()
+        showBurst = true
+        // Chip pop
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) { chipScale = 1.25 }
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.5).delay(0.15)) { chipScale = 1 }
+        // Reset burst after animation finishes
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) { showBurst = false }
+    }
 }
+
+// MARK: - ParticleView
+
+private struct ParticleView: View {
+    let particle: Particle
+    let active: Bool
+
+    @State private var offset: CGSize = .zero
+    @State private var opacity: Double = 0
+
+    var body: some View {
+        Circle()
+            .fill(particle.color)
+            .frame(width: particle.size, height: particle.size)
+            .offset(offset)
+            .opacity(opacity)
+            .onAppear {
+                let dx = cos(particle.angle) * particle.distance
+                let dy = sin(particle.angle) * particle.distance
+                withAnimation(.easeOut(duration: 0.55).delay(particle.delay)) {
+                    offset = CGSize(width: dx, height: dy)
+                    opacity = 0
+                }
+                withAnimation(.easeIn(duration: 0.08).delay(particle.delay)) {
+                    opacity = 1
+                }
+            }
+    }
+}
+
+// MARK: - WeekStrip
 
 private struct WeekStrip: View {
     let routine: [Weekday: MuscleGroup]
@@ -186,12 +287,13 @@ private struct WeekStrip: View {
 
             ShellCard {
                 HStack(spacing: DoTheme.Space.xs) {
-                    ForEach(Weekday.allCases) { day in
+                    ForEach(Array(Weekday.allCases.enumerated()), id: \.offset) { index, day in
                         DayDot(
                             day: day,
                             focus: routine[day] ?? .rest,
                             status: StreakEngine.status(for: dateFor(day), focus: routine[day] ?? .rest, checkIns: checkIns),
-                            isToday: day == .today
+                            isToday: day == .today,
+                            entranceDelay: Double(index) * 0.05
                         )
                     }
                 }
@@ -208,11 +310,16 @@ private struct WeekStrip: View {
     }
 }
 
+// MARK: - DayDot
+
 private struct DayDot: View {
     let day: Weekday
     let focus: MuscleGroup
     let status: DayStatus
     let isToday: Bool
+    let entranceDelay: Double
+
+    @State private var appeared = false
 
     private var fill: Color {
         switch status {
@@ -237,14 +344,24 @@ private struct DayDot: View {
                 .foregroundStyle(isToday ? DoTheme.Color.ink : DoTheme.Color.muted)
 
             ZStack {
-                RoundedRectangle(cornerRadius: 9, style: .continuous).fill(fill)
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .fill(fill)
+                    .animation(DoTheme.Motion.snappy, value: status)
                 Image(systemName: focus.systemImage)
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(iconColor)
+                    .animation(DoTheme.Motion.snappy, value: status)
             }
             .frame(width: 34, height: 34)
+            .scaleEffect(appeared ? 1 : 0.6)
+            .animation(
+                .spring(response: 0.4, dampingFraction: isToday ? 0.5 : 0.7)
+                .delay(entranceDelay),
+                value: appeared
+            )
         }
         .frame(maxWidth: .infinity)
+        .onAppear { appeared = true }
     }
 }
 

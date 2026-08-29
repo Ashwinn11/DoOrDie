@@ -36,7 +36,7 @@ struct OnboardingIntroView: View {
         VStack(spacing: 0) {
             TabView(selection: $index) {
                 ForEach(Array(pages.enumerated()), id: \.offset) { i, page in
-                    PageView(page: page).tag(i)
+                    PageView(page: page, isActive: i == index).tag(i)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -55,6 +55,7 @@ struct OnboardingIntroView: View {
                     title: index == pages.count - 1 ? "Let's go" : "Next",
                     style: .comb
                 ) {
+                    HapticEngine.impact(.light)
                     if index == pages.count - 1 {
                         onFinish()
                     } else {
@@ -63,9 +64,12 @@ struct OnboardingIntroView: View {
                 }
 
                 if index < pages.count - 1 {
-                    Button("Skip") { onFinish() }
-                        .font(DoTheme.Typography.body(14, weight: .semibold))
-                        .foregroundStyle(DoTheme.Color.muted)
+                    Button("Skip") {
+                        HapticEngine.impact(.light)
+                        onFinish()
+                    }
+                    .font(DoTheme.Typography.body(14, weight: .semibold))
+                    .foregroundStyle(DoTheme.Color.muted)
                 } else {
                     Color.clear.frame(height: 20)
                 }
@@ -79,6 +83,9 @@ struct OnboardingIntroView: View {
 
 private struct PageView: View {
     let page: IntroPage
+    let isActive: Bool
+
+    @State private var iconBounced = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: DoTheme.Space.md) {
@@ -89,26 +96,47 @@ private struct PageView: View {
                 .foregroundStyle(DoTheme.Color.gold)
                 .frame(width: 84, height: 84)
                 .background(DoTheme.Color.gameInk, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                .scaleEffect(iconBounced ? 1 : 0.8)
+                .animation(.spring(response: 0.4, dampingFraction: 0.5).delay(0.05), value: iconBounced)
 
             Text(page.eyebrow)
                 .font(DoTheme.Typography.body(13, weight: .bold))
                 .foregroundStyle(DoTheme.Color.comb)
                 .tracking(2)
+                .opacity(iconBounced ? 1 : 0)
+                .offset(x: iconBounced ? 0 : 20)
+                .animation(DoTheme.Motion.easeOut.delay(0.1), value: iconBounced)
 
             Text(page.title)
                 .font(DoTheme.Typography.hero)
                 .displayTracking(48)
                 .foregroundStyle(DoTheme.Color.ink)
                 .fixedSize(horizontal: false, vertical: true)
+                .opacity(iconBounced ? 1 : 0)
+                .offset(x: iconBounced ? 0 : 20)
+                .animation(DoTheme.Motion.easeOut.delay(0.15), value: iconBounced)
 
             Text(page.body)
                 .font(DoTheme.Typography.body(16))
                 .foregroundStyle(DoTheme.Color.muted)
+                .opacity(iconBounced ? 1 : 0)
+                .offset(x: iconBounced ? 0 : 20)
+                .animation(DoTheme.Motion.easeOut.delay(0.2), value: iconBounced)
 
             Spacer()
             Spacer()
         }
         .padding(.horizontal, DoTheme.Space.lg)
+        .onAppear { iconBounced = true }
+        .onChange(of: isActive) { _, active in
+            if active {
+                iconBounced = false
+                // Small delay to let the TabView scroll settle, then animate in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    iconBounced = true
+                }
+            }
+        }
     }
 }
 

@@ -47,11 +47,15 @@ struct PillButton: View {
 }
 
 /// Matches tryclucky.com's snappy, overshoot-free press feedback.
+/// Also fires a light impact haptic on every press-down.
 struct PressableButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(DoTheme.Motion.snappy, value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed { HapticEngine.impact(.light) }
+            }
     }
 }
 
