@@ -15,7 +15,7 @@ struct WorkoutView: View {
     }
 
     private var todayStatus: DayStatus {
-        StreakEngine.status(for: .now, focus: todayFocus, checkIns: checkIns)
+        StreakEngine.status(for: .now, focus: todayFocus, checkIns: checkIns, planStartDate: plan.startDate)
     }
 
     private var exercises: [Exercise] {

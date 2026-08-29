@@ -33,18 +33,11 @@ struct PlanGateView: View {
             MainTabView(plan: plan)
         case .failed(let diedOnDay):
             DeathView(plan: plan, diedOnDay: diedOnDay) {
-                plan.diedOnDay = diedOnDay
-                plan.status = .failed
-                plan.isActive = false
-                try? modelContext.save()
-                WidgetCenter.shared.reloadAllTimelines()
+                PlanLifecycle.handleFailure(plan: plan, diedOnDay: diedOnDay, in: modelContext)
             }
         case .completed:
             PlanCompleteView(plan: plan) {
-                plan.status = .completed
-                plan.isActive = false
-                try? modelContext.save()
-                WidgetCenter.shared.reloadAllTimelines()
+                PlanLifecycle.handleCompletion(plan: plan, in: modelContext)
             }
         }
     }

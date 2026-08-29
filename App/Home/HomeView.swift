@@ -18,7 +18,7 @@ struct HomeView: View {
     }
 
     private var todayStatus: DayStatus {
-        StreakEngine.status(for: .now, focus: todayFocus, checkIns: checkIns)
+        StreakEngine.status(for: .now, focus: todayFocus, checkIns: checkIns, planStartDate: plan.startDate)
     }
 
     /// Guaranteed `.active` — PlanGateView only renders HomeView for an
@@ -45,7 +45,7 @@ struct HomeView: View {
 
                 TodayCard(focus: todayFocus, status: todayStatus, onCheckIn: checkInToday)
 
-                WeekStrip(routine: routine, checkIns: checkIns)
+                WeekStrip(planStartDate: plan.startDate, routine: routine, checkIns: checkIns)
             }
             .padding(DoTheme.Space.md)
         }
@@ -120,30 +120,6 @@ private struct StreakHero: View {
     }
 }
 
-// MARK: - Particle
-
-private struct Particle: Identifiable {
-    let id = UUID()
-    let angle: Double   // radians
-    let distance: CGFloat
-    let size: CGFloat
-    let color: Color
-    let delay: Double
-}
-
-private func makeParticles() -> [Particle] {
-    let colors: [Color] = [DoTheme.Color.gold, DoTheme.Color.comb, .white, DoTheme.Color.gold]
-    return (0..<20).map { i in
-        Particle(
-            angle: Double(i) * (.pi * 2 / 20) + Double.random(in: -0.15...0.15),
-            distance: CGFloat.random(in: 55...130),
-            size: CGFloat.random(in: 5...10),
-            color: colors[i % colors.count],
-            delay: Double.random(in: 0...0.08)
-        )
-    }
-}
-
 // MARK: - TodayCard
 
 private struct TodayCard: View {
@@ -151,8 +127,8 @@ private struct TodayCard: View {
     let status: DayStatus
     let onCheckIn: () -> Void
 
+    @State private var particles: [Particle] = []
     @State private var showBurst = false
-    @State private var particles = makeParticles()
     @State private var chipScale: CGFloat = 1
 
     var body: some View {
@@ -217,10 +193,8 @@ private struct TodayCard: View {
         switch status {
         case .done:
             Chip(text: "DONE", tint: DoTheme.Color.gold)
-        case .pending:
+        case .pending, .upcoming:
             Chip(text: "PENDING", tint: DoTheme.Color.comb, textColor: .white)
-        case .restDay:
-            Chip(text: "REST", tint: DoTheme.Color.pillGray)
         }
     }
 
@@ -234,22 +208,46 @@ private struct TodayCard: View {
     private func triggerBurst() {
         particles = makeParticles()
         showBurst = true
-        // Chip pop
-        withAnimation(.spring(response: 0.3, dampingFraction: 0.4)) { chipScale = 1.25 }
-        withAnimation(.spring(response: 0.3, dampingFraction: 0.5).delay(0.15)) { chipScale = 1 }
-        // Reset burst after animation finishes
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) { showBurst = false }
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) { chipScale = 1.2 }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) { chipScale = 1.0 }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
+            showBurst = false
+            particles = []
+        }
     }
 }
 
-// MARK: - ParticleView
+// MARK: - Particle Burst Components
+
+private struct Particle: Identifiable {
+    let id = UUID()
+    let angle: Double
+    let distance: CGFloat
+    let size: CGFloat
+    let color: Color
+    let delay: Double
+}
+
+private func makeParticles() -> [Particle] {
+    (0..<18).map { i in
+        Particle(
+            angle: (Double(i) / 18.0) * 2 * .pi + Double.random(in: -0.15...0.15),
+            distance: CGFloat.random(in: 32...72),
+            size: CGFloat.random(in: 4...8),
+            color: i % 2 == 0 ? DoTheme.Color.gold : DoTheme.Color.comb,
+            delay: Double.random(in: 0...0.06)
+        )
+    }
+}
 
 private struct ParticleView: View {
     let particle: Particle
     let active: Bool
 
     @State private var offset: CGSize = .zero
-    @State private var opacity: Double = 0
+    @State private var opacity: Double = 1
 
     var body: some View {
         Circle()
@@ -264,9 +262,6 @@ private struct ParticleView: View {
                     offset = CGSize(width: dx, height: dy)
                     opacity = 0
                 }
-                withAnimation(.easeIn(duration: 0.08).delay(particle.delay)) {
-                    opacity = 1
-                }
             }
     }
 }
@@ -274,6 +269,7 @@ private struct ParticleView: View {
 // MARK: - WeekStrip
 
 private struct WeekStrip: View {
+    let planStartDate: Date
     let routine: [Weekday: MuscleGroup]
     let checkIns: [CheckIn]
 
@@ -291,7 +287,12 @@ private struct WeekStrip: View {
                         DayDot(
                             day: day,
                             focus: routine[day] ?? .rest,
-                            status: StreakEngine.status(for: dateFor(day), focus: routine[day] ?? .rest, checkIns: checkIns),
+                            status: StreakEngine.status(
+                                for: dateFor(day),
+                                focus: routine[day] ?? .rest,
+                                checkIns: checkIns,
+                                planStartDate: planStartDate
+                            ),
                             isToday: day == .today,
                             entranceDelay: Double(index) * 0.05
                         )
@@ -325,7 +326,7 @@ private struct DayDot: View {
         switch status {
         case .done: DoTheme.Color.gold
         case .pending: isToday ? DoTheme.Color.comb : DoTheme.Color.pillGray
-        case .restDay: DoTheme.Color.pillGray
+        case .upcoming: DoTheme.Color.pillGray
         }
     }
 
@@ -333,7 +334,7 @@ private struct DayDot: View {
         switch status {
         case .done: DoTheme.Color.ink
         case .pending: isToday ? .white : DoTheme.Color.muted
-        case .restDay: DoTheme.Color.muted
+        case .upcoming: DoTheme.Color.muted
         }
     }
 
@@ -348,7 +349,7 @@ private struct DayDot: View {
                     .fill(fill)
                     .animation(DoTheme.Motion.snappy, value: status)
                 Image(systemName: focus.systemImage)
-                    .font(.system(size: 12, weight: .bold))
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundStyle(iconColor)
                     .animation(DoTheme.Motion.snappy, value: status)
             }

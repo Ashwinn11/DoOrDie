@@ -65,16 +65,16 @@
     ]
   },
   {
-    "id": "exercise-decline-bench-press",
-    "slug": "decline-bench-press",
-    "name": "Decline Bench Press",
+    "id": "exercise-dumbbell-bench-press",
+    "slug": "dumbbell-bench-press",
+    "name": "Dumbbell Bench Press",
     "group": "chest",
-    "equipment": "Barbell",
+    "equipment": "Dumbbell",
     "exerciseType": "weight_reps",
     "frameImageNames": [
-      "ex-decline-bench-press-1",
-      "ex-decline-bench-press-2",
-      "ex-decline-bench-press-3"
+      "ex-dumbbell-bench-press-1",
+      "ex-dumbbell-bench-press-2",
+      "ex-dumbbell-bench-press-3"
     ]
   },
   {
@@ -273,29 +273,29 @@
     ]
   },
   {
-    "id": "exercise-front-raise",
-    "slug": "front-raise",
-    "name": "Front Raise",
+    "id": "exercise-cable-lateral-raise",
+    "slug": "cable-lateral-raise",
+    "name": "Cable Lateral Raise",
+    "group": "shoulders",
+    "equipment": "Cable",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-cable-lateral-raise-1",
+      "ex-cable-lateral-raise-2",
+      "ex-cable-lateral-raise-3"
+    ]
+  },
+  {
+    "id": "exercise-seated-dumbbell-press",
+    "slug": "seated-dumbbell-press",
+    "name": "Seated Dumbbell Shoulder Press",
     "group": "shoulders",
     "equipment": "Dumbbell",
     "exerciseType": "weight_reps",
     "frameImageNames": [
-      "ex-front-raise-1",
-      "ex-front-raise-2",
-      "ex-front-raise-3"
-    ]
-  },
-  {
-    "id": "exercise-upright-row",
-    "slug": "upright-row",
-    "name": "Upright Row",
-    "group": "shoulders",
-    "equipment": "Barbell",
-    "exerciseType": "weight_reps",
-    "frameImageNames": [
-      "ex-upright-row-1",
-      "ex-upright-row-2",
-      "ex-upright-row-3"
+      "ex-seated-dumbbell-press-1",
+      "ex-seated-dumbbell-press-2",
+      "ex-seated-dumbbell-press-3"
     ]
   },
   {
@@ -543,6 +543,19 @@
       "ex-jump-rope-1",
       "ex-jump-rope-2",
       "ex-jump-rope-3"
+    ]
+  },
+  {
+    "id": "exercise-jumping-jack",
+    "slug": "jumping-jack",
+    "name": "Jumping Jack",
+    "group": "cardio",
+    "equipment": "Bodyweight",
+    "exerciseType": "duration",
+    "frameImageNames": [
+      "ex-jumping-jack-1",
+      "ex-jumping-jack-2",
+      "ex-jumping-jack-3"
     ]
   }
 ]

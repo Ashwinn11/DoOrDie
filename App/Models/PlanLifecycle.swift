@@ -1,4 +1,6 @@
 import Foundation
+import SwiftData
+import WidgetKit
 
 enum PlanOutcome: Equatable {
     case active(dayNumber: Int)
@@ -69,5 +71,80 @@ enum PlanLifecycle {
         let checkedToday = checkIns.contains { calendar.isDate($0.date, inSameDayAs: todayStart) }
         let todayDone = !focus.demandsCheckIn || checkedToday
         return todayDone ? dayNumber : max(dayNumber - 1, 0)
+    }
+
+    // MARK: - Centralized Lifecycle Operations
+
+    /// Purges all check-in records strictly prior to today's start of day.
+    /// Preserves today's check-in (if present) so workouts performed today aren't lost.
+    static func purgeHistoryBeforeToday(in context: ModelContext) {
+        let todayStart = Calendar.current.startOfDay(for: .now)
+        if let all = try? context.fetch(FetchDescriptor<CheckIn>()) {
+            for c in all where c.date < todayStart {
+                context.delete(c)
+            }
+        }
+    }
+
+    /// Starts or switches to a new commitment plan:
+    /// 1. Deactivates existing active plans.
+    /// 2. Purges all past check-in records prior to today.
+    /// 3. Creates and inserts the new active plan.
+    /// 4. Saves and reloads widget timelines.
+    @MainActor
+    static func startPlan(
+        template: PlanTemplate,
+        in context: ModelContext
+    ) {
+        purgeHistoryBeforeToday(in: context)
+
+        if let active = try? context.fetch(FetchDescriptor<CommitmentPlan>(predicate: #Predicate { $0.isActive })) {
+            for p in active { p.isActive = false }
+        }
+
+        let newPlan = CommitmentPlan(
+            name: template.name,
+            durationDays: template.durationDays,
+            stakeCents: template.stakeCents,
+            startDate: .now,
+            isActive: true
+        )
+        context.insert(newPlan)
+        try? context.save()
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    /// Handles plan failure (user died):
+    /// 1. Marks plan failed and inactive.
+    /// 2. Purges all past check-ins.
+    /// 3. Saves and reloads widgets.
+    @MainActor
+    static func handleFailure(
+        plan: CommitmentPlan,
+        diedOnDay: Int,
+        in context: ModelContext
+    ) {
+        purgeHistoryBeforeToday(in: context)
+        plan.diedOnDay = diedOnDay
+        plan.status = .failed
+        plan.isActive = false
+        try? context.save()
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    /// Handles plan completion:
+    /// 1. Marks plan completed and inactive.
+    /// 2. Purges all past check-ins.
+    /// 3. Saves and reloads widgets.
+    @MainActor
+    static func handleCompletion(
+        plan: CommitmentPlan,
+        in context: ModelContext
+    ) {
+        purgeHistoryBeforeToday(in: context)
+        plan.status = .completed
+        plan.isActive = false
+        try? context.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

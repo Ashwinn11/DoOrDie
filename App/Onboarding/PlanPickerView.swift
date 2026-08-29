@@ -65,14 +65,7 @@ struct PlanPickerView: View {
     }
 
     private func startPlan() {
-        let plan = CommitmentPlan(
-            name: selected.name,
-            durationDays: selected.durationDays,
-            stakeCents: selected.stakeCents
-        )
-        modelContext.insert(plan)
-        try? modelContext.save()
-        WidgetCenter.shared.reloadAllTimelines()
+        PlanLifecycle.startPlan(template: selected, in: modelContext)
     }
 }
 

@@ -54,16 +54,82 @@ private struct OutcomeView: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            Image(systemName: kind == .failed ? "flame.fill" : "checkmark.seal.fill")
-                .font(.system(size: 22))
-                .foregroundStyle(kind == .failed ? DoTheme.Color.comb : DoTheme.Color.gold)
-            Text(kind == .failed ? "YOU DIED" : "COMPLETE")
-                .font(DoTheme.Typography.display(15, weight: .heavy))
+            // Illustrated Crest
+            ZStack {
+                Circle()
+                    .fill(
+                        RadialGradient(
+                            colors: [
+                                (kind == .failed ? DoTheme.Color.comb : DoTheme.Color.gold).opacity(0.35),
+                                Color.clear
+                            ],
+                            center: .center,
+                            startRadius: 2,
+                            endRadius: 24
+                        )
+                    )
+                    .frame(width: 48, height: 48)
+
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(DoTheme.Color.gameInk)
+                    .frame(width: 38, height: 38)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .strokeBorder(
+                                (kind == .failed ? DoTheme.Color.comb : DoTheme.Color.gold).opacity(0.6),
+                                lineWidth: 1.5
+                            )
+                    )
+
+                if kind == .failed {
+                    Image("ex-defeat-1")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.white, DoTheme.Color.comb],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .frame(width: 26, height: 26)
+                } else {
+                    Image("ex-overhead-press-3")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.white, DoTheme.Color.gold],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .frame(width: 26, height: 26)
+                }
+            }
+
+            Text(kind == .failed ? "YOU DIED" : "CHAMPION")
+                .font(DoTheme.Typography.display(14, weight: .heavy))
                 .foregroundStyle(DoTheme.Color.ink)
-            Text(kind == .failed ? "Day \(dayNumber)/\(totalDays), \(planName)" : "\(totalDays)/\(totalDays), \(planName)")
-                .font(DoTheme.Typography.body(11))
+                .tracking(1)
+
+            Text(kind == .failed ? "Died on Day \(dayNumber) of \(totalDays)" : "All \(totalDays) Days Complete")
+                .font(DoTheme.Typography.body(10, weight: .medium))
                 .foregroundStyle(DoTheme.Color.muted)
                 .multilineTextAlignment(.center)
+                .lineLimit(1)
+
+            Text(planName.uppercased())
+                .font(DoTheme.Typography.body(9, weight: .bold))
+                .foregroundStyle(kind == .failed ? DoTheme.Color.comb : DoTheme.Color.gold)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 3)
+                .background(
+                    (kind == .failed ? DoTheme.Color.comb : DoTheme.Color.gold).opacity(0.12),
+                    in: Capsule()
+                )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .containerBackground(DoTheme.Color.bg, for: .widget)
@@ -127,83 +193,62 @@ private struct GridView: View {
         GeometryReader { geo in
             let layout = CellGridLayout.fit(count: entry.cells.count, in: geo.size, spacing: 3)
 
-            // A separate SwiftUI view per cell (Image + background + frame,
-            // up to 365 of them) hits WidgetKit's rendering complexity
-            // ceiling and silently renders blank past ~90-100 cells. Canvas
-            // draws the whole grid as one view instead — cheap regardless
-            // of cell count. No header — plan name/day count removed so the
-            // grid gets the full box, matching the Steps-widget reference.
-            Canvas { context, _ in
-                guard layout.columns > 0, layout.cellWidth > 0, layout.cellHeight > 0 else { return }
-                let minDimension = min(layout.cellWidth, layout.cellHeight)
+            Canvas { context, size in
+                guard layout.columns > 0, layout.cellSize > 0 else { return }
+                let totalGridWidth = CGFloat(layout.columns) * layout.cellSize + CGFloat(layout.columns - 1) * layout.spacing
+                let totalGridHeight = CGFloat(layout.rows) * layout.cellSize + CGFloat(layout.rows - 1) * layout.spacing
+                let offsetX = max((size.width - totalGridWidth) / 2, 0)
+                let offsetY = max((size.height - totalGridHeight) / 2, 0)
+
                 for (index, cell) in entry.cells.enumerated() {
                     let row = index / layout.columns
                     let column = index % layout.columns
                     let rect = CGRect(
-                        x: CGFloat(column) * (layout.cellWidth + layout.spacing),
-                        y: CGFloat(row) * (layout.cellHeight + layout.spacing),
-                        width: layout.cellWidth,
-                        height: layout.cellHeight
+                        x: offsetX + CGFloat(column) * (layout.cellSize + layout.spacing),
+                        y: offsetY + CGFloat(row) * (layout.cellSize + layout.spacing),
+                        width: layout.cellSize,
+                        height: layout.cellSize
                     )
 
-                    // pillGray (#F3F3F3) is *lighter* than the widget's
-                    // own bg (#EDEDED), so it's invisible here even
-                    // though it reads fine on white in-app cards. Empty
-                    // cells need a fill that actually contrasts against
-                    // whatever's behind them.
                     let fillColor: Color = cell.isDone ? DoTheme.Color.gold : (cell.isToday ? DoTheme.Color.comb : Color.black.opacity(0.09))
-                    context.fill(Path(roundedRect: rect, cornerRadius: max(minDimension * 0.28, 2)), with: .color(fillColor))
+                    context.fill(
+                        Path(roundedRect: rect, cornerRadius: max(layout.cellSize * 0.28, 2)),
+                        with: .color(fillColor)
+                    )
 
-                    guard minDimension >= 4 else { continue }
+                    guard layout.cellSize >= 6 else { continue }
                     let iconColor: Color = cell.isDone ? DoTheme.Color.ink : (cell.isToday ? .white : DoTheme.Color.muted)
                     let symbolName = cell.focus == .rest ? "moon.zzz.fill" : cell.focus.systemImage
-                    let iconSize = max(minDimension * 0.6, 3)
-                    // Image has no Image-returning .font/.foregroundColor
-                    // overload (those resolve to the generic View
-                    // modifiers, which resolve() rejects), so tint the
-                    // resolved glyph with the standard Canvas trick:
-                    // draw it, then mask-fill with .sourceIn.
-                    let resolved = context.resolve(Image(systemName: symbolName))
-                    let iconRect = rect.insetBy(dx: (rect.width - iconSize) / 2, dy: (rect.height - iconSize) / 2)
-                    context.drawLayer { layer in
-                        layer.draw(resolved, in: iconRect)
-                        layer.blendMode = .sourceIn
-                        layer.fill(Path(iconRect), with: .color(iconColor))
-                    }
+                    let iconSize = layout.cellSize * 0.58
+
+                    let symbol = Text(Image(systemName: symbolName))
+                        .font(.system(size: iconSize, weight: .bold))
+                        .foregroundStyle(iconColor)
+                    let resolved = context.resolve(symbol)
+                    context.draw(resolved, at: CGPoint(x: rect.midX, y: rect.midY), anchor: .center)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding(1)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .padding(2)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .containerBackground(DoTheme.Color.bg, for: .widget)
     }
 }
 
-/// Mimics a natural left-to-right reading grid (like the Steps widget this
-/// is modeled on): fill a row with as many cells as fit at the largest
-/// legible size, wrap to a new row only when needed, and only shrink the
-/// cell size once row-wrapping alone can't fit everything in the height.
-/// A near-square "block" layout (the previous approach) was wrong — it
-/// left small day counts stacked in a tall, mostly-empty box instead of
-/// spreading across the available width as one wide row.
+/// Guarantees strict 1:1 square cells, fitting as many columns and rows
+/// as possible without ever distorting or stretching the cell geometry.
 struct CellGridLayout {
     let columns: Int
     let rows: Int
-    let cellWidth: CGFloat
-    let cellHeight: CGFloat
+    let cellSize: CGFloat
     let spacing: CGFloat
 
     static func fit(count: Int, in size: CGSize, spacing: CGFloat, minCell: CGFloat = 6, maxCell: CGFloat = 42) -> CellGridLayout {
         guard count > 0, size.width > spacing, size.height > spacing else {
-            return CellGridLayout(columns: 0, rows: 0, cellWidth: 0, cellHeight: 0, spacing: spacing)
+            return CellGridLayout(columns: 0, rows: 0, cellSize: 0, spacing: spacing)
         }
 
-        // Scan cell sizes from largest to smallest. For each, pack as many
-        // columns as the width allows (capped at `count` — no point
-        // reserving columns nothing will ever fill), derive the resulting
-        // row count, and take the first (largest) size whose rows still
-        // fit the height.
         var step = maxCell
         var chosenColumns = 1
         var chosenRows = count
@@ -220,19 +265,15 @@ struct CellGridLayout {
             step -= 0.5
         }
         if step < minCell {
-            // Nothing fit even at the floor — pack at minCell and accept
-            // whatever results; this is an extreme edge case only.
             chosenColumns = min(max(1, Int((size.width + spacing) / (minCell + spacing))), count)
             chosenRows = Int(ceil(Double(count) / Double(chosenColumns)))
         }
 
-        // Stretch to use any leftover space in both axes exactly, now that
-        // a sane (columns, rows) pair is settled.
-        let rawWidth = (size.width - CGFloat(chosenColumns - 1) * spacing) / CGFloat(chosenColumns)
-        let rawHeight = (size.height - CGFloat(chosenRows - 1) * spacing) / CGFloat(chosenRows)
-        let cellWidth = max(min(rawWidth, maxCell), 3)
-        let cellHeight = max(min(rawHeight, maxCell), 3)
-        return CellGridLayout(columns: chosenColumns, rows: chosenRows, cellWidth: cellWidth, cellHeight: cellHeight, spacing: spacing)
+        let maxFittingWidth = (size.width - CGFloat(chosenColumns - 1) * spacing) / CGFloat(chosenColumns)
+        let maxFittingHeight = (size.height - CGFloat(chosenRows - 1) * spacing) / CGFloat(chosenRows)
+        let cellSize = max(min(min(maxFittingWidth, maxFittingHeight), maxCell), 3)
+
+        return CellGridLayout(columns: chosenColumns, rows: chosenRows, cellSize: cellSize, spacing: spacing)
     }
 }
 

@@ -80,26 +80,7 @@ struct ChangePlanSheet: View {
     }
 
     private func switchPlan(to template: PlanTemplate) {
-        // Wipe all check-ins from before today so the new plan starts
-        // with a clean slate. Today's check-in (if it exists) is kept —
-        // the user already did that workout; they shouldn't have to log it
-        // again just because they switched plans.
-        let todayStart = Calendar.current.startOfDay(for: .now)
-        if let all = try? modelContext.fetch(FetchDescriptor<CheckIn>()) {
-            for checkIn in all where checkIn.date < todayStart {
-                modelContext.delete(checkIn)
-            }
-        }
-
-        currentPlan.isActive = false
-        let newPlan = CommitmentPlan(
-            name: template.name,
-            durationDays: template.durationDays,
-            stakeCents: template.stakeCents
-        )
-        modelContext.insert(newPlan)
-        try? modelContext.save()
-        WidgetCenter.shared.reloadAllTimelines()
+        PlanLifecycle.startPlan(template: template, in: modelContext)
         dismiss()
     }
 }

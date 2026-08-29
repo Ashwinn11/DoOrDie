@@ -3,7 +3,7 @@ import Foundation
 enum DayStatus {
     case done
     case pending
-    case restDay
+    case upcoming
 }
 
 enum StreakEngine {
@@ -11,11 +11,20 @@ enum StreakEngine {
         for date: Date,
         focus: MuscleGroup,
         checkIns: [CheckIn],
+        planStartDate: Date,
+        today: Date = .now,
         calendar: Calendar = .current
     ) -> DayStatus {
-        guard focus.demandsCheckIn else { return .restDay }
-        let day = calendar.startOfDay(for: date)
-        let done = checkIns.contains { calendar.isDate($0.date, inSameDayAs: day) }
-        return done ? .done : .pending
+        let dayStart = calendar.startOfDay(for: date)
+        let todayStart = calendar.startOfDay(for: today)
+        let planStart = calendar.startOfDay(for: planStartDate)
+
+        // Days before plan started or future days are upcoming
+        guard dayStart >= planStart, dayStart <= todayStart else {
+            return .upcoming
+        }
+
+        let isDone = !focus.demandsCheckIn || checkIns.contains { calendar.isDate($0.date, inSameDayAs: dayStart) }
+        return isDone ? .done : .pending
     }
 }

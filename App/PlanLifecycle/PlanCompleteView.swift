@@ -24,13 +24,10 @@ struct PlanCompleteView: View {
             VStack(spacing: DoTheme.Space.lg) {
                 Spacer()
 
-                Image(systemName: "checkmark.seal.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(DoTheme.Color.gold)
-                    .frame(width: 84, height: 84)
-                    .background(DoTheme.Color.gameInk, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                // Animated Victory Hero Emblem
+                VictoryEmblemView(size: 130)
                     .scaleEffect(appeared ? 1 : 0)
-                    .animation(.spring(response: 0.5, dampingFraction: 0.55), value: appeared)
+                    .animation(.spring(response: 0.55, dampingFraction: 0.6), value: appeared)
 
                 VStack(spacing: DoTheme.Space.xs) {
                     Text("DONE OR DIE")
@@ -48,12 +45,37 @@ struct PlanCompleteView: View {
                         .opacity(appeared ? 1 : 0)
                         .animation(DoTheme.Motion.easeOut.delay(0.25), value: appeared)
 
-                    Text("Ready for the next one?")
-                        .font(DoTheme.Typography.body(15, weight: .semibold))
-                        .foregroundStyle(DoTheme.Color.comb)
-                        .padding(.top, 2)
+                    if plan.stakeCents > 0 {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.shield.fill")
+                                .foregroundStyle(DoTheme.Color.gold)
+                            Text("\(plan.stakeDisplay) STAKE SECURED")
+                                .font(DoTheme.Typography.body(14, weight: .bold))
+                                .foregroundStyle(DoTheme.Color.ink)
+                                .tracking(1)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(DoTheme.Color.gold, in: Capsule())
+                        .padding(.top, 4)
                         .opacity(appeared ? 1 : 0)
                         .animation(DoTheme.Motion.easeOut.delay(0.35), value: appeared)
+                    } else {
+                        HStack(spacing: 8) {
+                            Image(systemName: "star.fill")
+                                .foregroundStyle(DoTheme.Color.gold)
+                            Text("100% COMMITMENT KEPT")
+                                .font(DoTheme.Typography.body(14, weight: .bold))
+                                .foregroundStyle(DoTheme.Color.gold)
+                                .tracking(1)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(DoTheme.Color.gameInk, in: Capsule())
+                        .padding(.top, 4)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(DoTheme.Motion.easeOut.delay(0.35), value: appeared)
+                    }
                 }
                 .padding(.horizontal, DoTheme.Space.lg)
 

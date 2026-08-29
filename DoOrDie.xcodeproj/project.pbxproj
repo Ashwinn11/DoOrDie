@@ -11,6 +11,8 @@
 		0AB9ABDB4167DF17DB56494C /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8617CC1ED557E525DBDC726 /* CheckIn.swift */; };
 		0D1B98343FD6D7AB97DA1528 /* DoOrDieWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		24362A944BC6AAB926B687D8 /* DoOrDieWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDB8D51E15B2036B42233A /* DoOrDieWidget.swift */; };
+		25BE06C5B6C7B95CD0675795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97FC35677A33F49C27569B7F /* Assets.xcassets */; };
+		298CE7A8661E2ACBD0DFFE61 /* VictoryEmblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C9572D240325F0178047F /* VictoryEmblemView.swift */; };
 		299436A311D51C259117DAF1 /* DoOrDieWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6051E0FF94F9E767B9A1D39 /* DoOrDieWidgetView.swift */; };
 		2B2BB66C3F906F63D81A1F33 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6B70E74187F8CACEF5A5E7 /* Theme.swift */; };
 		37DACDBF9C8D396F788384D4 /* CommitmentPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4451E2A26B6BD44D3877DD7 /* CommitmentPlan.swift */; };
@@ -51,6 +53,7 @@
 		D100B21D8D150CCED86FFCE8 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658665B40405084723A5119 /* StreakEngine.swift */; };
 		DC276CB28DE579453A0383A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC662BE2AA8F7C2998D522C /* RootView.swift */; };
 		DD0E123BF49D4149BEFE18B9 /* PlanPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AAEE4351FC96E10BC7660 /* PlanPickerView.swift */; };
+		DE2EF198DB2BBFDB8121B82B /* DeathEmblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2449BB95B9A73AB5D2DA8CF /* DeathEmblemView.swift */; };
 		E1987361E7B4BB01B7834627 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25647936C0BB0870B034F816 /* SharedStore.swift */; };
 		ECD7F1AD3B92D3606167BFF8 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8617CC1ED557E525DBDC726 /* CheckIn.swift */; };
 		F6C2A81E2B32810EF34BEC0C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6B70E74187F8CACEF5A5E7 /* Theme.swift */; };
@@ -91,6 +94,7 @@
 		2F3BAFE4E9CFD92E666A5DB3 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = DoOrDieWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		43616FD2D275C98BC06D72C4 /* DeathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathView.swift; sourceTree = "<group>"; };
+		436C9572D240325F0178047F /* VictoryEmblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryEmblemView.swift; sourceTree = "<group>"; };
 		4B36E333C27A3C6F849A9BE3 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
 		5BB445CF18EC0AB183C62313 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		5D84D06060571218D12A153F /* ChangePlanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePlanSheet.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 		EA6E93493108F9EB064E473E /* EditWeekSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeekSheet.swift; sourceTree = "<group>"; };
 		EAC662BE2AA8F7C2998D522C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		EDFDB8D51E15B2036B42233A /* DoOrDieWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieWidget.swift; sourceTree = "<group>"; };
+		F2449BB95B9A73AB5D2DA8CF /* DeathEmblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathEmblemView.swift; sourceTree = "<group>"; };
 		F4451E2A26B6BD44D3877DD7 /* CommitmentPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitmentPlan.swift; sourceTree = "<group>"; };
 		FE84EA73EC3D34AE45641B7C /* DoOrDieWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoOrDieWidgets.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,8 +203,10 @@
 			isa = PBXGroup;
 			children = (
 				8B19FBADAD59714B13D4D163 /* Components.swift */,
+				F2449BB95B9A73AB5D2DA8CF /* DeathEmblemView.swift */,
 				5BB445CF18EC0AB183C62313 /* Haptics.swift */,
 				AD6B70E74187F8CACEF5A5E7 /* Theme.swift */,
+				436C9572D240325F0178047F /* VictoryEmblemView.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -309,6 +316,7 @@
 			buildConfigurationList = 7EB629275923AA0429FF7E47 /* Build configuration list for PBXNativeTarget "DoOrDieWidgets" */;
 			buildPhases = (
 				28090295708BCD25E5BE9A69 /* Sources */,
+				2F07084D3452139A48B0FFA1 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -370,6 +378,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2F07084D3452139A48B0FFA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25BE06C5B6C7B95CD0675795 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -404,6 +420,7 @@
 				94314727F87DB1BD39E95686 /* Components.swift in Sources */,
 				3BDB7508012AB6FBFC6F7E8B /* CreditsView.swift in Sources */,
 				52C7D4D15BE8AFE70F985759 /* CyclingSVGView.swift in Sources */,
+				DE2EF198DB2BBFDB8121B82B /* DeathEmblemView.swift in Sources */,
 				6E34823CF5CF50615C3AFDF6 /* DeathView.swift in Sources */,
 				CC4E7BB6D74C750538FE4992 /* DoOrDieApp.swift in Sources */,
 				CD0980D5A8978E3843DE5084 /* EditWeekSheet.swift in Sources */,
@@ -427,6 +444,7 @@
 				BF73314E5651FE56ECA1E916 /* StreakEngine.swift in Sources */,
 				5DF9C1222A5E004042968341 /* SubscriptionSheet.swift in Sources */,
 				2B2BB66C3F906F63D81A1F33 /* Theme.swift in Sources */,
+				298CE7A8661E2ACBD0DFFE61 /* VictoryEmblemView.swift in Sources */,
 				678AC037C7D373C05B02EB03 /* Weekday.swift in Sources */,
 				54502FE9CADCB9C138665A64 /* WorkoutView.swift in Sources */,
 			);

@@ -12,57 +12,61 @@ struct DeathView: View {
     @State private var appeared = false
 
     var body: some View {
-        VStack(spacing: DoTheme.Space.lg) {
-            Spacer()
+        ZStack {
+            DoTheme.Color.bg.ignoresSafeArea()
 
-            Image(systemName: "flame.fill")
-                .font(.system(size: 40))
-                .foregroundStyle(DoTheme.Color.comb)
-                .frame(width: 84, height: 84)
-                .background(DoTheme.Color.gameInk, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-                .scaleEffect(flamePulse ? 1.15 : 1.0)
-                .animation(
-                    .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
-                    value: flamePulse
-                )
-                .scaleEffect(appeared ? 1 : 0.6)
-                .animation(.spring(response: 0.5, dampingFraction: 0.55), value: appeared)
+            VStack(spacing: DoTheme.Space.lg) {
+                Spacer()
 
-            VStack(spacing: DoTheme.Space.xs) {
-                Text("YOU DIED")
-                    .font(DoTheme.Typography.hero)
-                    .displayTracking(48)
-                    .foregroundStyle(DoTheme.Color.ink)
-                    .offset(x: titleShake)
+                // Animated Death Hero Emblem
+                DeathEmblemView(size: 130)
+                    .scaleEffect(appeared ? 1 : 0.6)
+                    .animation(.spring(response: 0.55, dampingFraction: 0.58), value: appeared)
 
-                Text("Missed day \(diedOnDay) of \(plan.durationDays) on \(plan.name).")
-                    .font(DoTheme.Typography.body(16))
-                    .foregroundStyle(DoTheme.Color.muted)
-                    .multilineTextAlignment(.center)
-                    .opacity(appeared ? 1 : 0)
-                    .animation(DoTheme.Motion.easeOut.delay(0.3), value: appeared)
+                VStack(spacing: DoTheme.Space.xs) {
+                    Text("YOU DIED")
+                        .font(DoTheme.Typography.hero)
+                        .displayTracking(48)
+                        .foregroundStyle(DoTheme.Color.ink)
+                        .offset(x: titleShake)
 
-                if plan.stakeCents > 0 {
-                    Text("Your \(plan.stakeDisplay) stake is gone.")
-                        .font(DoTheme.Typography.body(15, weight: .semibold))
-                        .foregroundStyle(DoTheme.Color.comb)
-                        .padding(.top, 2)
+                    Text("Missed day \(diedOnDay) of \(plan.durationDays) on \(plan.name).")
+                        .font(DoTheme.Typography.body(16))
+                        .foregroundStyle(DoTheme.Color.muted)
+                        .multilineTextAlignment(.center)
                         .opacity(appeared ? 1 : 0)
-                        .animation(DoTheme.Motion.easeOut.delay(0.4), value: appeared)
+                        .animation(DoTheme.Motion.easeOut.delay(0.25), value: appeared)
+
+                    if plan.stakeCents > 0 {
+                        HStack(spacing: 8) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundStyle(DoTheme.Color.comb)
+                            Text("\(plan.stakeDisplay) STAKE FORFEITED")
+                                .font(DoTheme.Typography.body(14, weight: .bold))
+                                .foregroundStyle(DoTheme.Color.comb)
+                                .tracking(1)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(DoTheme.Color.comb.opacity(0.12), in: Capsule())
+                        .padding(.top, 6)
+                        .opacity(appeared ? 1 : 0)
+                        .animation(DoTheme.Motion.easeOut.delay(0.35), value: appeared)
+                    }
                 }
+                .padding(.horizontal, DoTheme.Space.lg)
+
+                Spacer()
+                Spacer()
+
+                PillButton(title: "Buy a new plan", style: .comb, action: onContinue)
+                    .padding(.bottom, DoTheme.Space.sm)
+                    .opacity(appeared ? 1 : 0)
+                    .animation(DoTheme.Motion.easeOut.delay(0.45), value: appeared)
             }
-            .padding(.horizontal, DoTheme.Space.lg)
-
-            Spacer()
-            Spacer()
-
-            PillButton(title: "Buy a new plan", style: .comb, action: onContinue)
-                .padding(.bottom, DoTheme.Space.sm)
-                .opacity(appeared ? 1 : 0)
-                .animation(DoTheme.Motion.easeOut.delay(0.5), value: appeared)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(DoTheme.Space.md)
         }
-        .padding(DoTheme.Space.md)
-        .background(DoTheme.Color.bg.ignoresSafeArea())
         .onAppear {
             // Error haptic fires immediately
             HapticEngine.notification(.error)
