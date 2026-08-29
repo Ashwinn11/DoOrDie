@@ -14,10 +14,10 @@ struct DoOrDieWidgetView: View {
                 OutcomeView(kind: .failed, planName: entry.planName, dayNumber: diedOnDay, totalDays: entry.durationDays)
             case .completed:
                 OutcomeView(kind: .completed, planName: entry.planName, dayNumber: entry.durationDays, totalDays: entry.durationDays)
-            case .active(let dayNumber):
+            case .active:
                 switch family {
                 case .systemSmall:
-                    SmallGridView(entry: entry, dayNumber: dayNumber)
+                    SmallGridView(entry: entry)
                 default:
                     GridView(entry: entry)
                 }
@@ -72,7 +72,6 @@ private struct OutcomeView: View {
 
 private struct SmallGridView: View {
     let entry: DoOrDieEntry
-    let dayNumber: Int
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -84,7 +83,7 @@ private struct SmallGridView: View {
             Spacer()
 
             HStack(alignment: .firstTextBaseline, spacing: 4) {
-                Text("\(dayNumber)")
+                Text("\(entry.streak)")
                     .font(DoTheme.Typography.display(38, weight: .heavy))
                     .foregroundStyle(DoTheme.Color.ink)
                 Image(systemName: "flame.fill")
@@ -98,7 +97,7 @@ private struct SmallGridView: View {
 
             Spacer()
 
-            ProgressBar(progress: Double(dayNumber) / Double(entry.durationDays))
+            ProgressBar(progress: Double(entry.streak) / Double(entry.durationDays))
         }
         .padding(14)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)

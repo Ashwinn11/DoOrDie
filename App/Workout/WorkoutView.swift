@@ -38,8 +38,8 @@ struct WorkoutView: View {
 
                         PillButton(
                             title: todayStatus == .done ? "Done for today" : "Mark today done",
-                            systemImage: todayStatus == .done ? "checkmark" : nil,
-                            style: todayStatus == .done ? .shell : .comb
+                            systemImage: todayStatus == .done ? "flame.fill" : nil,
+                            style: todayStatus == .done ? .gold : .comb
                         ) {
                             guard todayStatus == .pending else { return }
                             modelContext.insert(CheckIn(date: .now, focus: todayFocus))

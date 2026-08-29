@@ -7,8 +7,10 @@ enum PlanOutcome: Equatable {
 }
 
 /// The single source of truth for "day X of Y" and the die-on-miss rule.
-/// A plan has no separate streak counter — its day count IS the streak,
-/// because a miss doesn't decrement anything, it ends the attempt.
+/// `dayNumber` means "which day of the plan today is" — it's 1 on day one
+/// whether or not you've checked in yet, same as a calendar date doesn't
+/// wait for you. It is NOT the same as a streak (days actually completed);
+/// see `currentStreak` below for that.
 enum PlanLifecycle {
     static func evaluate(
         plan: CommitmentPlan,
@@ -46,5 +48,26 @@ enum PlanLifecycle {
             }
             cursor = next
         }
+    }
+
+    /// Days actually completed, for display as "current streak". Equal to
+    /// `dayNumber` once today is done (checked in, or a rest day); one less
+    /// while today is still pending, since it hasn't been survived yet.
+    static func currentStreak(
+        plan: CommitmentPlan,
+        routine: [Weekday: MuscleGroup],
+        checkIns: [CheckIn],
+        today: Date = .now,
+        calendar: Calendar = .current
+    ) -> Int {
+        guard case .active(let dayNumber) = evaluate(plan: plan, routine: routine, checkIns: checkIns, today: today, calendar: calendar) else {
+            return 0
+        }
+        let todayStart = calendar.startOfDay(for: today)
+        let weekday = Weekday(rawValue: calendar.component(.weekday, from: todayStart)) ?? .sunday
+        let focus = routine[weekday] ?? .rest
+        let checkedToday = checkIns.contains { calendar.isDate($0.date, inSameDayAs: todayStart) }
+        let todayDone = !focus.demandsCheckIn || checkedToday
+        return todayDone ? dayNumber : max(dayNumber - 1, 0)
     }
 }

@@ -30,12 +30,18 @@ struct HomeView: View {
         return 1
     }
 
+    /// Days actually completed — 0 on day one before you've checked in,
+    /// unlike dayNumber which is already "1" the moment the day starts.
+    private var streak: Int {
+        PlanLifecycle.currentStreak(plan: plan, routine: routine, checkIns: checkIns)
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: DoTheme.Space.md) {
                 header
 
-                StreakHero(streak: dayNumber, dayNumber: dayNumber, totalDays: plan.durationDays)
+                StreakHero(streak: streak, dayNumber: dayNumber, totalDays: plan.durationDays)
 
                 TodayCard(focus: todayFocus, status: todayStatus, onCheckIn: checkInToday)
 
@@ -108,43 +114,47 @@ private struct TodayCard: View {
     let onCheckIn: () -> Void
 
     var body: some View {
-        ShellCard {
-            VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
-                HStack {
-                    Text("TODAY'S COMMITMENT")
-                        .font(DoTheme.Typography.body(12, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.muted)
-                        .tracking(1.5)
-                    Spacer()
-                    statusChip
-                }
+        VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+            Text("TODAY'S COMMITMENT")
+                .font(DoTheme.Typography.body(12, weight: .bold))
+                .foregroundStyle(DoTheme.Color.muted)
+                .tracking(1.5)
+                .padding(.leading, DoTheme.Space.xs)
 
-                HStack(spacing: DoTheme.Space.sm) {
-                    Image(systemName: focus.systemImage)
-                        .font(.system(size: 28))
-                        .foregroundStyle(DoTheme.Color.comb)
-                        .frame(width: 48, height: 48)
-                        .background(DoTheme.Color.pillGray, in: Circle())
+            ShellCard {
+                VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+                    HStack(spacing: DoTheme.Space.sm) {
+                        Image(systemName: focus.systemImage)
+                            .font(.system(size: 28))
+                            .foregroundStyle(status == .done ? DoTheme.Color.ink : .white)
+                            .frame(width: 48, height: 48)
+                            .background(
+                                status == .done ? DoTheme.Color.gold : DoTheme.Color.comb,
+                                in: RoundedRectangle(cornerRadius: 13, style: .continuous)
+                            )
 
-                    Text(focus.label)
-                        .font(DoTheme.Typography.title)
-                        .foregroundStyle(DoTheme.Color.ink)
+                        Text(focus.label)
+                            .font(DoTheme.Typography.title)
+                            .foregroundStyle(DoTheme.Color.ink)
 
-                    Spacer()
-                }
+                        Spacer()
 
-                if focus.demandsCheckIn {
-                    PillButton(
-                        title: status == .done ? "Done for today" : "Do it",
-                        systemImage: status == .done ? "checkmark" : nil,
-                        style: status == .done ? .shell : .comb,
-                        action: onCheckIn
-                    )
-                    .disabled(status == .done)
-                } else {
-                    Text("Rest day. The streak doesn't need you today.")
-                        .font(DoTheme.Typography.body(14))
-                        .foregroundStyle(DoTheme.Color.muted)
+                        statusChip
+                    }
+
+                    if focus.demandsCheckIn {
+                        PillButton(
+                            title: status == .done ? "Done for today" : "Do it",
+                            systemImage: status == .done ? "flame.fill" : nil,
+                            style: status == .done ? .gold : .comb,
+                            action: onCheckIn
+                        )
+                        .disabled(status == .done)
+                    } else {
+                        Text("Rest day. The streak doesn't need you today.")
+                            .font(DoTheme.Typography.body(14))
+                            .foregroundStyle(DoTheme.Color.muted)
+                    }
                 }
             }
         }
@@ -167,13 +177,14 @@ private struct WeekStrip: View {
     let checkIns: [CheckIn]
 
     var body: some View {
-        ShellCard {
-            VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
-                Text("THIS WEEK")
-                    .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.muted)
-                    .tracking(1.5)
+        VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+            Text("THIS WEEK")
+                .font(DoTheme.Typography.body(12, weight: .bold))
+                .foregroundStyle(DoTheme.Color.muted)
+                .tracking(1.5)
+                .padding(.leading, DoTheme.Space.xs)
 
+            ShellCard {
                 HStack(spacing: DoTheme.Space.xs) {
                     ForEach(Weekday.allCases) { day in
                         DayDot(
@@ -226,11 +237,8 @@ private struct DayDot: View {
                 .foregroundStyle(isToday ? DoTheme.Color.ink : DoTheme.Color.muted)
 
             ZStack {
-                Circle().fill(fill)
-                if isToday {
-                    Circle().strokeBorder(DoTheme.Color.ink, lineWidth: 2)
-                }
-                Image(systemName: status == .done ? "checkmark" : focus.systemImage)
+                RoundedRectangle(cornerRadius: 9, style: .continuous).fill(fill)
+                Image(systemName: focus.systemImage)
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(iconColor)
             }

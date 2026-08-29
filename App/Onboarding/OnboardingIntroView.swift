@@ -88,7 +88,7 @@ private struct PageView: View {
                 .font(.system(size: 44))
                 .foregroundStyle(DoTheme.Color.gold)
                 .frame(width: 84, height: 84)
-                .background(DoTheme.Color.gameInk, in: Circle())
+                .background(DoTheme.Color.gameInk, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
 
             Text(page.eyebrow)
                 .font(DoTheme.Typography.body(13, weight: .bold))

@@ -14,6 +14,9 @@ struct DoOrDieEntry: TimelineEntry {
     let durationDays: Int
     let stakeDisplay: String
     let outcome: PlanOutcome
+    /// Days actually completed — distinct from the dayNumber inside
+    /// `outcome`, which is "today" even before today is checked in.
+    let streak: Int
     let cells: [DayCell]
 
     static let placeholder = DoOrDieEntry(
@@ -22,6 +25,7 @@ struct DoOrDieEntry: TimelineEntry {
         durationDays: 60,
         stakeDisplay: "$25",
         outcome: .active(dayNumber: 14),
+        streak: 13,
         cells: (1...60).map { i in
             DayCell(id: i, focus: MuscleGroup.allCases[i % MuscleGroup.allCases.count], isDone: i < 14, isToday: i == 14)
         }
@@ -33,6 +37,7 @@ struct DoOrDieEntry: TimelineEntry {
         durationDays: 0,
         stakeDisplay: "",
         outcome: .active(dayNumber: 0),
+        streak: 0,
         cells: []
     )
 }
@@ -66,6 +71,7 @@ struct DoOrDieTimelineProvider: TimelineProvider {
         let routine = Dictionary(uniqueKeysWithValues: routineDays.map { ($0.weekday, $0.focus) })
 
         let outcome = PlanLifecycle.evaluate(plan: plan, routine: routine, checkIns: checkIns)
+        let streak = PlanLifecycle.currentStreak(plan: plan, routine: routine, checkIns: checkIns)
         let checkedDates = Set(checkIns.map { Calendar.current.startOfDay(for: $0.date) })
         let todayStart = Calendar.current.startOfDay(for: .now)
 
@@ -75,6 +81,9 @@ struct DoOrDieTimelineProvider: TimelineProvider {
             let weekday = Weekday(rawValue: Calendar.current.component(.weekday, from: cursor)) ?? .sunday
             let focus = routine[weekday] ?? .rest
             let isToday = cursor == todayStart
+            // A rest day only turns gold once it's actually in the past —
+            // not the moment it starts, and never for future days. Today's
+            // rest cell stays in the "today" (comb) state until it's over.
             let isDone = !focus.demandsCheckIn ? cursor < todayStart : checkedDates.contains(cursor)
             cells.append(DayCell(id: i, focus: focus, isDone: isDone, isToday: isToday))
             guard let next = Calendar.current.date(byAdding: .day, value: 1, to: cursor) else { break }
@@ -87,6 +96,7 @@ struct DoOrDieTimelineProvider: TimelineProvider {
             durationDays: plan.durationDays,
             stakeDisplay: plan.stakeDisplay,
             outcome: outcome,
+            streak: streak,
             cells: cells
         )
     }

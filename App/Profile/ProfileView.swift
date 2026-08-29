@@ -8,7 +8,6 @@ struct ProfileView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var routineDays: [RoutineDay]
     @Query private var checkIns: [CheckIn]
-    @Query private var allPlans: [CommitmentPlan]
 
     @State private var showChangePlan = false
     @State private var showSubscription = false
@@ -113,14 +112,29 @@ struct ProfileView: View {
     }
 
     private func deleteEverything() {
-        for p in allPlans { modelContext.delete(p) }
-        for d in routineDays { modelContext.delete(d) }
-        let descriptor = FetchDescriptor<CheckIn>()
-        if let checkIns = try? modelContext.fetch(descriptor) {
+        // Fetch fresh from the context rather than relying on the view's
+        // @Query snapshots — this is a destructive, one-shot operation, so
+        // it should act on exactly what's on disk right now, not whatever
+        // SwiftUI last cached for the view.
+        if let plans = try? modelContext.fetch(FetchDescriptor<CommitmentPlan>()) {
+            for p in plans { modelContext.delete(p) }
+        }
+        if let days = try? modelContext.fetch(FetchDescriptor<RoutineDay>()) {
+            for d in days { modelContext.delete(d) }
+        }
+        if let checkIns = try? modelContext.fetch(FetchDescriptor<CheckIn>()) {
             for c in checkIns { modelContext.delete(c) }
         }
         hasSeenIntro = false
-        try? modelContext.save()
+        do {
+            try modelContext.save()
+        } catch {
+            // A silently-swallowed save failure here would leave the on-disk
+            // store (and therefore the widget, which reads it directly)
+            // untouched while the app's in-memory state looks wiped —
+            // exactly the "app resets, widget doesn't" symptom to rule out.
+            assertionFailure("DoOrDie: delete-all save failed: \(error)")
+        }
         WidgetCenter.shared.reloadAllTimelines()
     }
 }
@@ -187,7 +201,8 @@ private struct WeekOverviewCard: View {
                                 .foregroundStyle(DoTheme.Color.muted)
 
                             ZStack {
-                                Circle().fill(day.focus == .rest ? DoTheme.Color.pillGray : DoTheme.Color.comb)
+                                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                                    .fill(day.focus == .rest ? DoTheme.Color.pillGray : DoTheme.Color.comb)
                                 Image(systemName: day.focus.systemImage)
                                     .font(.system(size: 12, weight: .bold))
                                     .foregroundStyle(day.focus == .rest ? DoTheme.Color.muted : .white)

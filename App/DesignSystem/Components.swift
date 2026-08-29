@@ -88,14 +88,9 @@ struct PlanOptionCard: View {
     var body: some View {
         HStack(spacing: DoTheme.Space.md) {
             VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 8) {
-                    Text(plan.name)
-                        .font(DoTheme.Typography.display(20, weight: .bold))
-                        .foregroundStyle(isSelected ? .white : DoTheme.Color.ink)
-                    if let badge {
-                        Chip(text: badge, tint: DoTheme.Color.gold)
-                    }
-                }
+                Text(plan.name)
+                    .font(DoTheme.Typography.display(20, weight: .bold))
+                    .foregroundStyle(isSelected ? .white : DoTheme.Color.ink)
                 Text(plan.tagline)
                     .font(DoTheme.Typography.body(13))
                     .foregroundStyle(isSelected ? DoTheme.Color.mutedOnDark : DoTheme.Color.muted)
@@ -106,9 +101,14 @@ struct PlanOptionCard: View {
 
             Spacer()
 
-            Text(plan.stakeDisplay)
-                .font(DoTheme.Typography.display(22, weight: .bold))
-                .foregroundStyle(isSelected ? DoTheme.Color.gold : DoTheme.Color.ink)
+            VStack(alignment: .trailing, spacing: 6) {
+                if let badge {
+                    Chip(text: badge, tint: DoTheme.Color.gold)
+                }
+                Text(plan.stakeDisplay)
+                    .font(DoTheme.Typography.display(22, weight: .bold))
+                    .foregroundStyle(isSelected ? DoTheme.Color.gold : DoTheme.Color.ink)
+            }
         }
         .padding(DoTheme.Space.md)
         .background(

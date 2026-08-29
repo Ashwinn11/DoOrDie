@@ -15,7 +15,7 @@ struct DeathView: View {
                 .font(.system(size: 40))
                 .foregroundStyle(DoTheme.Color.comb)
                 .frame(width: 84, height: 84)
-                .background(DoTheme.Color.gameInk, in: Circle())
+                .background(DoTheme.Color.gameInk, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
 
             VStack(spacing: DoTheme.Space.xs) {
                 Text("YOU DIED")
