@@ -1,0 +1,548 @@
+[
+  {
+    "id": "exercise-bench-press",
+    "slug": "bench-press",
+    "name": "Bench Press",
+    "group": "chest",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-bench-press-1",
+      "ex-bench-press-2",
+      "ex-bench-press-3"
+    ]
+  },
+  {
+    "id": "exercise-incline-dumbbell-press",
+    "slug": "incline-dumbbell-press",
+    "name": "Incline Dumbbell Press",
+    "group": "chest",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-incline-dumbbell-press-1",
+      "ex-incline-dumbbell-press-2",
+      "ex-incline-dumbbell-press-3"
+    ]
+  },
+  {
+    "id": "exercise-push-up",
+    "slug": "push-up",
+    "name": "Push-up",
+    "group": "chest",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-push-up-1",
+      "ex-push-up-2",
+      "ex-push-up-3"
+    ]
+  },
+  {
+    "id": "exercise-cable-fly",
+    "slug": "cable-fly",
+    "name": "Cable Fly",
+    "group": "chest",
+    "equipment": "Cable",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-cable-fly-1",
+      "ex-cable-fly-2",
+      "ex-cable-fly-3"
+    ]
+  },
+  {
+    "id": "exercise-pec-deck",
+    "slug": "pec-deck",
+    "name": "Pec Deck",
+    "group": "chest",
+    "equipment": "Machine",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-pec-deck-1",
+      "ex-pec-deck-2",
+      "ex-pec-deck-3"
+    ]
+  },
+  {
+    "id": "exercise-decline-bench-press",
+    "slug": "decline-bench-press",
+    "name": "Decline Bench Press",
+    "group": "chest",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-decline-bench-press-1",
+      "ex-decline-bench-press-2",
+      "ex-decline-bench-press-3"
+    ]
+  },
+  {
+    "id": "exercise-deadlift",
+    "slug": "deadlift",
+    "name": "Deadlift",
+    "group": "back",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-deadlift-1",
+      "ex-deadlift-2",
+      "ex-deadlift-3"
+    ]
+  },
+  {
+    "id": "exercise-pull-up",
+    "slug": "pull-up",
+    "name": "Pull-up",
+    "group": "back",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-pull-up-1",
+      "ex-pull-up-2",
+      "ex-pull-up-3"
+    ]
+  },
+  {
+    "id": "exercise-barbell-row",
+    "slug": "barbell-row",
+    "name": "Barbell Row",
+    "group": "back",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-barbell-row-1",
+      "ex-barbell-row-2",
+      "ex-barbell-row-3"
+    ]
+  },
+  {
+    "id": "exercise-seated-row",
+    "slug": "seated-row",
+    "name": "Seated Cable Row",
+    "group": "back",
+    "equipment": "Cable",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-seated-row-1",
+      "ex-seated-row-2",
+      "ex-seated-row-3"
+    ]
+  },
+  {
+    "id": "exercise-lat-pulldown",
+    "slug": "lat-pulldown",
+    "name": "Lat Pulldown",
+    "group": "back",
+    "equipment": "Cable",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-lat-pulldown-1",
+      "ex-lat-pulldown-2",
+      "ex-lat-pulldown-3"
+    ]
+  },
+  {
+    "id": "exercise-face-pull",
+    "slug": "face-pull",
+    "name": "Face Pull",
+    "group": "back",
+    "equipment": "Cable",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-face-pull-1",
+      "ex-face-pull-2",
+      "ex-face-pull-3"
+    ]
+  },
+  {
+    "id": "exercise-squat",
+    "slug": "squat",
+    "name": "Squat",
+    "group": "legs",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-squat-1",
+      "ex-squat-2",
+      "ex-squat-3"
+    ]
+  },
+  {
+    "id": "exercise-leg-press",
+    "slug": "leg-press",
+    "name": "Leg Press",
+    "group": "legs",
+    "equipment": "Machine",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-leg-press-1",
+      "ex-leg-press-2",
+      "ex-leg-press-3"
+    ]
+  },
+  {
+    "id": "exercise-bulgarian-split-squat",
+    "slug": "bulgarian-split-squat",
+    "name": "Bulgarian Split Squat",
+    "group": "legs",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-bulgarian-split-squat-1",
+      "ex-bulgarian-split-squat-2",
+      "ex-bulgarian-split-squat-3"
+    ]
+  },
+  {
+    "id": "exercise-romanian-deadlift",
+    "slug": "romanian-deadlift",
+    "name": "Romanian Deadlift",
+    "group": "legs",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-romanian-deadlift-1",
+      "ex-romanian-deadlift-2",
+      "ex-romanian-deadlift-3"
+    ]
+  },
+  {
+    "id": "exercise-hip-thrust",
+    "slug": "hip-thrust",
+    "name": "Hip Thrust",
+    "group": "legs",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-hip-thrust-1",
+      "ex-hip-thrust-2",
+      "ex-hip-thrust-3"
+    ]
+  },
+  {
+    "id": "exercise-standing-calf-raise",
+    "slug": "standing-calf-raise",
+    "name": "Standing Calf Raise",
+    "group": "legs",
+    "equipment": "Machine",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-standing-calf-raise-1",
+      "ex-standing-calf-raise-2",
+      "ex-standing-calf-raise-3"
+    ]
+  },
+  {
+    "id": "exercise-overhead-press",
+    "slug": "overhead-press",
+    "name": "Overhead Press",
+    "group": "shoulders",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-overhead-press-1",
+      "ex-overhead-press-2",
+      "ex-overhead-press-3"
+    ]
+  },
+  {
+    "id": "exercise-arnold-press",
+    "slug": "arnold-press",
+    "name": "Arnold Press",
+    "group": "shoulders",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-arnold-press-1",
+      "ex-arnold-press-2",
+      "ex-arnold-press-3"
+    ]
+  },
+  {
+    "id": "exercise-lateral-raise",
+    "slug": "lateral-raise",
+    "name": "Lateral Raise",
+    "group": "shoulders",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-lateral-raise-1",
+      "ex-lateral-raise-2",
+      "ex-lateral-raise-3"
+    ]
+  },
+  {
+    "id": "exercise-front-raise",
+    "slug": "front-raise",
+    "name": "Front Raise",
+    "group": "shoulders",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-front-raise-1",
+      "ex-front-raise-2",
+      "ex-front-raise-3"
+    ]
+  },
+  {
+    "id": "exercise-upright-row",
+    "slug": "upright-row",
+    "name": "Upright Row",
+    "group": "shoulders",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-upright-row-1",
+      "ex-upright-row-2",
+      "ex-upright-row-3"
+    ]
+  },
+  {
+    "id": "exercise-rear-delt-fly",
+    "slug": "rear-delt-fly",
+    "name": "Rear Delt Fly",
+    "group": "shoulders",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-rear-delt-fly-1",
+      "ex-rear-delt-fly-2",
+      "ex-rear-delt-fly-3"
+    ]
+  },
+  {
+    "id": "exercise-bicep-curl",
+    "slug": "bicep-curl",
+    "name": "Bicep Curl",
+    "group": "arms",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-bicep-curl-1",
+      "ex-bicep-curl-2",
+      "ex-bicep-curl-3"
+    ]
+  },
+  {
+    "id": "exercise-hammer-curl",
+    "slug": "hammer-curl",
+    "name": "Hammer Curl",
+    "group": "arms",
+    "equipment": "Dumbbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-hammer-curl-1",
+      "ex-hammer-curl-2",
+      "ex-hammer-curl-3"
+    ]
+  },
+  {
+    "id": "exercise-tricep-pushdown",
+    "slug": "tricep-pushdown",
+    "name": "Tricep Pushdown",
+    "group": "arms",
+    "equipment": "Cable",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-tricep-pushdown-1",
+      "ex-tricep-pushdown-2",
+      "ex-tricep-pushdown-3"
+    ]
+  },
+  {
+    "id": "exercise-skull-crusher",
+    "slug": "skull-crusher",
+    "name": "Skull Crusher",
+    "group": "arms",
+    "equipment": "Barbell",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-skull-crusher-1",
+      "ex-skull-crusher-2",
+      "ex-skull-crusher-3"
+    ]
+  },
+  {
+    "id": "exercise-dip",
+    "slug": "dip",
+    "name": "Dip",
+    "group": "arms",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-dip-1",
+      "ex-dip-2",
+      "ex-dip-3"
+    ]
+  },
+  {
+    "id": "exercise-preacher-curl",
+    "slug": "preacher-curl",
+    "name": "Preacher Curl",
+    "group": "arms",
+    "equipment": "Machine",
+    "exerciseType": "weight_reps",
+    "frameImageNames": [
+      "ex-preacher-curl-1",
+      "ex-preacher-curl-2",
+      "ex-preacher-curl-3"
+    ]
+  },
+  {
+    "id": "exercise-plank",
+    "slug": "plank",
+    "name": "Plank",
+    "group": "core",
+    "equipment": "Bodyweight",
+    "exerciseType": "duration",
+    "frameImageNames": [
+      "ex-plank-1",
+      "ex-plank-2",
+      "ex-plank-3"
+    ]
+  },
+  {
+    "id": "exercise-side-plank",
+    "slug": "side-plank",
+    "name": "Side Plank",
+    "group": "core",
+    "equipment": "Bodyweight",
+    "exerciseType": "duration",
+    "frameImageNames": [
+      "ex-side-plank-1",
+      "ex-side-plank-2",
+      "ex-side-plank-3"
+    ]
+  },
+  {
+    "id": "exercise-russian-twist",
+    "slug": "russian-twist",
+    "name": "Russian Twist",
+    "group": "core",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-russian-twist-1",
+      "ex-russian-twist-2",
+      "ex-russian-twist-3"
+    ]
+  },
+  {
+    "id": "exercise-hanging-leg-raise",
+    "slug": "hanging-leg-raise",
+    "name": "Hanging Leg Raise",
+    "group": "core",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-hanging-leg-raise-1",
+      "ex-hanging-leg-raise-2",
+      "ex-hanging-leg-raise-3"
+    ]
+  },
+  {
+    "id": "exercise-bicycle-crunch",
+    "slug": "bicycle-crunch",
+    "name": "Bicycle Crunch",
+    "group": "core",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-bicycle-crunch-1",
+      "ex-bicycle-crunch-2",
+      "ex-bicycle-crunch-3"
+    ]
+  },
+  {
+    "id": "exercise-ab-wheel",
+    "slug": "ab-wheel",
+    "name": "Ab Wheel Rollout",
+    "group": "core",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-ab-wheel-1",
+      "ex-ab-wheel-2",
+      "ex-ab-wheel-3"
+    ]
+  },
+  {
+    "id": "exercise-running",
+    "slug": "running",
+    "name": "Running",
+    "group": "cardio",
+    "equipment": "Cardio",
+    "exerciseType": "distance_duration",
+    "frameImageNames": [
+      "ex-running-1",
+      "ex-running-2",
+      "ex-running-3"
+    ]
+  },
+  {
+    "id": "exercise-cycling",
+    "slug": "cycling",
+    "name": "Cycling",
+    "group": "cardio",
+    "equipment": "Cardio",
+    "exerciseType": "distance_duration",
+    "frameImageNames": [
+      "ex-cycling-1",
+      "ex-cycling-2",
+      "ex-cycling-3"
+    ]
+  },
+  {
+    "id": "exercise-burpee",
+    "slug": "burpee",
+    "name": "Burpee",
+    "group": "cardio",
+    "equipment": "Bodyweight",
+    "exerciseType": "bodyweight_reps",
+    "frameImageNames": [
+      "ex-burpee-1",
+      "ex-burpee-2",
+      "ex-burpee-3"
+    ]
+  },
+  {
+    "id": "exercise-high-knees",
+    "slug": "high-knees",
+    "name": "High Knees",
+    "group": "cardio",
+    "equipment": "Bodyweight",
+    "exerciseType": "duration",
+    "frameImageNames": [
+      "ex-high-knees-1",
+      "ex-high-knees-2",
+      "ex-high-knees-3"
+    ]
+  },
+  {
+    "id": "exercise-stair-climber",
+    "slug": "stair-climber",
+    "name": "Stair Climber",
+    "group": "cardio",
+    "equipment": "Cardio",
+    "exerciseType": "duration",
+    "frameImageNames": [
+      "ex-stair-climber-1",
+      "ex-stair-climber-2",
+      "ex-stair-climber-3"
+    ]
+  },
+  {
+    "id": "exercise-jump-rope",
+    "slug": "jump-rope",
+    "name": "Jump Rope",
+    "group": "cardio",
+    "equipment": "Cardio",
+    "exerciseType": "duration",
+    "frameImageNames": [
+      "ex-jump-rope-1",
+      "ex-jump-rope-2",
+      "ex-jump-rope-3"
+    ]
+  }
+]

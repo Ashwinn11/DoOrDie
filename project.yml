@@ -1,0 +1,55 @@
+name: DoOrDie
+
+options:
+  bundleIdPrefix: com.brolee
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+  generateEmptyDirectories: true
+  minimumXcodeGenVersion: "2.40.0"
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: PVQK77DQWL
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "6.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "18.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+    GENERATE_INFOPLIST_FILE: "NO"
+    SWIFT_EMIT_LOC_STRINGS: "YES"
+    ENABLE_BITCODE: "NO"
+    SWIFT_APPROACHABLE_CONCURRENCY: "YES"
+    SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+    SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES: "YES"
+
+targets:
+  DoOrDie:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brolee.app
+        PRODUCT_NAME: DoOrDie
+        INFOPLIST_FILE: App/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: "YES"
+        SUPPORTS_MACCATALYST: "NO"
+
+schemes:
+  DoOrDie:
+    build:
+      targets:
+        DoOrDie: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    archive:
+      config: Release
