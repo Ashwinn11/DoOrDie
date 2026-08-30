@@ -59,7 +59,7 @@ struct DeathView: View {
                 Spacer()
                 Spacer()
 
-                PillButton(title: "Buy a new plan", style: .comb, action: onContinue)
+                PillButton(title: "Start a new plan", style: .comb, action: onContinue)
                     .padding(.bottom, DoTheme.Space.sm)
                     .opacity(appeared ? 1 : 0)
                     .animation(DoTheme.Motion.easeOut.delay(0.45), value: appeared)

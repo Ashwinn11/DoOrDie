@@ -22,7 +22,7 @@ struct ChangePlanSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                Text("Switching plans resets your streak and stake. Your weekly routine stays put.")
+                Text("Switching plans resets your streak and stake. Your routine stays put.")
                     .font(DoTheme.Typography.body(14))
                     .foregroundStyle(DoTheme.Color.muted)
                     .multilineTextAlignment(.center)
@@ -47,7 +47,7 @@ struct ChangePlanSheet: View {
                 Spacer()
 
                 PillButton(
-                    title: isCurrent ? "Keep \(selected.name)" : "Switch — \(selected.stakeDisplay)",
+                    title: isCurrent ? "Keep \(selected.name)" : "Switch for \(PurchaseManager.shared.localizedPrice(for: selected))",
                     style: .comb
                 ) {
                     if isCurrent {
@@ -80,7 +80,16 @@ struct ChangePlanSheet: View {
     }
 
     private func switchPlan(to template: PlanTemplate) {
-        PlanLifecycle.startPlan(template: template, in: modelContext)
-        dismiss()
+        Task {
+            do {
+                let success = try await PurchaseManager.shared.purchase(plan: template)
+                if success {
+                    PlanLifecycle.startPlan(template: template, in: modelContext)
+                    dismiss()
+                }
+            } catch {
+                print("DoOrDie: Plan change purchase error: \(error)")
+            }
+        }
     }
 }

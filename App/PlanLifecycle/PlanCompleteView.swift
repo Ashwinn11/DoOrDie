@@ -30,7 +30,7 @@ struct PlanCompleteView: View {
                     .animation(.spring(response: 0.55, dampingFraction: 0.6), value: appeared)
 
                 VStack(spacing: DoTheme.Space.xs) {
-                    Text("DONE OR DIE")
+                    Text("YOU DID IT.")
                         .font(DoTheme.Typography.hero)
                         .displayTracking(48)
                         .foregroundStyle(DoTheme.Color.ink)

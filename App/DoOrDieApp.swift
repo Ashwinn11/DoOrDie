@@ -3,6 +3,10 @@ import SwiftUI
 
 @main
 struct DoOrDieApp: App {
+    init() {
+        PurchaseManager.shared.configure()
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()

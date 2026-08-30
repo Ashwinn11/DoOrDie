@@ -26,6 +26,11 @@ settings:
     SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
     SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES: "YES"
 
+packages:
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios.git
+    from: "5.0.0"
+
 targets:
   DoOrDie:
     type: application
@@ -44,6 +49,8 @@ targets:
         SUPPORTS_MACCATALYST: "NO"
     dependencies:
       - target: DoOrDieWidgets
+      - package: RevenueCat
+        product: RevenueCat
 
   DoOrDieWidgets:
     type: app-extension

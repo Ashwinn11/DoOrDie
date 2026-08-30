@@ -64,7 +64,7 @@ struct HomeView: View {
                     .foregroundStyle(DoTheme.Color.ink)
             }
             Spacer()
-            Chip(text: "Day \(dayNumber)/\(plan.durationDays)")
+            Chip(text: "Day \(dayNumber) of \(plan.durationDays)")
         }
         .padding(.top, DoTheme.Space.sm)
     }

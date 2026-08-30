@@ -42,7 +42,7 @@ struct WorkoutView: View {
 
                         ZStack {
                             PillButton(
-                                title: todayStatus == .done ? "Done for today" : "Mark today done",
+                                title: todayStatus == .done ? "Done for today" : "Do it",
                                 systemImage: todayStatus == .done ? "flame.fill" : nil,
                                 style: todayStatus == .done ? .gold : .comb
                             ) {

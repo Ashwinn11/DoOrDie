@@ -22,12 +22,12 @@ struct RoutineSetupView: View {
                     .foregroundStyle(DoTheme.Color.comb)
                     .tracking(2)
 
-                Text("Build your week.")
+                Text("Lock your weekly split.")
                     .font(DoTheme.Typography.hero)
                     .displayTracking(48)
                     .foregroundStyle(DoTheme.Color.ink)
 
-                Text("Every day needs a job. Rest days are free — everything else is a promise.")
+                Text("Every day has a job. Workout days are promises. Rest days are free.")
                     .font(DoTheme.Typography.body(15))
                     .foregroundStyle(DoTheme.Color.muted)
                     .padding(.top, 4)
@@ -52,7 +52,7 @@ struct RoutineSetupView: View {
             }
 
             VStack(spacing: DoTheme.Space.xs) {
-                PillButton(title: "Lock it in — \(assignedCount) working days", style: .comb) {
+                PillButton(title: "Lock in \(assignedCount) working days", style: .comb) {
                     saveRoutine()
                 }
             }

@@ -147,6 +147,7 @@ struct ProfileView: View {
     #if DEBUG
     @State private var previewDeathScreen = false
     @State private var previewCompleteScreen = false
+    @State private var previewOnboarding = false
 
     private var debugSection: some View {
         VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
@@ -270,6 +271,26 @@ struct ProfileView: View {
                         .padding(DoTheme.Space.md)
                         .contentShape(Rectangle())
                     }
+                    Divider().padding(.leading, DoTheme.Space.md)
+
+                    Button {
+                        previewOnboarding = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "sparkles")
+                                .foregroundStyle(DoTheme.Color.comb)
+                                .frame(width: 24)
+                            Text("Preview Full Onboarding Flow")
+                                .font(DoTheme.Typography.body(16))
+                                .foregroundStyle(DoTheme.Color.ink)
+                            Spacer()
+                            Image(systemName: "arrow.up.forward.app")
+                                .font(.system(size: 13))
+                                .foregroundStyle(DoTheme.Color.muted)
+                        }
+                        .padding(DoTheme.Space.md)
+                        .contentShape(Rectangle())
+                    }
                     .buttonStyle(.plain)
                 }
             }
@@ -281,6 +302,11 @@ struct ProfileView: View {
             .fullScreenCover(isPresented: $previewCompleteScreen) {
                 PlanCompleteView(plan: plan) {
                     previewCompleteScreen = false
+                }
+            }
+            .fullScreenCover(isPresented: $previewOnboarding) {
+                OnboardingFlowView {
+                    previewOnboarding = false
                 }
             }
 
@@ -439,7 +465,7 @@ private struct PlanSummaryCard: View {
                             .foregroundStyle(.white)
                     }
                     Spacer()
-                    Text(plan.stakeDisplay)
+                    Text(PurchaseManager.shared.localizedPrice(forPlanName: plan.name))
                         .font(DoTheme.Typography.display(22, weight: .bold))
                         .foregroundStyle(DoTheme.Color.gold)
                 }

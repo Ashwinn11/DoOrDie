@@ -7,12 +7,10 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if !hasSeenIntro && activePlans.isEmpty {
-                OnboardingIntroView(onFinish: { hasSeenIntro = true })
+            if activePlans.isEmpty {
+                OnboardingFlowView(onFinish: { hasSeenIntro = true })
             } else if let plan = activePlans.first {
                 PlanGateView(plan: plan)
-            } else {
-                PlanPickerView()
             }
         }
         .animation(DoTheme.Motion.easeOut, value: activePlans.isEmpty)

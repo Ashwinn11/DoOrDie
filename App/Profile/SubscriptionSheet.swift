@@ -1,55 +1,86 @@
 import SwiftUI
 
-/// No payment processor is wired up yet — this mirrors what the real
-/// subscription screen will look like once the commitment-price mechanic
-/// is finalized.
 struct SubscriptionSheet: View {
     let plan: CommitmentPlan
     @Environment(\.dismiss) private var dismiss
+    @State private var isRestoring = false
+    @State private var restoreMessage: String? = nil
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: DoTheme.Space.md) {
-                    DarkCard {
-                        VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
-                            Text("ACTIVE PLAN")
-                                .font(DoTheme.Typography.body(12, weight: .bold))
-                                .foregroundStyle(DoTheme.Color.mutedOnDark)
-                                .tracking(1.5)
-                            Text(plan.name)
-                                .font(DoTheme.Typography.title)
-                                .foregroundStyle(.white)
-                            Text("\(plan.stakeDisplay) stake · \(plan.durationDays) days")
-                                .font(DoTheme.Typography.body(14, weight: .semibold))
-                                .foregroundStyle(DoTheme.Color.gold)
+            ZStack {
+                DoTheme.Color.bg.ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: DoTheme.Space.md) {
+                        DarkCard {
+                            VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+                                Text("ACTIVE COMMITMENT")
+                                    .font(DoTheme.Typography.body(12, weight: .bold))
+                                    .foregroundStyle(DoTheme.Color.mutedOnDark)
+                                    .tracking(1.5)
+                                Text(plan.name)
+                                    .font(DoTheme.Typography.title)
+                                    .foregroundStyle(.white)
+                                Text("\(PurchaseManager.shared.localizedPrice(forPlanName: plan.name)) stake · \(plan.durationDays) days")
+                                    .font(DoTheme.Typography.body(14, weight: .semibold))
+                                    .foregroundStyle(DoTheme.Color.gold)
+                            }
+                        }
+
+                        ShellCard {
+                            VStack(alignment: .leading, spacing: DoTheme.Space.xs) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "checkmark.seal.fill")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundStyle(DoTheme.Color.comb)
+                                    Text("Accountability & Stakes")
+                                        .font(DoTheme.Typography.body(14, weight: .bold))
+                                        .foregroundStyle(DoTheme.Color.ink)
+                                }
+                                Text("Each commitment tier is unlocked with a one-time lifetime stake. If you miss a scheduled session, your streak is forfeited.")
+                                    .font(DoTheme.Typography.body(13))
+                                    .foregroundStyle(DoTheme.Color.muted)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+
+                        // Restore Purchases Button (Red)
+                        PillButton(title: isRestoring ? "Restoring..." : "Restore Purchases", style: .comb) {
+                            restore()
+                        }
+                        .disabled(isRestoring)
+
+                        if let msg = restoreMessage {
+                            Text(msg)
+                                .font(DoTheme.Typography.body(12))
+                                .foregroundStyle(DoTheme.Color.muted)
                         }
                     }
-
-                    VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
-                        Label("No charge has been made yet", systemImage: "info.circle.fill")
-                            .font(DoTheme.Typography.body(14, weight: .semibold))
-                            .foregroundStyle(DoTheme.Color.comb)
-                        Text("Stakes aren't processed in this build — no payment method is on file, and nothing will be charged. When billing ships, you'll manage it here and in the App Store.")
-                            .font(DoTheme.Typography.body(14))
-                            .foregroundStyle(DoTheme.Color.muted)
-                    }
                     .padding(DoTheme.Space.md)
-                    .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous))
-
-                    PillButton(title: "Manage in App Store", style: .ink) {}
-                        .disabled(true)
-                        .opacity(0.4)
                 }
-                .padding(DoTheme.Space.md)
             }
-            .background(DoTheme.Color.bg.ignoresSafeArea())
-            .navigationTitle("Subscription")
+            .navigationTitle("Membership & Stakes")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Done") { dismiss() }
                 }
+            }
+        }
+    }
+
+    private func restore() {
+        isRestoring = true
+        restoreMessage = nil
+        Task {
+            do {
+                let success = try await PurchaseManager.shared.restorePurchases()
+                isRestoring = false
+                restoreMessage = success ? "Purchases successfully restored!" : "No active purchases found to restore."
+            } catch {
+                isRestoring = false
+                restoreMessage = "Restore failed: \(error.localizedDescription)"
             }
         }
     }

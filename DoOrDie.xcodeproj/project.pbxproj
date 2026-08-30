@@ -12,6 +12,7 @@
 		0D1B98343FD6D7AB97DA1528 /* DoOrDieWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		24362A944BC6AAB926B687D8 /* DoOrDieWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFDB8D51E15B2036B42233A /* DoOrDieWidget.swift */; };
 		25BE06C5B6C7B95CD0675795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97FC35677A33F49C27569B7F /* Assets.xcassets */; };
+		271C6346F727C400F88CD8D2 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307835DE2145E805CA14969C /* PurchaseManager.swift */; };
 		298CE7A8661E2ACBD0DFFE61 /* VictoryEmblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436C9572D240325F0178047F /* VictoryEmblemView.swift */; };
 		299436A311D51C259117DAF1 /* DoOrDieWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6051E0FF94F9E767B9A1D39 /* DoOrDieWidgetView.swift */; };
 		2B2BB66C3F906F63D81A1F33 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6B70E74187F8CACEF5A5E7 /* Theme.swift */; };
@@ -30,7 +31,6 @@
 		6E34823CF5CF50615C3AFDF6 /* DeathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43616FD2D275C98BC06D72C4 /* DeathView.swift */; };
 		6FD07CB10A6CD48E2F499C9A /* PlanGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD2A0DFEB6A839568D9C3D /* PlanGateView.swift */; };
 		7869D8E7A3A7F4BFE39EF313 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52AAAFC959C22996F424DD5 /* HomeView.swift */; };
-		7D519D2401C3D700DB653FF6 /* OnboardingIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AB052EBD7C85E3DF7D5E83 /* OnboardingIntroView.swift */; };
 		8C64DA0DBED1FC0B0EE8EEF3 /* ExerciseDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D557B4BA576975391C5BC985 /* ExerciseDetailSheet.swift */; };
 		8D00C94E116D58481115B5AA /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BAFE4E9CFD92E666A5DB3 /* Exercise.swift */; };
 		90C2C2EF171F565953CE1D0C /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A830B9968B6DFD17CFE04407 /* MuscleGroup.swift */; };
@@ -51,8 +51,9 @@
 		CD0980D5A8978E3843DE5084 /* EditWeekSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6E93493108F9EB064E473E /* EditWeekSheet.swift */; };
 		D0403DFF529140F202A28FDA /* PlanCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167EE23CB31EC7348E15AFA /* PlanCompleteView.swift */; };
 		D100B21D8D150CCED86FFCE8 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D658665B40405084723A5119 /* StreakEngine.swift */; };
+		D33B7EED029385FBCEC38E6B /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F6821572A2DC742F7B967130 /* RevenueCat */; };
+		D37955A410CA3444C28C8676 /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E0A59E1BA7D3173860AF18 /* OnboardingFlowView.swift */; };
 		DC276CB28DE579453A0383A1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC662BE2AA8F7C2998D522C /* RootView.swift */; };
-		DD0E123BF49D4149BEFE18B9 /* PlanPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AAEE4351FC96E10BC7660 /* PlanPickerView.swift */; };
 		DE2EF198DB2BBFDB8121B82B /* DeathEmblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2449BB95B9A73AB5D2DA8CF /* DeathEmblemView.swift */; };
 		E1987361E7B4BB01B7834627 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25647936C0BB0870B034F816 /* SharedStore.swift */; };
 		ECD7F1AD3B92D3606167BFF8 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8617CC1ED557E525DBDC726 /* CheckIn.swift */; };
@@ -88,20 +89,20 @@
 		048CBE99AFAEBCF98C92480D /* DoOrDieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieApp.swift; sourceTree = "<group>"; };
 		0FB857A162F1105F8B6138C4 /* DoOrDieTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieTimelineProvider.swift; sourceTree = "<group>"; };
 		1300386A5B52B864DB25AE4A /* DoOrDieWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoOrDieWidgetBundle.swift; sourceTree = "<group>"; };
-		1A9AAEE4351FC96E10BC7660 /* PlanPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanPickerView.swift; sourceTree = "<group>"; };
 		25647936C0BB0870B034F816 /* SharedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
 		27E5BE28B252C5E69BCB66E5 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		2F3BAFE4E9CFD92E666A5DB3 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		307835DE2145E805CA14969C /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		36F5E1C69581F021D11CBA9E /* DoOrDieWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = DoOrDieWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		43616FD2D275C98BC06D72C4 /* DeathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathView.swift; sourceTree = "<group>"; };
 		436C9572D240325F0178047F /* VictoryEmblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VictoryEmblemView.swift; sourceTree = "<group>"; };
 		4B36E333C27A3C6F849A9BE3 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
+		59E0A59E1BA7D3173860AF18 /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
 		5BB445CF18EC0AB183C62313 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		5D84D06060571218D12A153F /* ChangePlanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePlanSheet.swift; sourceTree = "<group>"; };
 		6307285DB275F3431A83D15C /* RoutineSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineSetupView.swift; sourceTree = "<group>"; };
 		66DF44DB073B6CC1D7ADF6F6 /* Weekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		6AD1BA99666D324DDFD945B2 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
-		83AB052EBD7C85E3DF7D5E83 /* OnboardingIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroView.swift; sourceTree = "<group>"; };
 		86B57C3E51D8375F5A77CE42 /* DoOrDie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoOrDie.entitlements; sourceTree = "<group>"; };
 		8B19FBADAD59714B13D4D163 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		9117991F64E0F71F64CC458B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -132,6 +133,17 @@
 		FE84EA73EC3D34AE45641B7C /* DoOrDieWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DoOrDieWidgets.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		EDFE3BD7D44BECE28C698A13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D33B7EED029385FBCEC38E6B /* RevenueCat in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		0CE1410504B87F189F392C75 /* Widgets */ = {
 			isa = PBXGroup;
@@ -157,8 +169,7 @@
 		55EE29171CC2E78C502EE556 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				83AB052EBD7C85E3DF7D5E83 /* OnboardingIntroView.swift */,
-				1A9AAEE4351FC96E10BC7660 /* PlanPickerView.swift */,
+				59E0A59E1BA7D3173860AF18 /* OnboardingFlowView.swift */,
 				6307285DB275F3431A83D15C /* RoutineSetupView.swift */,
 			);
 			path = Onboarding;
@@ -245,6 +256,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		C90405AA3543C0433DB66FB8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				307835DE2145E805CA14969C /* PurchaseManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		CE97CF24E216D03016D65CAF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +297,7 @@
 				66E229791B00D8605028956B /* PlanLifecycle */,
 				E9841A85DB8E218B5C57C975 /* Profile */,
 				CE97CF24E216D03016D65CAF /* Resources */,
+				C90405AA3543C0433DB66FB8 /* Services */,
 				C3EEC691667217AF33FF9B99 /* Workout */,
 				86B57C3E51D8375F5A77CE42 /* DoOrDie.entitlements */,
 				048CBE99AFAEBCF98C92480D /* DoOrDieApp.swift */,
@@ -297,6 +317,7 @@
 			buildPhases = (
 				E83C993A3FB8621D25468B38 /* Sources */,
 				27463A11854BC009EF666D97 /* Resources */,
+				EDFE3BD7D44BECE28C698A13 /* Frameworks */,
 				89DB862B36C24D6CF5B00E88 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -306,6 +327,7 @@
 			);
 			name = DoOrDie;
 			packageProductDependencies = (
+				F6821572A2DC742F7B967130 /* RevenueCat */,
 			);
 			productName = DoOrDie;
 			productReference = B456477978AF187103DDF53B /* DoOrDie.app */;
@@ -357,6 +379,9 @@
 			);
 			mainGroup = A425B8FC7955BF57551A13D3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				78235BE5D9D32A13C5469161 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 77C88B93018DED69800412A1 /* Products */;
 			projectDirPath = "";
@@ -431,12 +456,12 @@
 				AA8EB2538E55CDF0044CFB43 /* LegalView.swift in Sources */,
 				9613BEF6CABAEED4E21F3A4F /* MainTabView.swift in Sources */,
 				90C2C2EF171F565953CE1D0C /* MuscleGroup.swift in Sources */,
-				7D519D2401C3D700DB653FF6 /* OnboardingIntroView.swift in Sources */,
+				D37955A410CA3444C28C8676 /* OnboardingFlowView.swift in Sources */,
 				D0403DFF529140F202A28FDA /* PlanCompleteView.swift in Sources */,
 				6FD07CB10A6CD48E2F499C9A /* PlanGateView.swift in Sources */,
 				9F7ECC83EC24DE47757F4AF5 /* PlanLifecycle.swift in Sources */,
-				DD0E123BF49D4149BEFE18B9 /* PlanPickerView.swift in Sources */,
 				51048C72D1CED3B7B1F61F4E /* ProfileView.swift in Sources */,
+				271C6346F727C400F88CD8D2 /* PurchaseManager.swift in Sources */,
 				DC276CB28DE579453A0383A1 /* RootView.swift in Sources */,
 				054AAE9C3B9B449F1F8601AD /* RoutineDay.swift in Sources */,
 				6C6700606FA4A9777F89C021 /* RoutineSetupView.swift in Sources */,
@@ -715,6 +740,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		78235BE5D9D32A13C5469161 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F6821572A2DC742F7B967130 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 78235BE5D9D32A13C5469161 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CA009EA9A284968BA52A38BD /* Project object */;
 }
