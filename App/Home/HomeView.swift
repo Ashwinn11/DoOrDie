@@ -144,11 +144,11 @@ private struct TodayCard: View {
                     HStack(spacing: DoTheme.Space.sm) {
                         Image(systemName: focus.systemImage)
                             .font(.system(size: 28))
-                            .foregroundStyle(status == .done ? DoTheme.Color.ink : .white)
+                            .foregroundStyle(status == .done ? DoTheme.Color.ink : DoTheme.Color.onDark)
                             .frame(width: 48, height: 48)
                             .background(
                                 status == .done ? DoTheme.Color.gold : DoTheme.Color.comb,
-                                in: RoundedRectangle(cornerRadius: 13, style: .continuous)
+                                in: RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous)
                             )
                             .animation(DoTheme.Motion.snappy, value: status)
 
@@ -194,7 +194,7 @@ private struct TodayCard: View {
         case .done:
             Chip(text: "DONE", tint: DoTheme.Color.gold)
         case .pending, .upcoming:
-            Chip(text: "PENDING", tint: DoTheme.Color.comb, textColor: .white)
+            Chip(text: "PENDING", tint: DoTheme.Color.comb, textColor: DoTheme.Color.onDark)
         }
     }
 
@@ -333,7 +333,7 @@ private struct DayDot: View {
     private var iconColor: Color {
         switch status {
         case .done: DoTheme.Color.ink
-        case .pending: isToday ? .white : DoTheme.Color.muted
+        case .pending: isToday ? DoTheme.Color.onDark : DoTheme.Color.muted
         case .upcoming: DoTheme.Color.muted
         }
     }
@@ -345,7 +345,7 @@ private struct DayDot: View {
                 .foregroundStyle(isToday ? DoTheme.Color.ink : DoTheme.Color.muted)
 
             ZStack {
-                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous)
                     .fill(fill)
                     .animation(DoTheme.Motion.snappy, value: status)
                 Image(systemName: focus.systemImage)

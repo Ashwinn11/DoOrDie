@@ -49,7 +49,7 @@ struct PlanCompleteView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "checkmark.shield.fill")
                                 .foregroundStyle(DoTheme.Color.gold)
-                            Text("\(plan.stakeDisplay) STAKE SECURED")
+                            Text("\(PurchaseManager.shared.localizedPrice(forPlanName: plan.name)) STAKE SECURED")
                                 .font(DoTheme.Typography.body(14, weight: .bold))
                                 .foregroundStyle(DoTheme.Color.ink)
                                 .tracking(1)

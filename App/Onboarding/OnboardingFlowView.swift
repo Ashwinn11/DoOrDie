@@ -90,12 +90,12 @@ struct OnboardingFlowView: View {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundStyle(DoTheme.Color.ink)
-                        .frame(width: 36, height: 36)
-                        .background(Color.white, in: Circle())
-                        .shadow(color: Color.black.opacity(0.04), radius: 4, y: 2)
+                        .frame(width: 44, height: 44)
+                        .background(DoTheme.Color.shell, in: Circle())
+                        .doShadow(DoTheme.Shadow.resting)
                 }
             } else {
-                Color.clear.frame(width: 36, height: 36)
+                Color.clear.frame(width: 44, height: 44)
             }
 
             // Segmented Progress Bar
@@ -116,7 +116,7 @@ struct OnboardingFlowView: View {
             Text("\(currentStep + 1)/\(totalSteps)")
                 .font(DoTheme.Typography.body(11, weight: .bold))
                 .foregroundStyle(DoTheme.Color.muted)
-                .frame(width: 36, alignment: .trailing)
+                .frame(width: 44, alignment: .trailing)
         }
     }
 
@@ -323,11 +323,11 @@ private struct Step4ScienceView: View {
 
                 Text("Willpower alone barely works. A real stake works.")
                     .font(DoTheme.Typography.title)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(DoTheme.Color.onDark)
                     .fixedSize(horizontal: false, vertical: true)
 
                 Divider()
-                    .overlay(Color.white.opacity(0.12))
+                    .overlay(DoTheme.Color.borderOnDark)
 
                 // Adherence comparison
                 VStack(alignment: .leading, spacing: 10) {
@@ -342,7 +342,7 @@ private struct Step4ScienceView: View {
                                 .foregroundStyle(DoTheme.Color.mutedOnDark)
                         }
                         GeometryReader { g in
-                            Capsule().fill(Color.white.opacity(0.12))
+                            Capsule().fill(DoTheme.Color.borderOnDark)
                                 .overlay(
                                     Capsule().fill(Color.white.opacity(0.35))
                                         .frame(width: g.size.width * 0.18),
@@ -363,7 +363,7 @@ private struct Step4ScienceView: View {
                                 .foregroundStyle(DoTheme.Color.gold)
                         }
                         GeometryReader { g in
-                            Capsule().fill(Color.white.opacity(0.12))
+                            Capsule().fill(DoTheme.Color.borderOnDark)
                                 .overlay(
                                     Capsule().fill(DoTheme.Color.gold)
                                         .frame(width: g.size.width * 0.87),
@@ -380,9 +380,9 @@ private struct Step4ScienceView: View {
                     .fill(DoTheme.Color.gameInk)
                     .overlay(
                         RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                            .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+                            .strokeBorder(DoTheme.Color.borderOnDark, lineWidth: 1)
                     )
-                    .shadow(color: Color.black.opacity(0.15), radius: 14, y: 6)
+                    .doShadow(DoTheme.Shadow.elevated)
             )
 
             VStack(spacing: DoTheme.Space.xs) {
@@ -647,9 +647,9 @@ private struct Step9ContractGenView: View {
                     .fill(DoTheme.Color.gameInk)
                     .overlay(
                         RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                            .strokeBorder(Color.white.opacity(0.12), lineWidth: 1)
+                            .strokeBorder(DoTheme.Color.borderOnDark, lineWidth: 1)
                     )
-                    .shadow(color: Color.black.opacity(0.15), radius: 14, y: 6)
+                    .doShadow(DoTheme.Shadow.elevated)
             )
 
             Spacer()
@@ -679,7 +679,7 @@ private struct Step9ContractGenView: View {
                     .foregroundStyle(DoTheme.Color.mutedOnDark)
                 Text(value)
                     .font(DoTheme.Typography.body(14, weight: .bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(DoTheme.Color.onDark)
             }
             Spacer()
         }
@@ -726,7 +726,7 @@ private struct Step10OathView: View {
                             .tracking(1.5)
                         Text(template.name)
                             .font(DoTheme.Typography.display(22, weight: .heavy))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(DoTheme.Color.onDark)
                     }
                     Spacer()
                     Text(PurchaseManager.shared.localizedPrice(for: template))
@@ -735,16 +735,16 @@ private struct Step10OathView: View {
                 }
 
                 Divider()
-                    .overlay(Color.white.opacity(0.12))
+                    .overlay(DoTheme.Color.borderOnDark)
 
                 HStack {
                     Label("\(template.durationDays) Days", systemImage: "flame.fill")
                         .font(DoTheme.Typography.body(13, weight: .bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DoTheme.Color.onDark)
                     Spacer()
                     Label("\(workingDays) Workouts/Wk", systemImage: "calendar")
                         .font(DoTheme.Typography.body(13, weight: .bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DoTheme.Color.onDark)
                 }
             }
             .padding(DoTheme.Space.md)
@@ -765,23 +765,23 @@ private struct Step10OathView: View {
             VStack(spacing: 8) {
                 ZStack {
                     // Progress fill background
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
                         .fill(DoTheme.Color.shell)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .strokeBorder(Color.black.opacity(0.06), lineWidth: 1)
+                            RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
+                                .strokeBorder(DoTheme.Color.borderOnLight, lineWidth: 1)
                         )
-                        .shadow(color: Color.black.opacity(0.04), radius: 6, y: 2)
+                        .doShadow(DoTheme.Shadow.resting)
                         .frame(height: 56)
 
                     // Fill meter
                     GeometryReader { g in
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
                             .fill(DoTheme.Color.comb)
                             .frame(width: g.size.width * holdProgress, height: 56)
                     }
                     .frame(height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous))
 
                     HStack(spacing: 8) {
                         Image(systemName: holdProgress >= 1 ? "flame.fill" : "lock.fill")
@@ -790,7 +790,7 @@ private struct Step10OathView: View {
                             .font(DoTheme.Typography.body(15, weight: .heavy))
                             .tracking(0.5)
                     }
-                    .foregroundStyle(isHolding || holdProgress > 0.4 ? .white : DoTheme.Color.ink)
+                    .foregroundStyle(isHolding || holdProgress > 0.4 ? DoTheme.Color.onDark : DoTheme.Color.ink)
                 }
                 .frame(height: 56)
                 .scaleEffect(isHolding ? 0.97 : 1.0)
@@ -899,16 +899,16 @@ private struct QuizOptionCard: View {
             .padding(.horizontal, DoTheme.Space.md)
             .padding(.vertical, 16)
             .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(isSelected ? DoTheme.Color.comb.opacity(0.06) : Color.white)
+                RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
+                    .fill(isSelected ? DoTheme.Color.comb.opacity(0.06) : DoTheme.Color.shell)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
                             .strokeBorder(
-                                isSelected ? DoTheme.Color.comb : Color.black.opacity(0.04),
+                                isSelected ? DoTheme.Color.comb : DoTheme.Color.borderOnLight,
                                 lineWidth: isSelected ? 1.5 : 1
                             )
                     )
-                    .shadow(color: Color.black.opacity(0.03), radius: 6, y: 2)
+                    .doShadow(DoTheme.Shadow.resting)
             )
         }
         .buttonStyle(.plain)

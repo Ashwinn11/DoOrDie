@@ -9,7 +9,7 @@ struct MainTabView: View {
         self.plan = plan
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.white
+        appearance.backgroundColor = UIColor(DoTheme.Color.shell)
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().tintColor = UIColor(DoTheme.Color.comb)

@@ -15,6 +15,14 @@ enum DoTheme {
         static let shell = SwiftUI.Color(hex: 0xFFFFFF)
         static let pillGray = SwiftUI.Color(hex: 0xF3F3F3)
 
+        /// Primary text/icon color on a dark or saturated surface (gameInk
+        /// cards, comb/gold fills). Pairs with `mutedOnDark` for secondary text.
+        static let onDark = SwiftUI.Color.white
+        /// Hairline divider/border on a dark surface.
+        static let borderOnDark = SwiftUI.Color.white.opacity(0.12)
+        /// Hairline divider/border on a light (shell/bg) surface.
+        static let borderOnLight = SwiftUI.Color.black.opacity(0.06)
+
         static let liveGradient = LinearGradient(
             colors: [
                 SwiftUI.Color(hex: 0x49D8FF),
@@ -26,16 +34,23 @@ enum DoTheme {
         )
     }
 
+    /// Two radii, everywhere. `compact` for icon badges/tiles, `card` for
+    /// every card, button, and input.
     enum Radius {
-        static let pill: CGFloat = 100
-        static let tile: CGFloat = 20
-        static let button: CGFloat = tile
-        static let card: CGFloat = tile
-        static let chip: CGFloat = 14
+        static let compact: CGFloat = 12
+        static let card: CGFloat = 20
     }
 
+    /// One elevation for resting light-surface controls, one for elevated
+    /// dark/hero cards. Apply via `View.doShadow(_:)`.
+    enum Shadow {
+        static let resting = (color: SwiftUI.Color.black.opacity(0.04), radius: CGFloat(6), y: CGFloat(2))
+        static let elevated = (color: SwiftUI.Color.black.opacity(0.15), radius: CGFloat(14), y: CGFloat(6))
+    }
+
+    /// 4px base grid. Every margin and padding should sit on this scale.
     enum Space {
-        static let xs: CGFloat = 6
+        static let xs: CGFloat = 4
         static let sm: CGFloat = 12
         static let md: CGFloat = 20
         static let lg: CGFloat = 28
@@ -52,12 +67,14 @@ enum DoTheme {
         /// One typeface across the whole app — ui-rounded resolves to SF Pro
         /// Rounded on-device, with zero licensing. `display`/`body` are kept
         /// as separate entry points for size/weight defaults, not fonts.
+        /// `.monospacedDigit()` keeps counters, timers, and stats from
+        /// jittering as their digits change — has no effect on non-digit text.
         static func display(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
-            .system(size: size, weight: weight, design: .rounded)
+            .system(size: size, weight: weight, design: .rounded).monospacedDigit()
         }
 
         static func body(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-            .system(size: size, weight: weight, design: .rounded)
+            .system(size: size, weight: weight, design: .rounded).monospacedDigit()
         }
 
         static let hero = display(48, weight: .bold)
@@ -87,5 +104,10 @@ struct TightTracking: ViewModifier {
 extension View {
     func displayTracking(_ size: CGFloat) -> some View {
         modifier(TightTracking(size: size))
+    }
+
+    /// Applies one of `DoTheme.Shadow`'s two elevation presets.
+    func doShadow(_ style: (color: Color, radius: CGFloat, y: CGFloat)) -> some View {
+        shadow(color: style.color, radius: style.radius, y: style.y)
     }
 }

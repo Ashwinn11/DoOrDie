@@ -168,10 +168,10 @@ private struct ExerciseRow: View {
                     .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
-                    .padding(10)
+                    .padding(8)
                     .foregroundStyle(DoTheme.Color.comb)
                     .frame(width: 56, height: 56)
-                    .background(DoTheme.Color.pillGray, in: RoundedRectangle(cornerRadius: DoTheme.Radius.chip, style: .continuous))
+                    .background(DoTheme.Color.pillGray, in: RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous))
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(exercise.name)
@@ -190,7 +190,7 @@ private struct ExerciseRow: View {
                     .multilineTextAlignment(.trailing)
             }
             .padding(DoTheme.Space.sm)
-            .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.tile, style: .continuous))
+            .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous))
         }
         .buttonStyle(RowButtonStyle())
     }

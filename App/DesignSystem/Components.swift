@@ -36,10 +36,10 @@ struct PillButton: View {
             }
             .font(DoTheme.Typography.body(17, weight: .semibold))
             .foregroundStyle(style.foreground)
-            .padding(.vertical, 15)
+            .padding(.vertical, 16)
             .padding(.horizontal, 24)
             .frame(maxWidth: .infinity)
-            .background(style.background, in: RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous))
+            .background(style.background, in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous))
         }
         .buttonStyle(PressableButtonStyle())
         .containerRelativeFrame(.horizontal) { width, _ in width * 0.75 }
@@ -94,7 +94,7 @@ struct PlanOptionCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(plan.name)
                     .font(DoTheme.Typography.display(20, weight: .bold))
-                    .foregroundStyle(isSelected ? .white : DoTheme.Color.ink)
+                    .foregroundStyle(isSelected ? DoTheme.Color.onDark : DoTheme.Color.ink)
                 Text(plan.tagline)
                     .font(DoTheme.Typography.body(13))
                     .foregroundStyle(isSelected ? DoTheme.Color.mutedOnDark : DoTheme.Color.muted)
@@ -109,7 +109,7 @@ struct PlanOptionCard: View {
                 if let badge {
                     Chip(text: badge, tint: DoTheme.Color.gold)
                 }
-                Text(plan.stakeDisplay)
+                Text(PurchaseManager.shared.localizedPrice(for: plan))
                     .font(DoTheme.Typography.display(22, weight: .bold))
                     .foregroundStyle(isSelected ? DoTheme.Color.gold : DoTheme.Color.ink)
             }
@@ -180,7 +180,7 @@ struct PlanCard: View {
             // SVG hero
             ZStack {
                 CyclingSVGView(frameImageNames: plan.heroFrameNames)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(DoTheme.Color.onDark)
                     .frame(width: 160, height: 160)
             }
             .frame(maxWidth: .infinity)
@@ -198,19 +198,19 @@ struct PlanCard: View {
                 HStack(alignment: .firstTextBaseline) {
                     Text(plan.name.uppercased())
                         .font(DoTheme.Typography.display(22, weight: .bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DoTheme.Color.onDark)
                     Spacer()
                     Text(PurchaseManager.shared.localizedPrice(for: plan))
                         .font(DoTheme.Typography.display(18, weight: .bold))
                         .foregroundStyle(DoTheme.Color.gold)
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, 12)
                         .padding(.vertical, 4)
                         .background(DoTheme.Color.gold.opacity(0.15), in: Capsule())
                 }
 
                 Text(plan.tagline)
                     .font(DoTheme.Typography.body(13))
-                    .foregroundStyle(.white.opacity(0.55))
+                    .foregroundStyle(DoTheme.Color.mutedOnDark)
                     .lineLimit(2)
 
                 Text("\(plan.durationDays) days")
@@ -257,7 +257,7 @@ struct FocusPickerRow: View {
             HStack(spacing: DoTheme.Space.sm) {
                 Text(label)
                     .font(DoTheme.Typography.display(15, weight: .bold))
-                    .foregroundStyle(focus == .rest ? DoTheme.Color.ink : .white)
+                    .foregroundStyle(focus == .rest ? DoTheme.Color.ink : DoTheme.Color.onDark)
                     .frame(width: 44, alignment: .leading)
 
                 Image(systemName: focus.systemImage)
@@ -265,7 +265,7 @@ struct FocusPickerRow: View {
 
                 Text(focus.label)
                     .font(DoTheme.Typography.body(16, weight: .semibold))
-                    .foregroundStyle(focus == .rest ? DoTheme.Color.ink : .white)
+                    .foregroundStyle(focus == .rest ? DoTheme.Color.ink : DoTheme.Color.onDark)
 
                 Spacer()
 
@@ -274,14 +274,14 @@ struct FocusPickerRow: View {
                     .foregroundStyle(focus == .rest ? DoTheme.Color.muted : DoTheme.Color.mutedOnDark)
             }
             .padding(.horizontal, DoTheme.Space.md)
-            .padding(.vertical, 14)
+            .padding(.vertical, 16)
             .background(
                 focus == .rest ? DoTheme.Color.shell : DoTheme.Color.gameInk,
-                in: RoundedRectangle(cornerRadius: DoTheme.Radius.tile, style: .continuous)
+                in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
             )
             .overlay(
-                RoundedRectangle(cornerRadius: DoTheme.Radius.tile, style: .continuous)
-                    .strokeBorder(focus == .rest ? DoTheme.Color.ink.opacity(0.06) : Color.clear)
+                RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
+                    .strokeBorder(focus == .rest ? DoTheme.Color.borderOnLight : Color.clear)
             )
         }
         .buttonStyle(.plain)
@@ -298,7 +298,7 @@ struct Chip: View {
             .font(DoTheme.Typography.body(13, weight: .semibold))
             .foregroundStyle(textColor)
             .padding(.horizontal, 12)
-            .padding(.vertical, 6)
+            .padding(.vertical, 8)
             .background(tint, in: Capsule())
     }
 }

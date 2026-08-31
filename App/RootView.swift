@@ -8,7 +8,11 @@ struct RootView: View {
     var body: some View {
         Group {
             if activePlans.isEmpty {
-                OnboardingFlowView(onFinish: { hasSeenIntro = true })
+                if !hasSeenIntro {
+                    OnboardingFlowView(onFinish: { hasSeenIntro = true })
+                } else {
+                    PlanPickerView()
+                }
             } else if let plan = activePlans.first {
                 PlanGateView(plan: plan)
             }

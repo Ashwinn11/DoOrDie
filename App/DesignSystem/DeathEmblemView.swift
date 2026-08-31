@@ -79,7 +79,7 @@ struct DeathEmblemView: View {
                                 LinearGradient(
                                     colors: [
                                         .white,
-                                        Color(hex: 0xF3F3F3),
+                                        DoTheme.Color.pillGray,
                                         DoTheme.Color.comb.opacity(0.8)
                                     ],
                                     startPoint: .top,

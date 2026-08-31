@@ -75,7 +75,7 @@ struct ProfileView: View {
                                 .foregroundStyle(.red)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(DoTheme.Space.md)
-                                .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous))
+                                .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous))
                         }
                         .buttonStyle(.plain)
                         .confirmationDialog(
@@ -495,11 +495,11 @@ private struct WeekOverviewCard: View {
                                 .foregroundStyle(DoTheme.Color.muted)
 
                             ZStack {
-                                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                                RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous)
                                     .fill(day.focus == .rest ? DoTheme.Color.pillGray : DoTheme.Color.comb)
                                 Image(systemName: day.focus.systemImage)
                                     .font(.system(size: 20, weight: .bold))
-                                    .foregroundStyle(day.focus == .rest ? DoTheme.Color.muted : .white)
+                                    .foregroundStyle(day.focus == .rest ? DoTheme.Color.muted : DoTheme.Color.onDark)
                             }
                             .frame(width: 34, height: 34)
                         }

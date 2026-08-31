@@ -41,7 +41,7 @@ struct DeathView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundStyle(DoTheme.Color.comb)
-                            Text("\(plan.stakeDisplay) STAKE FORFEITED")
+                            Text("\(PurchaseManager.shared.localizedPrice(forPlanName: plan.name)) STAKE FORFEITED")
                                 .font(DoTheme.Typography.body(14, weight: .bold))
                                 .foregroundStyle(DoTheme.Color.comb)
                                 .tracking(1)
@@ -49,7 +49,7 @@ struct DeathView: View {
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .background(DoTheme.Color.comb.opacity(0.12), in: Capsule())
-                        .padding(.top, 6)
+                        .padding(.top, DoTheme.Space.xs)
                         .opacity(appeared ? 1 : 0)
                         .animation(DoTheme.Motion.easeOut.delay(0.35), value: appeared)
                     }

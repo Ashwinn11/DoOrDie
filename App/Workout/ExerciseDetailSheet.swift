@@ -19,7 +19,7 @@ struct ExerciseDetailSheet: View {
                             .multilineTextAlignment(.center)
 
                         HStack(spacing: DoTheme.Space.xs) {
-                            Chip(text: exercise.group.label, tint: DoTheme.Color.comb, textColor: .white)
+                            Chip(text: exercise.group.label, tint: DoTheme.Color.comb, textColor: DoTheme.Color.onDark)
                             Chip(text: exercise.equipment, tint: DoTheme.Color.pillGray)
                         }
 
