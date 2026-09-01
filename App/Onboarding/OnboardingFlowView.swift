@@ -103,10 +103,10 @@ struct OnboardingFlowView: View {
                 let progress = CGFloat(currentStep + 1) / CGFloat(totalSteps)
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .fill(Color.black.opacity(0.12))
+                        .fill(Color.black.opacity(0.08))
                         .frame(height: 5)
                     Capsule()
-                        .fill(DoTheme.Color.comb)
+                        .fill(DoTheme.Color.coral)
                         .frame(width: max(geo.size.width * progress, 12), height: 5)
                 }
             }
@@ -177,7 +177,7 @@ private struct Step1HookView: View {
             VStack(spacing: DoTheme.Space.xs) {
                 Text("DO OR DIE")
                     .font(DoTheme.Typography.body(13, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2.5)
 
                 Text("Commit or don't.\nThere is no in-between.")
@@ -196,7 +196,7 @@ private struct Step1HookView: View {
 
             Spacer()
 
-            PillButton(title: "I'm ready", style: .comb, action: onNext)
+            PillButton(title: "I'm ready", style: .coral, action: onNext)
                 .padding(.bottom, DoTheme.Space.md)
         }
         .padding(.horizontal, DoTheme.Space.md)
@@ -219,7 +219,7 @@ private struct Step2PastPatternView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text("THE PATTERN")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("How many routines have you started and quit?")
@@ -267,7 +267,7 @@ private struct Step3RootCauseView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text("THE DIAGNOSIS")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("What's the #1 reason you stopped?")
@@ -300,7 +300,7 @@ private struct Step3RootCauseView: View {
     }
 }
 
-// MARK: - Step 4: The Science of Stakes (Black Dark Card)
+// MARK: - Step 4: The Science of Stakes (Soft Palette Card)
 private struct Step4ScienceView: View {
     let onNext: () -> Void
 
@@ -308,43 +308,43 @@ private struct Step4ScienceView: View {
         VStack(spacing: DoTheme.Space.lg) {
             Spacer()
 
-            // Black Card matching HomePage top StreakHero
+            // Soft Palette Comparison Card
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     Text("LOSS AVERSION")
                         .font(DoTheme.Typography.body(11, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.gold)
+                        .foregroundStyle(Color.white.opacity(0.85))
                         .tracking(1.5)
                     Spacer()
                     Image(systemName: "scalemass.fill")
                         .font(.system(size: 16, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.gold)
+                        .foregroundStyle(.white)
                 }
 
                 Text("Willpower alone barely works. A real stake works.")
                     .font(DoTheme.Typography.title)
-                    .foregroundStyle(DoTheme.Color.onDark)
+                    .foregroundStyle(.white)
                     .fixedSize(horizontal: false, vertical: true)
 
                 Divider()
-                    .overlay(DoTheme.Color.borderOnDark)
+                    .overlay(Color.white.opacity(0.2))
 
                 // Adherence comparison
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 12) {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text("Standard Workout Apps")
-                                .font(DoTheme.Typography.body(12, weight: .semibold))
-                                .foregroundStyle(DoTheme.Color.mutedOnDark)
+                                .font(DoTheme.Typography.body(12, weight: .bold))
+                                .foregroundStyle(Color.white.opacity(0.8))
                             Spacer()
                             Text("18% Adherence")
                                 .font(DoTheme.Typography.body(12, weight: .bold))
-                                .foregroundStyle(DoTheme.Color.mutedOnDark)
+                                .foregroundStyle(Color.white.opacity(0.8))
                         }
                         GeometryReader { g in
-                            Capsule().fill(DoTheme.Color.borderOnDark)
+                            Capsule().fill(Color.white.opacity(0.25))
                                 .overlay(
-                                    Capsule().fill(Color.white.opacity(0.35))
+                                    Capsule().fill(Color.white.opacity(0.5))
                                         .frame(width: g.size.width * 0.18),
                                     alignment: .leading
                                 )
@@ -355,17 +355,17 @@ private struct Step4ScienceView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text("Do or Die Commitment")
-                                .font(DoTheme.Typography.body(12, weight: .bold))
-                                .foregroundStyle(DoTheme.Color.gold)
+                                .font(DoTheme.Typography.body(12, weight: .heavy))
+                                .foregroundStyle(.white)
                             Spacer()
                             Text("87% Adherence")
                                 .font(DoTheme.Typography.body(12, weight: .heavy))
-                                .foregroundStyle(DoTheme.Color.gold)
+                                .foregroundStyle(.white)
                         }
                         GeometryReader { g in
-                            Capsule().fill(DoTheme.Color.borderOnDark)
+                            Capsule().fill(Color.white.opacity(0.25))
                                 .overlay(
-                                    Capsule().fill(DoTheme.Color.gold)
+                                    Capsule().fill(Color.white)
                                         .frame(width: g.size.width * 0.87),
                                     alignment: .leading
                                 )
@@ -374,21 +374,21 @@ private struct Step4ScienceView: View {
                     }
                 }
             }
-            .padding(DoTheme.Space.md)
+            .padding(DoTheme.Space.lg)
             .background(
-                RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                    .fill(DoTheme.Color.gameInk)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                            .strokeBorder(DoTheme.Color.borderOnDark, lineWidth: 1)
-                    )
-                    .doShadow(DoTheme.Shadow.elevated)
+                LinearGradient(
+                    colors: [DoTheme.Color.coral, DoTheme.Color.coral.opacity(0.9)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
             )
+            .shadow(color: DoTheme.Color.coral.opacity(0.3), radius: 16, y: 8)
 
             VStack(spacing: DoTheme.Space.xs) {
                 Text("THE SCIENCE")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("Willpower is a trap.\nLoss aversion works.")
@@ -404,7 +404,7 @@ private struct Step4ScienceView: View {
 
             Spacer()
 
-            PillButton(title: "Show me the rule", style: .comb, action: onNext)
+            PillButton(title: "Show me the rule", style: .coral, action: onNext)
                 .padding(.bottom, DoTheme.Space.md)
         }
         .padding(.horizontal, DoTheme.Space.md)
@@ -424,7 +424,7 @@ private struct Step5TheLawView: View {
             VStack(spacing: DoTheme.Space.xs) {
                 Text("THE ONE RULE")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2.5)
 
                 Text("Show up or Die.")
@@ -440,7 +440,7 @@ private struct Step5TheLawView: View {
 
             Spacer()
 
-            PillButton(title: "Build my schedule", style: .comb, action: onNext)
+            PillButton(title: "Build my schedule", style: .coral, action: onNext)
                 .padding(.bottom, DoTheme.Space.md)
         }
         .padding(.horizontal, DoTheme.Space.md)
@@ -461,7 +461,7 @@ private struct Step6SplitSetupView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("SCHEDULE")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("Lock your weekly split.")
@@ -477,7 +477,7 @@ private struct Step6SplitSetupView: View {
             .padding(.bottom, DoTheme.Space.sm)
 
             ScrollView {
-                VStack(spacing: 6) {
+                VStack(spacing: 8) {
                     ForEach(Weekday.allCases) { day in
                         FocusPickerRow(
                             label: day.short,
@@ -494,7 +494,7 @@ private struct Step6SplitSetupView: View {
 
             PillButton(
                 title: assignedCount == 0 ? "Select at least 1 workout day" : "Lock \(assignedCount) days ➔ Next",
-                style: .comb,
+                style: .coral,
                 action: onNext
             )
             .disabled(assignedCount == 0)
@@ -520,7 +520,7 @@ private struct Step7PlanCarouselView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("THE CONTRACT")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("Choose your stakes.")
@@ -542,7 +542,7 @@ private struct Step7PlanCarouselView: View {
             HStack(spacing: 8) {
                 ForEach(PlanCatalog.all.indices, id: \.self) { i in
                     Capsule()
-                        .fill(i == selectedIndex ? DoTheme.Color.comb : Color.black.opacity(0.28))
+                        .fill(i == selectedIndex ? DoTheme.Color.coral : Color.black.opacity(0.12))
                         .frame(width: i == selectedIndex ? 24 : 6, height: 6)
                 }
             }
@@ -551,7 +551,7 @@ private struct Step7PlanCarouselView: View {
 
             Spacer()
 
-            PillButton(title: "Select \(selected.name) (\(selected.durationDays)d)", style: .comb, action: onNext)
+            PillButton(title: "Select \(selected.name) (\(selected.durationDays)d)", style: .coral, action: onNext)
                 .padding(.bottom, DoTheme.Space.md)
         }
         .padding(.horizontal, DoTheme.Space.md)
@@ -574,7 +574,7 @@ private struct Step8IdentityView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text("YOUR WHY")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("Why are you making this commitment now?")
@@ -607,7 +607,7 @@ private struct Step8IdentityView: View {
     }
 }
 
-// MARK: - Step 9: Generating Contract (Dark Card)
+// MARK: - Step 9: Generating Contract (Soft Palette Card)
 private struct Step9ContractGenView: View {
     let template: PlanTemplate
     let workingDays: Int
@@ -626,7 +626,7 @@ private struct Step9ContractGenView: View {
             VStack(spacing: 6) {
                 Text("GENERATING AGREEMENT")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("Locking your contract...")
@@ -634,27 +634,27 @@ private struct Step9ContractGenView: View {
                     .foregroundStyle(DoTheme.Color.ink)
             }
 
-            // Dark Contract Summary Card
+            // Soft Palette Contract Summary Card
             VStack(alignment: .leading, spacing: 14) {
                 contractItem(title: "Target Plan", value: "\(template.name) (\(template.durationDays) Days)", active: item1)
                 contractItem(title: "Weekly Workouts", value: "\(workingDays) Days / Week", active: item2)
                 contractItem(title: "Stakes Committed", value: "\(PurchaseManager.shared.localizedPrice(for: template)) / Streak Survival", active: item3)
                 contractItem(title: "Zero-Excuse Protocol", value: "Active • Miss = Wipeout", active: item4)
             }
-            .padding(DoTheme.Space.md)
+            .padding(DoTheme.Space.lg)
             .background(
-                RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                    .fill(DoTheme.Color.gameInk)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                            .strokeBorder(DoTheme.Color.borderOnDark, lineWidth: 1)
-                    )
-                    .doShadow(DoTheme.Shadow.elevated)
+                LinearGradient(
+                    colors: [DoTheme.Color.coral, DoTheme.Color.coral.opacity(0.9)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
             )
+            .shadow(color: DoTheme.Color.coral.opacity(0.3), radius: 16, y: 8)
 
             Spacer()
 
-            PillButton(title: "Review and sign", style: .comb, action: onNext)
+            PillButton(title: "Review and sign", style: .coral, action: onNext)
                 .disabled(!ready)
                 .opacity(ready ? 1 : 0.5)
                 .padding(.bottom, DoTheme.Space.md)
@@ -672,21 +672,21 @@ private struct Step9ContractGenView: View {
         HStack(spacing: 12) {
             Image(systemName: active ? "checkmark.circle.fill" : "circle")
                 .font(.system(size: 20, weight: .bold))
-                .foregroundStyle(active ? DoTheme.Color.gold : DoTheme.Color.mutedOnDark)
+                .foregroundStyle(active ? .white : Color.white.opacity(0.5))
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(DoTheme.Typography.body(11, weight: .semibold))
-                    .foregroundStyle(DoTheme.Color.mutedOnDark)
+                    .foregroundStyle(Color.white.opacity(0.8))
                 Text(value)
                     .font(DoTheme.Typography.body(14, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.onDark)
+                    .foregroundStyle(.white)
             }
             Spacer()
         }
     }
 }
 
-// MARK: - Step 10: The Blood Oath / Hold to Commit (Dark Commitment Card)
+// MARK: - Step 10: The Blood Oath / Hold to Commit (Soft Palette Oath Card)
 private struct Step10OathView: View {
     let template: PlanTemplate
     let workingDays: Int
@@ -703,7 +703,7 @@ private struct Step10OathView: View {
             VStack(spacing: 6) {
                 Text("FINAL PLEDGE")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2.5)
 
                 Text("Seal your commitment.")
@@ -716,47 +716,50 @@ private struct Step10OathView: View {
                     .multilineTextAlignment(.center)
             }
 
-            // Dark Summary Oath Card matching StreakHero
+            // Soft Palette Summary Oath Card
             VStack(spacing: DoTheme.Space.sm) {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("THE CONTRACT")
                             .font(DoTheme.Typography.body(11, weight: .bold))
-                            .foregroundStyle(DoTheme.Color.mutedOnDark)
+                            .foregroundStyle(Color.white.opacity(0.85))
                             .tracking(1.5)
                         Text(template.name)
                             .font(DoTheme.Typography.display(22, weight: .heavy))
-                            .foregroundStyle(DoTheme.Color.onDark)
+                            .foregroundStyle(.white)
                     }
                     Spacer()
                     Text(PurchaseManager.shared.localizedPrice(for: template))
                         .font(DoTheme.Typography.display(22, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.gold)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 4)
+                        .background(Color.white.opacity(0.25), in: Capsule())
                 }
 
                 Divider()
-                    .overlay(DoTheme.Color.borderOnDark)
+                    .overlay(Color.white.opacity(0.25))
 
                 HStack {
                     Label("\(template.durationDays) Days", systemImage: "flame.fill")
                         .font(DoTheme.Typography.body(13, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.onDark)
+                        .foregroundStyle(.white)
                     Spacer()
                     Label("\(workingDays) Workouts/Wk", systemImage: "calendar")
                         .font(DoTheme.Typography.body(13, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.onDark)
+                        .foregroundStyle(.white)
                 }
             }
-            .padding(DoTheme.Space.md)
+            .padding(DoTheme.Space.lg)
             .background(
-                RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                    .fill(DoTheme.Color.gameInk)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                            .strokeBorder(DoTheme.Color.comb.opacity(0.5), lineWidth: 1.5)
-                    )
-                    .shadow(color: DoTheme.Color.comb.opacity(0.2), radius: 16, y: 6)
+                LinearGradient(
+                    colors: [DoTheme.Color.coral, DoTheme.Color.coral.opacity(0.9)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
             )
+            .shadow(color: DoTheme.Color.coral.opacity(0.3), radius: 16, y: 8)
             .padding(.horizontal, DoTheme.Space.xs)
 
             Spacer()
@@ -765,23 +768,19 @@ private struct Step10OathView: View {
             VStack(spacing: 8) {
                 ZStack {
                     // Progress fill background
-                    RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
+                    RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous)
                         .fill(DoTheme.Color.shell)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                                .strokeBorder(DoTheme.Color.borderOnLight, lineWidth: 1)
-                        )
-                        .doShadow(DoTheme.Shadow.resting)
+                        .shadow(color: Color.black.opacity(0.06), radius: 12, y: 4)
                         .frame(height: 56)
 
                     // Fill meter
                     GeometryReader { g in
-                        RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                            .fill(DoTheme.Color.comb)
+                        RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous)
+                            .fill(DoTheme.Color.coral)
                             .frame(width: g.size.width * holdProgress, height: 56)
                     }
                     .frame(height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous))
 
                     HStack(spacing: 8) {
                         Image(systemName: holdProgress >= 1 ? "flame.fill" : "lock.fill")
@@ -790,7 +789,7 @@ private struct Step10OathView: View {
                             .font(DoTheme.Typography.body(15, weight: .heavy))
                             .tracking(0.5)
                     }
-                    .foregroundStyle(isHolding || holdProgress > 0.4 ? DoTheme.Color.onDark : DoTheme.Color.ink)
+                    .foregroundStyle(isHolding || holdProgress > 0.4 ? .white : DoTheme.Color.ink)
                 }
                 .frame(height: 56)
                 .scaleEffect(isHolding ? 0.97 : 1.0)
@@ -861,7 +860,7 @@ private struct Step10OathView: View {
     }
 }
 
-// MARK: - Reusable Quiz Option Card
+// MARK: - Reusable Quiz Option Card (Liquid Glass Pill)
 private struct QuizOptionCard: View {
     var systemImage: String? = nil
     let text: String
@@ -870,47 +869,26 @@ private struct QuizOptionCard: View {
 
     var body: some View {
         Button(action: onSelect) {
-            HStack(spacing: 14) {
-                if let systemImage = systemImage {
+            HStack(spacing: 10) {
+                if isSelected {
+                    Text("•")
+                        .font(.system(size: 20, weight: .black))
+                        .foregroundStyle(DoTheme.Color.ink)
+                } else if let systemImage = systemImage {
                     Image(systemName: systemImage)
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(isSelected ? DoTheme.Color.comb : DoTheme.Color.muted)
-                        .frame(width: 24)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(DoTheme.Color.muted)
                 }
 
                 Text(text)
-                    .font(DoTheme.Typography.body(15, weight: isSelected ? .bold : .medium))
-                    .foregroundStyle(isSelected ? DoTheme.Color.comb : DoTheme.Color.ink)
-                    .multilineTextAlignment(.leading)
-
-                Spacer()
-
-                ZStack {
-                    Circle()
-                        .strokeBorder(isSelected ? DoTheme.Color.comb : DoTheme.Color.pillGray, lineWidth: 2)
-                        .frame(width: 22, height: 22)
-                    if isSelected {
-                        Circle()
-                            .fill(DoTheme.Color.comb)
-                            .frame(width: 12, height: 12)
-                    }
-                }
+                    .font(DoTheme.Typography.display(17, weight: .bold))
+                    .foregroundStyle(DoTheme.Color.ink)
             }
-            .padding(.horizontal, DoTheme.Space.md)
+            .padding(.horizontal, 24)
             .padding(.vertical, 16)
-            .background(
-                RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                    .fill(isSelected ? DoTheme.Color.comb.opacity(0.06) : DoTheme.Color.shell)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
-                            .strokeBorder(
-                                isSelected ? DoTheme.Color.comb : DoTheme.Color.borderOnLight,
-                                lineWidth: isSelected ? 1.5 : 1
-                            )
-                    )
-                    .doShadow(DoTheme.Shadow.resting)
-            )
+            .liquidGlassPill(isSelected: isSelected)
         }
         .buttonStyle(.plain)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

@@ -54,59 +54,28 @@ private struct OutcomeView: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            // Illustrated Crest
+            // Cardless Illustrated Figure in Widget
             ZStack {
                 Circle()
                     .fill(
-                        RadialGradient(
-                            colors: [
-                                (kind == .failed ? DoTheme.Color.comb : DoTheme.Color.gold).opacity(0.35),
-                                Color.clear
-                            ],
-                            center: .center,
-                            startRadius: 2,
-                            endRadius: 24
-                        )
+                        (kind == .failed ? DoTheme.Color.coral : DoTheme.Color.honey).opacity(0.15)
                     )
-                    .frame(width: 48, height: 48)
-
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(DoTheme.Color.gameInk)
-                    .frame(width: 38, height: 38)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .strokeBorder(
-                                (kind == .failed ? DoTheme.Color.comb : DoTheme.Color.gold).opacity(0.6),
-                                lineWidth: 1.5
-                            )
-                    )
+                    .frame(width: 44, height: 44)
 
                 if kind == .failed {
                     Image("ex-defeat-1")
                         .renderingMode(.template)
                         .resizable()
                         .scaledToFit()
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [.white, DoTheme.Color.comb],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .frame(width: 26, height: 26)
+                        .foregroundStyle(DoTheme.Color.coral)
+                        .frame(width: 32, height: 32)
                 } else {
                     Image("ex-overhead-press-3")
                         .renderingMode(.template)
                         .resizable()
                         .scaledToFit()
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [.white, DoTheme.Color.gold],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .frame(width: 26, height: 26)
+                        .foregroundStyle(DoTheme.Color.honey)
+                        .frame(width: 32, height: 32)
                 }
             }
 
@@ -143,7 +112,7 @@ private struct SmallGridView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(entry.planName.uppercased())
                 .font(DoTheme.Typography.body(10, weight: .bold))
-                .foregroundStyle(DoTheme.Color.comb)
+                .foregroundStyle(DoTheme.Color.coral)
                 .lineLimit(1)
 
             Spacer()
@@ -154,7 +123,7 @@ private struct SmallGridView: View {
                     .foregroundStyle(DoTheme.Color.ink)
                 Image(systemName: "flame.fill")
                     .font(.system(size: 16))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
             }
 
             Text("of \(entry.durationDays) days")
@@ -177,8 +146,8 @@ private struct ProgressBar: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
-                Capsule().fill(Color.black.opacity(0.09))
-                Capsule().fill(DoTheme.Color.comb)
+                Capsule().fill(Color.black.opacity(0.06))
+                Capsule().fill(DoTheme.Color.coral)
                     .frame(width: geo.size.width * min(max(progress, 0), 1))
             }
         }
@@ -210,14 +179,14 @@ private struct GridView: View {
                         height: layout.cellSize
                     )
 
-                    let fillColor: Color = cell.isDone ? DoTheme.Color.gold : (cell.isToday ? DoTheme.Color.comb : Color.black.opacity(0.09))
+                    let fillColor: Color = cell.isDone ? DoTheme.Color.shell : (cell.isToday ? DoTheme.Color.coral : Color.black.opacity(0.05))
                     context.fill(
                         Path(roundedRect: rect, cornerRadius: max(layout.cellSize * 0.28, 2)),
                         with: .color(fillColor)
                     )
 
                     guard layout.cellSize >= 6 else { continue }
-                    let iconColor: Color = cell.isDone ? DoTheme.Color.ink : (cell.isToday ? .white : DoTheme.Color.muted)
+                    let iconColor: Color = cell.isDone ? DoTheme.Color.coral : (cell.isToday ? .white : DoTheme.Color.muted)
                     let symbolName = cell.focus == .rest ? "moon.zzz.fill" : cell.focus.systemImage
                     let iconSize = layout.cellSize * 0.58
 

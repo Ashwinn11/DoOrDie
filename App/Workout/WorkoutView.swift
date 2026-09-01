@@ -40,21 +40,22 @@ struct WorkoutView: View {
                             }
                         }
 
-                        ZStack {
-                            PillButton(
-                                title: todayStatus == .done ? "Done for today" : "Do it",
-                                systemImage: todayStatus == .done ? "flame.fill" : nil,
-                                style: todayStatus == .done ? .gold : .comb
-                            ) {
-                                handleCheckIn()
-                            }
-                            .disabled(todayStatus == .done)
+                        if todayStatus == .pending {
+                            ZStack {
+                                PillButton(
+                                    title: "Do it",
+                                    style: .coral
+                                ) {
+                                    handleCheckIn()
+                                }
 
-                            if showBurst {
-                                ForEach(particles) { p in
-                                    WorkoutParticleView(particle: p)
+                                if showBurst {
+                                    ForEach(particles) { p in
+                                        WorkoutParticleView(particle: p)
+                                    }
                                 }
                             }
+                            .padding(.top, DoTheme.Space.xs)
                         }
                     } else {
                         RestEmptyState()
@@ -169,13 +170,13 @@ private struct ExerciseRow: View {
                     .resizable()
                     .scaledToFit()
                     .padding(8)
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .frame(width: 56, height: 56)
                     .background(DoTheme.Color.pillGray, in: RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous))
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(exercise.name)
-                        .font(DoTheme.Typography.body(16, weight: .semibold))
+                        .font(DoTheme.Typography.body(16, weight: .bold))
                         .foregroundStyle(DoTheme.Color.ink)
                     Text(exercise.equipment)
                         .font(DoTheme.Typography.body(13))
@@ -185,12 +186,16 @@ private struct ExerciseRow: View {
                 Spacer()
 
                 Text(exercise.prescription)
-                    .font(DoTheme.Typography.body(13, weight: .semibold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .font(DoTheme.Typography.body(13, weight: .bold))
+                    .foregroundStyle(DoTheme.Color.coral)
                     .multilineTextAlignment(.trailing)
             }
             .padding(DoTheme.Space.sm)
-            .background(DoTheme.Color.shell, in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous))
+            .background(
+                DoTheme.Color.shell,
+                in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
+            )
+            .shadow(color: Color.black.opacity(0.04), radius: 10, y: 3)
         }
         .buttonStyle(RowButtonStyle())
     }

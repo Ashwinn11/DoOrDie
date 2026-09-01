@@ -48,7 +48,7 @@ struct PlanCompleteView: View {
                     if plan.stakeCents > 0 {
                         HStack(spacing: 8) {
                             Image(systemName: "checkmark.shield.fill")
-                                .foregroundStyle(DoTheme.Color.gold)
+                                .foregroundStyle(DoTheme.Color.coral)
                             Text("\(PurchaseManager.shared.localizedPrice(forPlanName: plan.name)) STAKE SECURED")
                                 .font(DoTheme.Typography.body(14, weight: .bold))
                                 .foregroundStyle(DoTheme.Color.ink)
@@ -56,22 +56,24 @@ struct PlanCompleteView: View {
                         }
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
-                        .background(DoTheme.Color.gold, in: Capsule())
+                        .background(DoTheme.Color.shell, in: Capsule())
+                        .shadow(color: Color.black.opacity(0.05), radius: 8, y: 3)
                         .padding(.top, 4)
                         .opacity(appeared ? 1 : 0)
                         .animation(DoTheme.Motion.easeOut.delay(0.35), value: appeared)
                     } else {
                         HStack(spacing: 8) {
                             Image(systemName: "star.fill")
-                                .foregroundStyle(DoTheme.Color.gold)
+                                .foregroundStyle(DoTheme.Color.coral)
                             Text("100% COMMITMENT KEPT")
                                 .font(DoTheme.Typography.body(14, weight: .bold))
-                                .foregroundStyle(DoTheme.Color.gold)
+                                .foregroundStyle(DoTheme.Color.ink)
                                 .tracking(1)
                         }
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
-                        .background(DoTheme.Color.gameInk, in: Capsule())
+                        .background(DoTheme.Color.shell, in: Capsule())
+                        .shadow(color: Color.black.opacity(0.05), radius: 8, y: 3)
                         .padding(.top, 4)
                         .opacity(appeared ? 1 : 0)
                         .animation(DoTheme.Motion.easeOut.delay(0.35), value: appeared)
@@ -82,7 +84,7 @@ struct PlanCompleteView: View {
                 Spacer()
                 Spacer()
 
-                PillButton(title: "Choose your next plan", style: .comb, action: onContinue)
+                PillButton(title: "Choose your next plan", style: .coral, action: onContinue)
                     .padding(.bottom, DoTheme.Space.sm)
                     .opacity(appeared ? 1 : 0)
                     .animation(DoTheme.Motion.easeOut.delay(0.45), value: appeared)
@@ -114,9 +116,9 @@ private struct ConfettiPieceData: Identifiable {
 
 private func makeConfetti() -> [ConfettiPieceData] {
     let colors: [Color] = [
-        DoTheme.Color.gold, DoTheme.Color.comb,
-        DoTheme.Color.gold, .white,
-        DoTheme.Color.gold.opacity(0.7)
+        DoTheme.Color.coral, DoTheme.Color.lilac,
+        DoTheme.Color.coral.opacity(0.8), .white,
+        DoTheme.Color.lilac.opacity(0.7)
     ]
     return (0..<35).map { i in
         ConfettiPieceData(

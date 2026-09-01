@@ -20,7 +20,7 @@ struct PlanPickerView: View {
                 VStack(alignment: .leading, spacing: DoTheme.Space.xs) {
                     Text("DO OR DIE")
                         .font(DoTheme.Typography.body(13, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.comb)
+                        .foregroundStyle(DoTheme.Color.coral)
                         .tracking(2)
 
                     Text("Pick your\ncommitment.")
@@ -42,11 +42,11 @@ struct PlanPickerView: View {
                 // Card carousel
                 PlanCarousel(selectedIndex: $selectedIndex)
 
-                // High-contrast page dots
+                // Soft page dots
                 HStack(spacing: 8) {
                     ForEach(PlanCatalog.all.indices, id: \.self) { i in
                         Capsule()
-                            .fill(i == selectedIndex ? DoTheme.Color.comb : Color.black.opacity(0.28))
+                            .fill(i == selectedIndex ? DoTheme.Color.coral : Color.black.opacity(0.12))
                             .frame(width: i == selectedIndex ? 24 : 6, height: 6)
                     }
                 }
@@ -59,7 +59,7 @@ struct PlanPickerView: View {
                 VStack(spacing: DoTheme.Space.xs) {
                     PillButton(
                         title: isPurchasing ? "Purchasing..." : "Commit — \(PurchaseManager.shared.localizedPrice(for: selected))",
-                        style: .comb
+                        style: .coral
                     ) {
                         startPlan()
                     }

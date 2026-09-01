@@ -19,7 +19,7 @@ struct RoutineSetupView: View {
             VStack(alignment: .leading, spacing: DoTheme.Space.xs) {
                 Text(plan.name.uppercased())
                     .font(DoTheme.Typography.body(13, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(2)
 
                 Text("Lock your weekly split.")
@@ -52,7 +52,7 @@ struct RoutineSetupView: View {
             }
 
             VStack(spacing: DoTheme.Space.xs) {
-                PillButton(title: "Lock in \(assignedCount) working days", style: .comb) {
+                PillButton(title: "Lock in \(assignedCount) working days", style: .coral) {
                     saveRoutine()
                 }
             }

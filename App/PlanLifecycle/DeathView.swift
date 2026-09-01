@@ -40,15 +40,15 @@ struct DeathView: View {
                     if plan.stakeCents > 0 {
                         HStack(spacing: 8) {
                             Image(systemName: "xmark.circle.fill")
-                                .foregroundStyle(DoTheme.Color.comb)
+                                .foregroundStyle(DoTheme.Color.coral)
                             Text("\(PurchaseManager.shared.localizedPrice(forPlanName: plan.name)) STAKE FORFEITED")
                                 .font(DoTheme.Typography.body(14, weight: .bold))
-                                .foregroundStyle(DoTheme.Color.comb)
+                                .foregroundStyle(DoTheme.Color.coral)
                                 .tracking(1)
                         }
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
-                        .background(DoTheme.Color.comb.opacity(0.12), in: Capsule())
+                        .background(DoTheme.Color.coral.opacity(0.12), in: Capsule())
                         .padding(.top, DoTheme.Space.xs)
                         .opacity(appeared ? 1 : 0)
                         .animation(DoTheme.Motion.easeOut.delay(0.35), value: appeared)
@@ -59,7 +59,7 @@ struct DeathView: View {
                 Spacer()
                 Spacer()
 
-                PillButton(title: "Start a new plan", style: .comb, action: onContinue)
+                PillButton(title: "Start a new plan", style: .coral, action: onContinue)
                     .padding(.bottom, DoTheme.Space.sm)
                     .opacity(appeared ? 1 : 0)
                     .animation(DoTheme.Motion.easeOut.delay(0.45), value: appeared)

@@ -452,31 +452,43 @@ private struct PlanSummaryCard: View {
     let onChangePlan: () -> Void
 
     var body: some View {
-        DarkCard {
-            VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("CURRENT PLAN")
-                            .font(DoTheme.Typography.body(12, weight: .bold))
-                            .foregroundStyle(DoTheme.Color.mutedOnDark)
-                            .tracking(1.5)
-                        Text(plan.name)
-                            .font(DoTheme.Typography.title)
-                            .foregroundStyle(.white)
-                    }
-                    Spacer()
-                    Text(PurchaseManager.shared.localizedPrice(forPlanName: plan.name))
-                        .font(DoTheme.Typography.display(22, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.gold)
+        VStack(alignment: .leading, spacing: DoTheme.Space.sm) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("CURRENT PLAN")
+                        .font(DoTheme.Typography.body(12, weight: .bold))
+                        .foregroundStyle(Color.white.opacity(0.85))
+                        .tracking(1.5)
+                    Text(plan.name)
+                        .font(DoTheme.Typography.title)
+                        .foregroundStyle(.white)
                 }
-
-                Text("Day \(dayNumber) of \(plan.durationDays)")
-                    .font(DoTheme.Typography.body(14, weight: .semibold))
-                    .foregroundStyle(DoTheme.Color.mutedOnDark)
-
-                PillButton(title: "Change Plan", style: .gold, action: onChangePlan)
+                Spacer()
+                Text(PurchaseManager.shared.localizedPrice(forPlanName: plan.name))
+                    .font(DoTheme.Typography.display(22, weight: .bold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .background(Color.white.opacity(0.25), in: Capsule())
             }
+
+            Text("Day \(dayNumber) of \(plan.durationDays)")
+                .font(DoTheme.Typography.body(14, weight: .semibold))
+                .foregroundStyle(Color.white.opacity(0.9))
+
+            PillButton(title: "Change Plan", style: .glassShell, action: onChangePlan)
+                .padding(.top, DoTheme.Space.xs)
         }
+        .padding(DoTheme.Space.lg)
+        .background(
+            LinearGradient(
+                colors: [DoTheme.Color.coral, DoTheme.Color.coral.opacity(0.9)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            ),
+            in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
+        )
+        .shadow(color: DoTheme.Color.coral.opacity(0.3), radius: 16, y: 8)
     }
 }
 
@@ -496,10 +508,10 @@ private struct WeekOverviewCard: View {
 
                             ZStack {
                                 RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous)
-                                    .fill(day.focus == .rest ? DoTheme.Color.pillGray : DoTheme.Color.comb)
+                                    .fill(day.focus == .rest ? DoTheme.Color.pillGray : DoTheme.Color.coral)
                                 Image(systemName: day.focus.systemImage)
-                                    .font(.system(size: 20, weight: .bold))
-                                    .foregroundStyle(day.focus == .rest ? DoTheme.Color.muted : DoTheme.Color.onDark)
+                                    .font(.system(size: 18, weight: .bold))
+                                    .foregroundStyle(day.focus == .rest ? DoTheme.Color.muted : .white)
                             }
                             .frame(width: 34, height: 34)
                         }
@@ -507,7 +519,7 @@ private struct WeekOverviewCard: View {
                     }
                 }
 
-                PillButton(title: "Edit Week", style: .comb, action: onEdit)
+                PillButton(title: "Edit Week", style: .coral, action: onEdit)
             }
         }
     }

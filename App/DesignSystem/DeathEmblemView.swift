@@ -1,11 +1,9 @@
 import SwiftUI
 
-/// A rich, animated Death illustration featuring the app's official Bryllim athlete figure:
-/// - Atmospheric breathing combustion aura
-/// - Continuous floating ash and flame sparks (TimelineView)
-/// - Collapsed / exhausted athlete SVG cycling animation on dark gameInk card
+/// A clean, cardless Death illustration featuring the defeated athlete SVG
+/// floating directly on the canvas with ambient coral breathing aura and rising embers.
 struct DeathEmblemView: View {
-    var size: CGFloat = 160
+    var size: CGFloat = 200
 
     @State private var auraPulse = false
     @State private var breathingMotion = false
@@ -14,18 +12,18 @@ struct DeathEmblemView: View {
 
     var body: some View {
         ZStack {
-            // 1. Ambient pulsating heatwave glow
+            // 1. Ambient pulsating coral glow
             Circle()
                 .fill(
                     RadialGradient(
                         colors: [
-                            DoTheme.Color.comb.opacity(0.4),
-                            DoTheme.Color.comb.opacity(0.15),
+                            DoTheme.Color.coral.opacity(0.25),
+                            DoTheme.Color.coral.opacity(0.08),
                             Color.clear
                         ],
                         center: .center,
-                        startRadius: 10,
-                        endRadius: size * 0.9
+                        startRadius: 20,
+                        endRadius: size * 0.95
                     )
                 )
                 .frame(width: size * 1.8, height: size * 1.8)
@@ -36,67 +34,21 @@ struct DeathEmblemView: View {
                     value: auraPulse
                 )
 
-            // 2. Rising floating fire embers
-            EmbersParticleCanvas(width: size * 1.6, height: size * 1.6)
+            // 2. Rising floating embers
+            EmbersParticleCanvas(width: size * 1.5, height: size * 1.5)
 
-            // 3. Central Dark Badge with glowing comb outline
-            ZStack {
-                RoundedRectangle(cornerRadius: size * 0.22, style: .continuous)
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                DoTheme.Color.gameInk,
-                                DoTheme.Color.gameInk,
-                                DoTheme.Color.comb.opacity(0.2)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .frame(width: size * 1.25, height: size)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: size * 0.22, style: .continuous)
-                            .strokeBorder(
-                                LinearGradient(
-                                    colors: [
-                                        DoTheme.Color.comb,
-                                        DoTheme.Color.comb.opacity(0.4),
-                                        Color.black
-                                    ],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 2
-                            )
-                    )
-                    .shadow(color: DoTheme.Color.comb.opacity(0.35), radius: 18, y: 6)
-
-                // 4. Bryllim Athlete SVG in Collapsed / Surrender Pose
-                VStack(spacing: 0) {
-                    ZStack {
-                        CyclingSVGView(frameImageNames: deathFrames, interval: 0.6)
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [
-                                        .white,
-                                        DoTheme.Color.pillGray,
-                                        DoTheme.Color.comb.opacity(0.8)
-                                    ],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .frame(width: size * 0.95, height: size * 0.75)
-                            .scaleEffect(breathingMotion ? 1.02 : 0.98)
-                            .animation(
-                                .easeInOut(duration: 1.6).repeatForever(autoreverses: true),
-                                value: breathingMotion
-                            )
-                    }
-                }
-            }
+            // 3. Cardless Floating Defeated Lifter SVG in Coral
+            CyclingSVGView(frameImageNames: deathFrames, interval: 0.6)
+                .foregroundStyle(DoTheme.Color.coral)
+                .frame(width: size * 1.2, height: size * 1.0)
+                .scaleEffect(breathingMotion ? 1.03 : 0.97)
+                .animation(
+                    .easeInOut(duration: 1.8).repeatForever(autoreverses: true),
+                    value: breathingMotion
+                )
+                .shadow(color: DoTheme.Color.coral.opacity(0.2), radius: 16, y: 6)
         }
-        .frame(width: size * 1.8, height: size * 1.5)
+        .frame(width: size * 1.8, height: size * 1.4)
         .onAppear {
             auraPulse = true
             breathingMotion = true

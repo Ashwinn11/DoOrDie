@@ -55,16 +55,18 @@ struct HomeView: View {
     private var header: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text(plan.name.uppercased())
+                Text("TODAY")
                     .font(DoTheme.Typography.body(12, weight: .bold))
-                    .foregroundStyle(DoTheme.Color.comb)
+                    .foregroundStyle(DoTheme.Color.coral)
                     .tracking(1.5)
                 Text(Date.now.formatted(.dateTime.weekday(.wide).month().day()))
                     .font(DoTheme.Typography.display(22, weight: .bold))
                     .foregroundStyle(DoTheme.Color.ink)
             }
             Spacer()
-            Chip(text: "Day \(dayNumber) of \(plan.durationDays)")
+            Text("Day \(dayNumber) of \(plan.durationDays)")
+                .font(DoTheme.Typography.body(14, weight: .bold))
+                .foregroundStyle(DoTheme.Color.muted)
         }
         .padding(.top, DoTheme.Space.sm)
     }
@@ -87,35 +89,43 @@ private struct StreakHero: View {
     @State private var flamePulse = false
 
     var body: some View {
-        DarkCard {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("CURRENT STREAK")
-                        .font(DoTheme.Typography.body(12, weight: .bold))
-                        .foregroundStyle(DoTheme.Color.mutedOnDark)
-                        .tracking(1.5)
-                    HStack(alignment: .firstTextBaseline, spacing: 6) {
-                        Text("\(streak)")
-                            .font(DoTheme.Typography.streakNumber)
-                            .foregroundStyle(DoTheme.Color.gold)
-                            .contentTransition(.numericText(countsDown: false))
-                            .animation(DoTheme.Motion.easeOut, value: streak)
-                        Text(streak == 1 ? "day" : "days")
-                            .font(DoTheme.Typography.body(16, weight: .semibold))
-                            .foregroundStyle(.white)
-                    }
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("CURRENT STREAK")
+                    .font(DoTheme.Typography.body(12, weight: .bold))
+                    .foregroundStyle(Color.white.opacity(0.85))
+                    .tracking(1.5)
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text("\(streak)")
+                        .font(DoTheme.Typography.streakNumber)
+                        .foregroundStyle(.white)
+                        .contentTransition(.numericText(countsDown: false))
+                        .animation(DoTheme.Motion.easeOut, value: streak)
+                    Text(streak == 1 ? "day" : "days")
+                        .font(DoTheme.Typography.body(16, weight: .bold))
+                        .foregroundStyle(Color.white.opacity(0.9))
                 }
-                Spacer()
-                Image(systemName: "flame.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(DoTheme.Color.gold)
-                    .scaleEffect(flamePulse ? 1.08 : 1.0)
-                    .animation(
-                        .easeInOut(duration: 1.2).repeatForever(autoreverses: true),
-                        value: flamePulse
-                    )
             }
+            Spacer()
+            Image(systemName: "flame.fill")
+                .font(.system(size: 44))
+                .foregroundStyle(.white)
+                .scaleEffect(flamePulse ? 1.08 : 0.98)
+                .animation(
+                    .easeInOut(duration: 1.4).repeatForever(autoreverses: true),
+                    value: flamePulse
+                )
         }
+        .padding(DoTheme.Space.lg)
+        .background(
+            LinearGradient(
+                colors: [DoTheme.Color.coral, DoTheme.Color.coral.opacity(0.9)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            ),
+            in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
+        )
+        .shadow(color: DoTheme.Color.coral.opacity(0.3), radius: 16, y: 8)
         .onAppear { flamePulse = true }
     }
 }
@@ -144,12 +154,13 @@ private struct TodayCard: View {
                     HStack(spacing: DoTheme.Space.sm) {
                         Image(systemName: focus.systemImage)
                             .font(.system(size: 28))
-                            .foregroundStyle(status == .done ? DoTheme.Color.ink : DoTheme.Color.onDark)
+                            .foregroundStyle(status == .done ? DoTheme.Color.coral : .white)
                             .frame(width: 48, height: 48)
                             .background(
-                                status == .done ? DoTheme.Color.gold : DoTheme.Color.comb,
+                                status == .done ? DoTheme.Color.shell : DoTheme.Color.coral,
                                 in: RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous)
                             )
+                            .shadow(color: Color.black.opacity(0.04), radius: 6, y: 2)
                             .animation(DoTheme.Motion.snappy, value: status)
 
                         Text(focus.label)
@@ -163,19 +174,19 @@ private struct TodayCard: View {
                     }
 
                     if focus.demandsCheckIn {
-                        ZStack {
-                            PillButton(
-                                title: status == .done ? "Done for today" : "Do it",
-                                systemImage: status == .done ? "flame.fill" : nil,
-                                style: status == .done ? .gold : .comb,
-                                action: handleCheckIn
-                            )
-                            .disabled(status == .done)
+                        if status == .pending {
+                            ZStack {
+                                PillButton(
+                                    title: "Do it",
+                                    style: .coral,
+                                    action: handleCheckIn
+                                )
 
-                            // Particle burst overlay
-                            if showBurst {
-                                ForEach(particles) { p in
-                                    ParticleView(particle: p, active: showBurst)
+                                // Particle burst overlay
+                                if showBurst {
+                                    ForEach(particles) { p in
+                                        ParticleView(particle: p, active: showBurst)
+                                    }
                                 }
                             }
                         }
@@ -192,9 +203,9 @@ private struct TodayCard: View {
     private var statusChip: some View {
         switch status {
         case .done:
-            Chip(text: "DONE", tint: DoTheme.Color.gold)
+            Chip(text: "DONE", tint: DoTheme.Color.coral.opacity(0.12), textColor: DoTheme.Color.coral)
         case .pending, .upcoming:
-            Chip(text: "PENDING", tint: DoTheme.Color.comb, textColor: DoTheme.Color.onDark)
+            Chip(text: "PENDING", tint: DoTheme.Color.coral.opacity(0.12), textColor: DoTheme.Color.coral)
         }
     }
 
@@ -236,7 +247,7 @@ private func makeParticles() -> [Particle] {
             angle: (Double(i) / 18.0) * 2 * .pi + Double.random(in: -0.15...0.15),
             distance: CGFloat.random(in: 32...72),
             size: CGFloat.random(in: 4...8),
-            color: i % 2 == 0 ? DoTheme.Color.gold : DoTheme.Color.comb,
+            color: i % 2 == 0 ? DoTheme.Color.coral : DoTheme.Color.lilac,
             delay: Double.random(in: 0...0.06)
         )
     }
@@ -281,24 +292,23 @@ private struct WeekStrip: View {
                 .tracking(1.5)
                 .padding(.leading, DoTheme.Space.xs)
 
-            ShellCard {
-                HStack(spacing: DoTheme.Space.xs) {
-                    ForEach(Array(Weekday.allCases.enumerated()), id: \.offset) { index, day in
-                        DayDot(
-                            day: day,
+            HStack(spacing: DoTheme.Space.xs) {
+                ForEach(Array(Weekday.allCases.enumerated()), id: \.offset) { index, day in
+                    DayDot(
+                        day: day,
+                        focus: routine[day] ?? .rest,
+                        status: StreakEngine.status(
+                            for: dateFor(day),
                             focus: routine[day] ?? .rest,
-                            status: StreakEngine.status(
-                                for: dateFor(day),
-                                focus: routine[day] ?? .rest,
-                                checkIns: checkIns,
-                                planStartDate: planStartDate
-                            ),
-                            isToday: day == .today,
-                            entranceDelay: Double(index) * 0.05
-                        )
-                    }
+                            checkIns: checkIns,
+                            planStartDate: planStartDate
+                        ),
+                        isToday: day == .today,
+                        entranceDelay: Double(index) * 0.05
+                    )
                 }
             }
+            .padding(.vertical, DoTheme.Space.xs)
         }
     }
 
@@ -324,36 +334,42 @@ private struct DayDot: View {
 
     private var fill: Color {
         switch status {
-        case .done: DoTheme.Color.gold
-        case .pending: isToday ? DoTheme.Color.comb : DoTheme.Color.pillGray
-        case .upcoming: DoTheme.Color.pillGray
+        case .done: DoTheme.Color.shell
+        case .pending: isToday ? DoTheme.Color.coral : DoTheme.Color.shell
+        case .upcoming: DoTheme.Color.shell
         }
     }
 
     private var iconColor: Color {
         switch status {
-        case .done: DoTheme.Color.ink
-        case .pending: isToday ? DoTheme.Color.onDark : DoTheme.Color.muted
+        case .done: DoTheme.Color.coral
+        case .pending: isToday ? .white : DoTheme.Color.muted
         case .upcoming: DoTheme.Color.muted
         }
     }
 
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: 8) {
             Text(day.short.prefix(1))
-                .font(DoTheme.Typography.body(11, weight: .bold))
+                .font(DoTheme.Typography.body(12, weight: .bold))
                 .foregroundStyle(isToday ? DoTheme.Color.ink : DoTheme.Color.muted)
 
             ZStack {
                 RoundedRectangle(cornerRadius: DoTheme.Radius.compact, style: .continuous)
                     .fill(fill)
+                    .shadow(
+                        color: isToday && status == .pending ? DoTheme.Color.coral.opacity(0.3) : Color.black.opacity(0.04),
+                        radius: isToday ? 8 : 4,
+                        y: isToday ? 3 : 2
+                    )
                     .animation(DoTheme.Motion.snappy, value: status)
+
                 Image(systemName: focus.systemImage)
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.system(size: 18, weight: .bold))
                     .foregroundStyle(iconColor)
                     .animation(DoTheme.Motion.snappy, value: status)
             }
-            .frame(width: 34, height: 34)
+            .frame(width: 38, height: 38)
             .scaleEffect(appeared ? 1 : 0.6)
             .animation(
                 .spring(response: 0.4, dampingFraction: isToday ? 0.5 : 0.7)

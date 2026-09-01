@@ -37,7 +37,7 @@ struct ChangePlanSheet: View {
                 HStack(spacing: 6) {
                     ForEach(PlanCatalog.all.indices, id: \.self) { i in
                         Capsule()
-                            .fill(i == selectedIndex ? DoTheme.Color.comb : DoTheme.Color.pillGray)
+                            .fill(i == selectedIndex ? DoTheme.Color.coral : Color.black.opacity(0.12))
                             .frame(width: i == selectedIndex ? 20 : 6, height: 6)
                     }
                 }
@@ -48,7 +48,7 @@ struct ChangePlanSheet: View {
 
                 PillButton(
                     title: isCurrent ? "Keep \(selected.name)" : "Switch for \(PurchaseManager.shared.localizedPrice(for: selected))",
-                    style: .comb
+                    style: .coral
                 ) {
                     if isCurrent {
                         dismiss()
