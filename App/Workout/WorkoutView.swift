@@ -118,7 +118,7 @@ private struct WorkoutParticle: Identifiable {
 }
 
 private func makeWorkoutParticles() -> [WorkoutParticle] {
-    let colors: [Color] = [DoTheme.Color.gold, DoTheme.Color.comb, .white, DoTheme.Color.gold]
+    let colors: [Color] = [DoTheme.Color.coral, DoTheme.Color.lilac, .white, DoTheme.Color.coral]
     return (0..<20).map { i in
         WorkoutParticle(
             angle: Double(i) * (.pi * 2 / 20) + Double.random(in: -0.15...0.15),
@@ -145,7 +145,7 @@ private struct WorkoutParticleView: View {
             .onAppear {
                 let dx = cos(particle.angle) * particle.distance
                 let dy = sin(particle.angle) * particle.distance
-                withAnimation(.easeOut(duration: 0.55).delay(particle.delay)) {
+                withAnimation(DoTheme.Motion.easeOut.delay(particle.delay)) {
                     offset = CGSize(width: dx, height: dy)
                     opacity = 0
                 }
@@ -207,7 +207,10 @@ private struct RowButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
-            .animation(DoTheme.Motion.snappy, value: configuration.isPressed)
+            .animation(DoTheme.Motion.springPress, value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed { HapticEngine.impact(.light) }
+            }
     }
 }
 

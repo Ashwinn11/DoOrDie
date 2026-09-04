@@ -26,8 +26,9 @@ struct PlanCompleteView: View {
 
                 // Animated Victory Hero Emblem
                 VictoryEmblemView(size: 130)
-                    .scaleEffect(appeared ? 1 : 0)
-                    .animation(.spring(response: 0.55, dampingFraction: 0.6), value: appeared)
+                    .scaleEffect(appeared ? 1.0 : 0.94)
+                    .opacity(appeared ? 1.0 : 0.0)
+                    .animation(DoTheme.Motion.springDelight, value: appeared)
 
                 VStack(spacing: DoTheme.Space.xs) {
                     Text("YOU DID IT.")

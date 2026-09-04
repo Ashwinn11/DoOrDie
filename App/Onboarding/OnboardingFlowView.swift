@@ -230,10 +230,11 @@ private struct Step2PastPatternView: View {
             .padding(.top, DoTheme.Space.md)
 
             VStack(spacing: DoTheme.Space.sm) {
-                ForEach(options, id: \.self) { opt in
+                ForEach(Array(options.enumerated()), id: \.offset) { index, opt in
                     QuizOptionCard(
                         text: opt,
                         isSelected: selected == opt,
+                        delay: Double(index) * 0.04,
                         onSelect: {
                             selected = opt
                             HapticEngine.impact(.light)
@@ -278,11 +279,13 @@ private struct Step3RootCauseView: View {
             .padding(.top, DoTheme.Space.md)
 
             VStack(spacing: DoTheme.Space.sm) {
-                ForEach(options, id: \.1) { iconName, text in
+                ForEach(Array(options.enumerated()), id: \.offset) { index, item in
+                    let (iconName, text) = item
                     QuizOptionCard(
                         systemImage: iconName,
                         text: text,
                         isSelected: selected == text,
+                        delay: Double(index) * 0.04,
                         onSelect: {
                             selected = text
                             HapticEngine.impact(.light)
@@ -303,6 +306,9 @@ private struct Step3RootCauseView: View {
 // MARK: - Step 4: The Science of Stakes (Soft Palette Card)
 private struct Step4ScienceView: View {
     let onNext: () -> Void
+
+    @State private var bar1: CGFloat = 0
+    @State private var bar2: CGFloat = 0
 
     var body: some View {
         VStack(spacing: DoTheme.Space.lg) {
@@ -345,7 +351,7 @@ private struct Step4ScienceView: View {
                             Capsule().fill(Color.white.opacity(0.25))
                                 .overlay(
                                     Capsule().fill(Color.white.opacity(0.5))
-                                        .frame(width: g.size.width * 0.18),
+                                        .frame(width: g.size.width * bar1),
                                     alignment: .leading
                                 )
                         }
@@ -366,7 +372,7 @@ private struct Step4ScienceView: View {
                             Capsule().fill(Color.white.opacity(0.25))
                                 .overlay(
                                     Capsule().fill(Color.white)
-                                        .frame(width: g.size.width * 0.87),
+                                        .frame(width: g.size.width * bar2),
                                     alignment: .leading
                                 )
                         }
@@ -384,6 +390,16 @@ private struct Step4ScienceView: View {
                 in: RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
             )
             .shadow(color: DoTheme.Color.coral.opacity(0.3), radius: 16, y: 8)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    withAnimation(DoTheme.Motion.easeOut) {
+                        bar1 = 0.18
+                    }
+                    withAnimation(DoTheme.Motion.springInteractive.delay(0.12)) {
+                        bar2 = 0.87
+                    }
+                }
+            }
 
             VStack(spacing: DoTheme.Space.xs) {
                 Text("THE SCIENCE")
@@ -585,11 +601,13 @@ private struct Step8IdentityView: View {
             .padding(.top, DoTheme.Space.md)
 
             VStack(spacing: DoTheme.Space.sm) {
-                ForEach(options, id: \.1) { iconName, text in
+                ForEach(Array(options.enumerated()), id: \.offset) { index, item in
+                    let (iconName, text) = item
                     QuizOptionCard(
                         systemImage: iconName,
                         text: text,
                         isSelected: selected == text,
+                        delay: Double(index) * 0.04,
                         onSelect: {
                             selected = text
                             HapticEngine.impact(.light)
@@ -661,10 +679,10 @@ private struct Step9ContractGenView: View {
         }
         .padding(.horizontal, DoTheme.Space.md)
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { withAnimation { item1 = true }; HapticEngine.impact(.light) }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { withAnimation { item2 = true }; HapticEngine.impact(.light) }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { withAnimation { item3 = true }; HapticEngine.impact(.light) }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) { withAnimation { item4 = true; ready = true }; HapticEngine.notification(.success) }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { withAnimation(DoTheme.Motion.easeOut) { item1 = true }; HapticEngine.impact(.light) }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) { withAnimation(DoTheme.Motion.easeOut) { item2 = true }; HapticEngine.impact(.light) }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { withAnimation(DoTheme.Motion.easeOut) { item3 = true }; HapticEngine.impact(.light) }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) { withAnimation(DoTheme.Motion.easeOut) { item4 = true; ready = true }; HapticEngine.notification(.success) }
         }
     }
 
@@ -767,16 +785,35 @@ private struct Step10OathView: View {
             // Hold To Commit Button
             VStack(spacing: 8) {
                 ZStack {
+                    // Ambient hold aura glow
+                    RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous)
+                        .stroke(DoTheme.Color.coral.opacity(isHolding ? 0.5 : 0.0), lineWidth: 3)
+                        .scaleEffect(isHolding ? 1.04 : 1.0)
+                        .animation(
+                            isHolding ? .easeInOut(duration: 0.8).repeatForever(autoreverses: true) : DoTheme.Motion.snappy,
+                            value: isHolding
+                        )
+
                     // Progress fill background
                     RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous)
                         .fill(DoTheme.Color.shell)
-                        .shadow(color: Color.black.opacity(0.06), radius: 12, y: 4)
+                        .shadow(
+                            color: isHolding ? DoTheme.Color.coral.opacity(0.3) : Color.black.opacity(0.06),
+                            radius: isHolding ? 20 : 12,
+                            y: isHolding ? 8 : 4
+                        )
                         .frame(height: 56)
 
                     // Fill meter
                     GeometryReader { g in
                         RoundedRectangle(cornerRadius: DoTheme.Radius.button, style: .continuous)
-                            .fill(DoTheme.Color.coral)
+                            .fill(
+                                LinearGradient(
+                                    colors: [DoTheme.Color.coral, DoTheme.Color.coral.opacity(0.85)],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
                             .frame(width: g.size.width * holdProgress, height: 56)
                     }
                     .frame(height: 56)
@@ -793,7 +830,7 @@ private struct Step10OathView: View {
                 }
                 .frame(height: 56)
                 .scaleEffect(isHolding ? 0.97 : 1.0)
-                .animation(.spring(response: 0.2), value: isHolding)
+                .animation(DoTheme.Motion.springPress, value: isHolding)
                 .simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { _ in
@@ -828,7 +865,7 @@ private struct Step10OathView: View {
                 t.invalidate()
                 HapticEngine.notification(.success)
                 executePurchase()
-            } else if Int(holdProgress * 100) % 25 == 0 {
+            } else if Int(holdProgress * 100) % 20 == 0 {
                 HapticEngine.impact(.light)
             }
         }
@@ -854,7 +891,7 @@ private struct Step10OathView: View {
         isHolding = false
         timer?.invalidate()
         timer = nil
-        withAnimation(.easeOut(duration: 0.25)) {
+        withAnimation(DoTheme.Motion.snappy) {
             holdProgress = 0
         }
     }
@@ -865,7 +902,10 @@ private struct QuizOptionCard: View {
     var systemImage: String? = nil
     let text: String
     let isSelected: Bool
+    var delay: Double = 0
     let onSelect: () -> Void
+
+    @State private var appeared = false
 
     var body: some View {
         Button(action: onSelect) {
@@ -888,7 +928,11 @@ private struct QuizOptionCard: View {
             .padding(.vertical, 16)
             .liquidGlassPill(isSelected: isSelected)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(PressableScaleButtonStyle(scale: 0.97))
         .frame(maxWidth: .infinity, alignment: .leading)
+        .scaleEffect(appeared ? 1.0 : 0.94)
+        .opacity(appeared ? 1.0 : 0.0)
+        .animation(DoTheme.Motion.easeOut.delay(delay), value: appeared)
+        .onAppear { appeared = true }
     }
 }

@@ -332,7 +332,8 @@ struct PlanCard: View {
             radius: isSelected ? 20 : 10,
             y: isSelected ? 8 : 4
         )
-        .scaleEffect(isSelected ? 1.0 : 0.98)
+        .scaleEffect(isSelected ? 1.0 : 0.96)
+        .animation(DoTheme.Motion.springInteractive, value: isSelected)
     }
 }
 

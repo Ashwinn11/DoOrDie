@@ -66,8 +66,17 @@ enum DoTheme {
     }
 
     enum Motion {
-        static let easeOut = Animation.timingCurve(0.23, 1, 0.32, 1, duration: 0.45)
-        static let snappy = Animation.timingCurve(0.23, 1, 0.32, 1, duration: 0.25)
+        /// Strong custom ease-out (220ms) for responsive UI entrances
+        static let easeOut = Animation.timingCurve(0.23, 1, 0.32, 1, duration: 0.22)
+        /// Quick snappy transition (160ms) for toggles & selections
+        static let snappy = Animation.timingCurve(0.23, 1, 0.32, 1, duration: 0.16)
+        /// iOS-like drawer / sheet curve
+        static let easeDrawer = Animation.timingCurve(0.32, 0.72, 0, 1, duration: 0.32)
+
+        /// Apple-style physical spring presets
+        static let springPress = Animation.spring(response: 0.20, dampingFraction: 0.72)
+        static let springInteractive = Animation.spring(response: 0.28, dampingFraction: 0.74)
+        static let springDelight = Animation.spring(response: 0.42, dampingFraction: 0.64)
     }
 
     enum Typography {
@@ -79,10 +88,10 @@ enum DoTheme {
             .system(size: size, weight: weight, design: .rounded).monospacedDigit()
         }
 
-        static let hero = display(40, weight: .bold)
-        static let title = display(26, weight: .bold)
-        static let headline = display(20, weight: .semibold)
-        static let streakNumber = display(60, weight: .heavy)
+        static let hero = display(38, weight: .bold)
+        static let title = display(24, weight: .bold)
+        static let headline = display(18, weight: .semibold)
+        static let streakNumber = display(58, weight: .heavy)
     }
 }
 
@@ -102,6 +111,43 @@ struct TightTracking: ViewModifier {
     }
 }
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
+/// Emil Kowalski tactile press feedback ButtonStyle (scale on press with spring recovery and light haptic)
+public struct PressableScaleButtonStyle: ButtonStyle {
+    public var scale: CGFloat = 0.97
+
+    public init(scale: CGFloat = 0.97) {
+        self.scale = scale
+    }
+
+    public func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? scale : 1.0)
+            .animation(DoTheme.Motion.springPress, value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) { _, isPressed in
+                if isPressed {
+                    #if canImport(UIKit)
+                    let generator = UIImpactFeedbackGenerator(style: .light)
+                    generator.prepare()
+                    generator.impactOccurred()
+                    #endif
+                }
+            }
+    }
+}
+
+extension ButtonStyle where Self == PressableScaleButtonStyle {
+    public static var pressable: PressableScaleButtonStyle {
+        PressableScaleButtonStyle()
+    }
+    public static func pressable(scale: CGFloat) -> PressableScaleButtonStyle {
+        PressableScaleButtonStyle(scale: scale)
+    }
+}
+
 extension View {
     func displayTracking(_ size: CGFloat) -> some View {
         modifier(TightTracking(size: size))
@@ -111,7 +157,7 @@ extension View {
         shadow(color: style.color, radius: style.radius, y: style.y)
     }
 
-    /// Floating Liquid Glass card styling with soft specular highlights and ambient elevation
+    /// Floating Liquid Glass card styling with soft specular highlights and two-layer ambient elevation
     func liquidGlassCard(padding: CGFloat = DoTheme.Space.md) -> some View {
         self
             .padding(padding)
@@ -132,7 +178,7 @@ extension View {
                     RoundedRectangle(cornerRadius: DoTheme.Radius.card, style: .continuous)
                         .strokeBorder(
                             LinearGradient(
-                                colors: [Color.white, Color.white.opacity(0.4), Color.black.opacity(0.04)],
+                                colors: [Color.white, Color.white.opacity(0.5), Color.black.opacity(0.03)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -140,8 +186,8 @@ extension View {
                         )
                 }
             }
-            .shadow(color: Color.black.opacity(0.06), radius: 16, x: 0, y: 8)
-            .shadow(color: Color.black.opacity(0.03), radius: 4, x: 0, y: 2)
+            .shadow(color: Color.black.opacity(0.07), radius: 20, x: 0, y: 10)
+            .shadow(color: Color.black.opacity(0.03), radius: 6, x: 0, y: 2)
     }
 
     /// Floating Liquid Glass selection pill styling matching reference

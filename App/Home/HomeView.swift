@@ -370,10 +370,10 @@ private struct DayDot: View {
                     .animation(DoTheme.Motion.snappy, value: status)
             }
             .frame(width: 38, height: 38)
-            .scaleEffect(appeared ? 1 : 0.6)
+            .scaleEffect(appeared ? 1.0 : 0.92)
+            .opacity(appeared ? 1.0 : 0.0)
             .animation(
-                .spring(response: 0.4, dampingFraction: isToday ? 0.5 : 0.7)
-                .delay(entranceDelay),
+                DoTheme.Motion.springInteractive.delay(entranceDelay),
                 value: appeared
             )
         }

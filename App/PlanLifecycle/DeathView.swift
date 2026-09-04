@@ -20,8 +20,9 @@ struct DeathView: View {
 
                 // Animated Death Hero Emblem
                 DeathEmblemView(size: 130)
-                    .scaleEffect(appeared ? 1 : 0.6)
-                    .animation(.spring(response: 0.55, dampingFraction: 0.58), value: appeared)
+                    .scaleEffect(appeared ? 1.0 : 0.94)
+                    .opacity(appeared ? 1.0 : 0.0)
+                    .animation(DoTheme.Motion.springDelight, value: appeared)
 
                 VStack(spacing: DoTheme.Space.xs) {
                     Text("YOU DIED")
